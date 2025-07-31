@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>若依系统代码审计 | uwi~blog</title><meta name="author" content="uwi"><meta name="copyright" content="uwi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="头像处上传html头像上传的地方有个白名单  这些后缀的文件都可以上传成功  fastjson漏洞审计流程检索JSONObject.parseObject 关键字发现在validateEdit函数里面运用了该函数 options这个json对象是通过 JSON.toJSONString(genTable.getParams()) 生成的 我们需要知道genTable.getParams() 我们是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="若依系统代码审计">
+<meta property="og:url" content="http://example.com/2025/07/30/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
+<meta property="og:site_name" content="uwi~blog">
+<meta property="og:description" content="头像处上传html头像上传的地方有个白名单  这些后缀的文件都可以上传成功  fastjson漏洞审计流程检索JSONObject.parseObject 关键字发现在validateEdit函数里面运用了该函数 options这个json对象是通过 JSON.toJSONString(genTable.getParams()) 生成的 我们需要知道genTable.getParams() 我们是">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-07-30T02:02:03.464Z">
+<meta property="article:modified_time" content="2025-07-31T03:14:01.075Z">
+<meta property="article:author" content="uwi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "若依系统代码审计",
+  "url": "http://example.com/2025/07/30/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-07-30T02:02:03.464Z",
+  "dateModified": "2025-07-31T03:14:01.075Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "uwi",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/07/30/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '若依系统代码审计',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">uwi~blog</span></a><a class="nav-page-title" href="/"><span class="site-name">若依系统代码审计</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">若依系统代码审计</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-07-30T02:02:03.464Z" title="Created 2025-07-30 10:02:03">2025-07-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-07-31T03:14:01.075Z" title="Updated 2025-07-31 11:14:01">2025-07-31</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="头像处上传html"><a href="#头像处上传html" class="headerlink" title="头像处上传html"></a>头像处上传html</h1><p>头像上传的地方有个白名单</p>
+<p><img src="/../images/image-20250728092330271.png" alt="image-20250728092330271"></p>
+<p>这些后缀的文件都可以上传成功</p>
+<p><img src="/../images/image-20250728092705360.png" alt="image-20250728092705360"></p>
+<h1 id="fastjson漏洞审计流程"><a href="#fastjson漏洞审计流程" class="headerlink" title="fastjson漏洞审计流程"></a>fastjson漏洞审计流程</h1><p>检索JSONObject.parseObject 关键字发现在validateEdit函数里面运用了该函数</p>
+<p>options这个json对象是通过 JSON.toJSONString(genTable.getParams()) 生成的 我们需要知道genTable.getParams() 我们是否可控</p>
+<p><img src="/../images/image-20250730101048826.png" alt="image-20250730101048826"></p>
+<p>查看genTable.getParams() 方法 </p>
+<p><img src="/../images/image-20250730101259771.png" alt="image-20250730101259771"></p>
+<p>再查看validateEdit在哪里被执行了</p>
+<p>发现在&#x2F;edit这个接口实现函数上调用了这个函数 同时接口使用<code>@Validated</code>，说明会自动匹配客户端发送的参数变量与GenTable的属性进行匹配，如果匹配成功，参数将自动转化为GenTable的属性</p>
+<p><img src="/../images/image-20250730101442721.png" alt="image-20250730101442721"></p>
+<p>也就是说我们对参数是可控的</p>
+<p>我们找到业务接口 并尝试发包</p>
+<p><img src="/../images/image-20250730101936752.png" alt="image-20250730101936752"></p>
+<p><img src="/../images/image-20250730100448937.png" alt="image-20250730100448937"></p>
+<p>参数可控</p>
+<p><img src="/../images/image-20250730100838208.png" alt="image-20250730100838208"></p>
+<p>被防住了 如果版本低一点应该是可以的</p>
+<p><img src="/../images/image-20250730105830786.png" alt="image-20250730105830786"></p>
+<h1 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h1><p>发现参数拼接</p>
+<p><img src="/../images/image-20250731102229223.png" alt="image-20250731102229223"></p>
+<p>在selectRoleList 里被调用</p>
+<p><img src="/../images/image-20250731102257228.png" alt="image-20250731102257228"></p>
+<p>找到selectRoleList 函数被调用的位置 发现role参数可控</p>
+<p><img src="/../images/image-20250731102416727.png" alt="image-20250731102416727"></p>
+<p>构造报错数据包</p>
+<p><img src="/../images/image-20250731103405583.png" alt="image-20250731103405583"></p>
+<p>发现确实存在注入</p>
+<p><img src="/../images/image-20250731103555789.png" alt="image-20250731103555789"></p>
+<p><img src="/../images/image-20250731103617655.png" alt="image-20250731103617655"></p>
+<p>还有好几个sql注入点 不一一列举了</p>
+<h1 id="任意文件读取漏洞"><a href="#任意文件读取漏洞" class="headerlink" title="任意文件读取漏洞"></a>任意文件读取漏洞</h1><p>没过滤 ..&#x2F;</p>
+<p><img src="/../images/image-20250728105112168.png" alt="image-20250728105112168"></p>
+<p><img src="/../images/image-20250728105044257.png" alt="image-20250728105044257"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">uwi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/07/30/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">http://example.com/2025/07/30/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">uwi</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%B4%E5%83%8F%E5%A4%84%E4%B8%8A%E4%BC%A0html"><span class="toc-number">1.</span> <span class="toc-text">头像处上传html</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fastjson%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">fastjson漏洞审计流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">sql注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">4.</span> <span class="toc-text">任意文件读取漏洞</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/30/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" title="若依系统代码审计">若依系统代码审计</a><time datetime="2025-07-30T02:02:03.464Z" title="Created 2025-07-30 10:02:03">2025-07-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By uwi</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
