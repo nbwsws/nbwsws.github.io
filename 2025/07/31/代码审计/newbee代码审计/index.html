@@ -139,10 +139,10 @@
 <meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-07-31T03:30:09.000Z">
-<meta property="article:modified_time" content="2025-07-31T07:05:53.831Z">
+<meta property="article:published_time" content="2025-07-31T03:30:09.382Z">
+<meta property="article:modified_time" content="2025-08-01T11:39:54.858Z">
 <meta property="article:author" content="uwi">
-<meta property="article:tag" content="Cyber Security">
+<meta property="article:tag" content="代码审计">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://nbwsws.github.io/images/redefine-og.webp">
     
@@ -314,7 +314,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -373,13 +373,24 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-07-31 15:05:53</span>
-            <span class="mobile">2025-07-31 15:05:53</span>
+            <span class="desktop">2025-08-01 19:39:54</span>
+            <span class="mobile">2025-08-01 19:39:54</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -402,36 +413,116 @@
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
 			<h1 id="任意文件上传漏洞"><a href="#任意文件上传漏洞" class="headerlink" title="任意文件上传漏洞"></a>任意文件上传漏洞</h1><p>file&#x2F;upload接口没有做任何 后缀检测 导致任意文件上传</p>
-<p><img src="/../../images/image-20250724095107131.png" alt="image-20250724095107131"></p>
-<p><img src="/../../images/image-20250724095219921.png" alt="image-20250724095219921"></p>
-<p><img src="/../../images/image-20250724095239643.png" alt="image-20250724095239643"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724095107131.png"
+                      alt="image-20250724095107131"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724095219921.png"
+                      alt="image-20250724095219921"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724095239643.png"
+                      alt="image-20250724095239643"
+                ></p>
 <h1 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h1><p>发现findNewBeeMallGoodsList的goodsName是拼接参数</p>
-<p><img src="/../../images/image-20250724102633736.png" alt="image-20250724102633736"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724102633736.png"
+                      alt="image-20250724102633736"
+                ></p>
 <p>findNewBeeMallGoodsList在 getNewBeeMallGoodsPage中被调用</p>
-<p><img src="/../../images/image-20250724102747125.png" alt="image-20250724102747125"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724102747125.png"
+                      alt="image-20250724102747125"
+                ></p>
 <p>getNewBeeMallGoodsPage在访问good&#x2F;list的接口的时候被调用 而传入的参数是从params传入的 也就是说参数是完全可控的</p>
-<p><img src="/../../images/image-20250724102842211.png" alt="image-20250724102842211"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724102842211.png"
+                      alt="image-20250724102842211"
+                ></p>
 <p>构造请求 尝试sql注入</p>
-<p><img src="/../../images/image-20250724102612905.png" alt="image-20250724102612905"></p>
-<p><img src="/../../images/image-20250724102557128.png" alt="image-20250724102557128"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724102612905.png"
+                      alt="image-20250724102612905"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724102557128.png"
+                      alt="image-20250724102557128"
+                ></p>
 <p>同样的方法发现了其他注入点</p>
 <p>这里省略了找函数的过程直接写结果了</p>
-<p><img src="/../../images/image-20250724103712700.png" alt="image-20250724103712700"></p>
-<p><img src="/../../images/image-20250724103655718.png" alt="image-20250724103655718"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724103712700.png"
+                      alt="image-20250724103712700"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724103655718.png"
+                      alt="image-20250724103655718"
+                ></p>
 <p>……</p>
 <h1 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h1><p>修改商品这里</p>
 <p>内容填入xss代码</p>
-<p><img src="/../../images/image-20250724104705943.png" alt="image-20250724104705943"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724104705943.png"
+                      alt="image-20250724104705943"
+                ></p>
 <p>拦截发包发现自动进行了特殊字符的编码</p>
-<p><img src="/../../images/image-20250724104758560.png" alt="image-20250724104758560"></p>
-<p>我们直接修改内容  然后发包<img src="/../../images/image-20250724104829669.png" alt="image-20250724104829669"></p>
-<p><img src="/../../images/image-20250724104937486.png" alt="image-20250724104937486"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724104758560.png"
+                      alt="image-20250724104758560"
+                ></p>
+<p>我们直接修改内容  然后发包<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724104829669.png"
+                      alt="image-20250724104829669"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250724104937486.png"
+                      alt="image-20250724104937486"
+                ></p>
 <p>xss成功</p>
-<h1 id="拦截器的绕过"><a href="#拦截器的绕过" class="headerlink" title="拦截器的绕过"></a>拦截器的绕过</h1><p><img src="/../../images/image-20250725093304213.png" alt="image-20250725093304213"></p>
+<h1 id="拦截器的绕过"><a href="#拦截器的绕过" class="headerlink" title="拦截器的绕过"></a>拦截器的绕过</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250725093304213.png"
+                      alt="image-20250725093304213"
+                ></p>
 <p>这个拦截器的getRequestURI 很容易被绕过 达到未登录就可以访问管理员面板的目的</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/;/admin/index</span><br><span class="line">////admin/goods</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/;/admin/index</span><br><span class="line">////admin/goods</span><br></pre></td></tr></table></figure></div>
 
-<p><img src="/../../images/image-20250725093404604.png" alt="image-20250725093404604"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250725093404604.png"
+                      alt="image-20250725093404604"
+                ></p>
 
 		</div>
 
@@ -446,7 +537,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-07-31 15:05:53
+                    :</strong> 2025-08-01 19:39:54
             </li>
         
         <li>
@@ -469,6 +560,14 @@
 		
 
 		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">#代码审计</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
 		
 
@@ -476,12 +575,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/07/31/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/windows-linux/">
+				<a class="prev" rel="prev" href="/2025/07/31/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/cc%E9%93%BE/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">windows-linux应急响应</span>
+						<span class="post-nav-title-item truncate max-w-48">cc链</span>
 						<span class="post-nav-item">Prev posts</span>
 					</span>
 				</a>

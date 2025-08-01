@@ -139,10 +139,10 @@
 <meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-07-31T03:28:50.000Z">
-<meta property="article:modified_time" content="2025-07-31T07:06:08.443Z">
+<meta property="article:published_time" content="2025-07-31T03:28:50.198Z">
+<meta property="article:modified_time" content="2025-08-01T11:40:02.033Z">
 <meta property="article:author" content="uwi">
-<meta property="article:tag" content="Cyber Security">
+<meta property="article:tag" content="代码审计">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://nbwsws.github.io/images/redefine-og.webp">
     
@@ -314,7 +314,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -373,13 +373,24 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-07-31 15:06:08</span>
-            <span class="mobile">2025-07-31 15:06:08</span>
+            <span class="desktop">2025-08-01 19:40:02</span>
+            <span class="mobile">2025-08-01 19:40:02</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -402,72 +413,177 @@
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
 			<h1 id="任意文件上传"><a href="#任意文件上传" class="headerlink" title="任意文件上传"></a>任意文件上传</h1><p>没有检测后缀 直接上传jsp发现能够解析</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">@RequestMapping(value = &quot;admin/uploadAdminHeadImage&quot;, method = RequestMethod.POST, produces = &quot;application/json;charset=UTF-8&quot;)</span><br><span class="line">public String uploadAdminHeadImage(@RequestParam MultipartFile file, HttpSession session) &#123;</span><br><span class="line">    String originalFileName = file.getOriginalFilename();</span><br><span class="line">    logger.info(&quot;获取图片原始文件名：&#123;&#125;&quot;, originalFileName);</span><br><span class="line">    assert originalFileName != null;</span><br><span class="line">    String extension = originalFileName.substring(originalFileName.lastIndexOf(&#x27;.&#x27;));</span><br><span class="line">    //生成随机名</span><br><span class="line">    String fileName = UUID.randomUUID() + extension;</span><br><span class="line">    //获取上传路径</span><br><span class="line">    String filePath = session.getServletContext().getRealPath(&quot;/&quot;) + &quot;res/images/item/adminProfilePicture/&quot; + fileName;</span><br><span class="line"></span><br><span class="line">    logger.info(&quot;文件上传路径：&#123;&#125;&quot;, filePath);</span><br><span class="line">    JSONObject jsonObject = new JSONObject();</span><br><span class="line">    try &#123;</span><br><span class="line">        logger.info(&quot;文件上传中...&quot;);</span><br><span class="line">        file.transferTo(new File(filePath));</span><br><span class="line">        logger.info(&quot;文件上传成功！&quot;);</span><br><span class="line">        jsonObject.put(&quot;success&quot;, true);</span><br><span class="line">        jsonObject.put(&quot;fileName&quot;, fileName);</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        logger.warn(&quot;文件上传失败！&quot;);</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        jsonObject.put(&quot;success&quot;, false);</span><br><span class="line">    &#125;</span><br><span class="line">    return jsonObject.toJSONString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">@RequestMapping(value = &quot;admin/uploadAdminHeadImage&quot;, method = RequestMethod.POST, produces = &quot;application/json;charset=UTF-8&quot;)</span><br><span class="line">public String uploadAdminHeadImage(@RequestParam MultipartFile file, HttpSession session) &#123;</span><br><span class="line">    String originalFileName = file.getOriginalFilename();</span><br><span class="line">    logger.info(&quot;获取图片原始文件名：&#123;&#125;&quot;, originalFileName);</span><br><span class="line">    assert originalFileName != null;</span><br><span class="line">    String extension = originalFileName.substring(originalFileName.lastIndexOf(&#x27;.&#x27;));</span><br><span class="line">    //生成随机名</span><br><span class="line">    String fileName = UUID.randomUUID() + extension;</span><br><span class="line">    //获取上传路径</span><br><span class="line">    String filePath = session.getServletContext().getRealPath(&quot;/&quot;) + &quot;res/images/item/adminProfilePicture/&quot; + fileName;</span><br><span class="line"></span><br><span class="line">    logger.info(&quot;文件上传路径：&#123;&#125;&quot;, filePath);</span><br><span class="line">    JSONObject jsonObject = new JSONObject();</span><br><span class="line">    try &#123;</span><br><span class="line">        logger.info(&quot;文件上传中...&quot;);</span><br><span class="line">        file.transferTo(new File(filePath));</span><br><span class="line">        logger.info(&quot;文件上传成功！&quot;);</span><br><span class="line">        jsonObject.put(&quot;success&quot;, true);</span><br><span class="line">        jsonObject.put(&quot;fileName&quot;, fileName);</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        logger.warn(&quot;文件上传失败！&quot;);</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        jsonObject.put(&quot;success&quot;, false);</span><br><span class="line">    &#125;</span><br><span class="line">    return jsonObject.toJSONString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<p><img src="/../../images/image-20250720163312274.png" alt="image-20250720163312274"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250720163312274.png"
+                      alt="image-20250720163312274"
+                ></p>
 <p>以此为例所有文件上传接口都没做过滤 均能任意文件上传</p>
 <h1 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h1><p>在mybatis的xml配置文件中我们查询到了一个直接拼接的地方 直接拼接orderUtil.orderBy这个函数名叫select</p>
-<p><img src="/../../images/image-20250720222154395.png" alt="image-20250720222154395"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250720222154395.png"
+                      alt="image-20250720222154395"
+                ></p>
 <p>那么接下来就是查找orderUtil.orderBy 是否可控</p>
 <p>查看哪里调用到了这个语句</p>
 <p>我们找到了xml 映射的接口类UserMapper</p>
-<p><img src="/../../images/image-20250720222330086.png" alt="image-20250720222330086"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250720222330086.png"
+                      alt="image-20250720222330086"
+                ></p>
 <p>查看哪里调用了UserMapper这个接口类 </p>
 <p>经过查找 在UserServiceImpl类里面我们发现  UserMapper被依赖注入了</p>
-<p><img src="/../../images/image-20250720222510961.png" alt="image-20250720222510961"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250720222510961.png"
+                      alt="image-20250720222510961"
+                ></p>
 <p>继续观察UserServiceImpl的函数内容发现getList函数调用了我们之前找到的select函数</p>
-<p><img src="/../../images/image-20250720222721908.png" alt="image-20250720222721908"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250720222721908.png"
+                      alt="image-20250720222721908"
+                ></p>
 <p>我们寻找哪里调用了getList 函数</p>
 <p>搜索userService.getList关键字</p>
 <p>找到了一个位置</p>
-<p><img src="/../../images/image-20250720223141410.png" alt="image-20250720223141410"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250720223141410.png"
+                      alt="image-20250720223141410"
+                ></p>
 <p>我们把这个位置完整的代码扒下来看看</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">    @RequestMapping(value = &quot;admin/user/&#123;index&#125;/&#123;count&#125;&quot;, method = RequestMethod.GET, produces = &quot;application/json;charset=UTF-8&quot;)</span><br><span class="line">    public String getUserBySearch(@RequestParam(required = false) String user_name/* 用户名称 */,</span><br><span class="line">                                  @RequestParam(required = false) Byte[] user_gender_array/* 用户性别数组 */,</span><br><span class="line">                                  @RequestParam(required = false) String orderBy/* 排序字段 */,</span><br><span class="line">                                  @RequestParam(required = false,defaultValue = &quot;true&quot;) Boolean isDesc/* 是否倒序 */,</span><br><span class="line">                                  @PathVariable Integer index/* 页数 */,</span><br><span class="line">                                  @PathVariable Integer count/* 行数 */) throws UnsupportedEncodingException &#123;</span><br><span class="line">        //移除不必要条件</span><br><span class="line">        Byte gender = null;</span><br><span class="line">        if (user_gender_array != null &amp;&amp; user_gender_array.length == 1) &#123;</span><br><span class="line">            gender = user_gender_array[0];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (user_name != null) &#123;</span><br><span class="line">            //如果为非空字符串则解决中文乱码：URLDecoder.decode(String,&quot;UTF-8&quot;);</span><br><span class="line">            user_name = &quot;&quot;.equals(user_name) ? null : URLDecoder.decode(user_name, &quot;UTF-8&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if (orderBy != null &amp;&amp; &quot;&quot;.equals(orderBy)) &#123;</span><br><span class="line">            orderBy = null;</span><br><span class="line">        &#125;</span><br><span class="line">        //封装查询条件</span><br><span class="line">        User user = new User()</span><br><span class="line">                .setUser_name(user_name)</span><br><span class="line">                .setUser_gender(gender);</span><br><span class="line"></span><br><span class="line">        OrderUtil orderUtil = null;</span><br><span class="line">        if (orderBy != null) &#123;</span><br><span class="line">            logger.info(&quot;根据&#123;&#125;排序，是否倒序:&#123;&#125;&quot;,orderBy,isDesc);</span><br><span class="line">            orderUtil = new OrderUtil(orderBy, isDesc);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        JSONObject object = new JSONObject();</span><br><span class="line">        logger.info(&quot;按条件获取第&#123;&#125;页的&#123;&#125;条用户&quot;, index + 1, count);</span><br><span class="line">        PageUtil pageUtil = new PageUtil(index, count);</span><br><span class="line">        List&lt;User&gt; userList = userService.getList(user, orderUtil, pageUtil);</span><br><span class="line">        object.put(&quot;userList&quot;, JSONArray.parseArray(JSON.toJSONString(userList)));</span><br><span class="line">        logger.info(&quot;按条件获取用户总数量&quot;);</span><br><span class="line">        Integer userCount = userService.getTotal(user);</span><br><span class="line">        object.put(&quot;userCount&quot;, userCount);</span><br><span class="line">        logger.info(&quot;获取分页信息&quot;);</span><br><span class="line">        pageUtil.setTotal(userCount);</span><br><span class="line">        object.put(&quot;totalPage&quot;, pageUtil.getTotalPage());</span><br><span class="line">        object.put(&quot;pageUtil&quot;, pageUtil);</span><br><span class="line"></span><br><span class="line">        return object.toJSONString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">    @RequestMapping(value = &quot;admin/user/&#123;index&#125;/&#123;count&#125;&quot;, method = RequestMethod.GET, produces = &quot;application/json;charset=UTF-8&quot;)</span><br><span class="line">    public String getUserBySearch(@RequestParam(required = false) String user_name/* 用户名称 */,</span><br><span class="line">                                  @RequestParam(required = false) Byte[] user_gender_array/* 用户性别数组 */,</span><br><span class="line">                                  @RequestParam(required = false) String orderBy/* 排序字段 */,</span><br><span class="line">                                  @RequestParam(required = false,defaultValue = &quot;true&quot;) Boolean isDesc/* 是否倒序 */,</span><br><span class="line">                                  @PathVariable Integer index/* 页数 */,</span><br><span class="line">                                  @PathVariable Integer count/* 行数 */) throws UnsupportedEncodingException &#123;</span><br><span class="line">        //移除不必要条件</span><br><span class="line">        Byte gender = null;</span><br><span class="line">        if (user_gender_array != null &amp;&amp; user_gender_array.length == 1) &#123;</span><br><span class="line">            gender = user_gender_array[0];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (user_name != null) &#123;</span><br><span class="line">            //如果为非空字符串则解决中文乱码：URLDecoder.decode(String,&quot;UTF-8&quot;);</span><br><span class="line">            user_name = &quot;&quot;.equals(user_name) ? null : URLDecoder.decode(user_name, &quot;UTF-8&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if (orderBy != null &amp;&amp; &quot;&quot;.equals(orderBy)) &#123;</span><br><span class="line">            orderBy = null;</span><br><span class="line">        &#125;</span><br><span class="line">        //封装查询条件</span><br><span class="line">        User user = new User()</span><br><span class="line">                .setUser_name(user_name)</span><br><span class="line">                .setUser_gender(gender);</span><br><span class="line"></span><br><span class="line">        OrderUtil orderUtil = null;</span><br><span class="line">        if (orderBy != null) &#123;</span><br><span class="line">            logger.info(&quot;根据&#123;&#125;排序，是否倒序:&#123;&#125;&quot;,orderBy,isDesc);</span><br><span class="line">            orderUtil = new OrderUtil(orderBy, isDesc);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        JSONObject object = new JSONObject();</span><br><span class="line">        logger.info(&quot;按条件获取第&#123;&#125;页的&#123;&#125;条用户&quot;, index + 1, count);</span><br><span class="line">        PageUtil pageUtil = new PageUtil(index, count);</span><br><span class="line">        List&lt;User&gt; userList = userService.getList(user, orderUtil, pageUtil);</span><br><span class="line">        object.put(&quot;userList&quot;, JSONArray.parseArray(JSON.toJSONString(userList)));</span><br><span class="line">        logger.info(&quot;按条件获取用户总数量&quot;);</span><br><span class="line">        Integer userCount = userService.getTotal(user);</span><br><span class="line">        object.put(&quot;userCount&quot;, userCount);</span><br><span class="line">        logger.info(&quot;获取分页信息&quot;);</span><br><span class="line">        pageUtil.setTotal(userCount);</span><br><span class="line">        object.put(&quot;totalPage&quot;, pageUtil.getTotalPage());</span><br><span class="line">        object.put(&quot;pageUtil&quot;, pageUtil);</span><br><span class="line"></span><br><span class="line">        return object.toJSONString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>可以发现orderUtil 是由 orderUtil &#x3D; new OrderUtil(orderBy, isDesc);生成的 而传入的orderBy</p>
 <p>来自@RequestParam(required &#x3D; false) String orderBy  也就是我们get传参的内容</p>
 <p>所以orderBy   是可控制的</p>
-<p><img src="/../../images/image-20250720223435395.png" alt="image-20250720223435395"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250720223435395.png"
+                      alt="image-20250720223435395"
+                ></p>
 <p>尝试sqlmap 测试sql注入 可以看到注入成功</p>
-<p><img src="/../../images/image-20250720223511648.png" alt="image-20250720223511648"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250720223511648.png"
+                      alt="image-20250720223511648"
+                ></p>
 <p>在RewardMapper.xml里面我还发现了一个用 ${}拼接的代码0</p>
 <p>这个sql执行的函数名也是select</p>
-<p><img src="/../../images/image-20250722123606657.png" alt="image-20250722123606657"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722123606657.png"
+                      alt="image-20250722123606657"
+                ></p>
 <p>我们查看哪里调用了这个函数</p>
 <p>同样我们发现在RewardServiceImpl 里面rewardMapper被注入</p>
-<p><img src="/../../images/image-20250722124005274.png" alt="image-20250722124005274"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722124005274.png"
+                      alt="image-20250722124005274"
+                ></p>
 <p>那么我们查看RewardServiceImpl 在哪里被调用</p>
 <p>搜索关键字</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Resource(name = &quot;rewardService&quot;)</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Resource(name = &quot;rewardService&quot;)</span><br></pre></td></tr></table></figure></div>
 
 <p>发现 这个地方的orderUtil是写死的我们无法控制参数进行利用</p>
-<p><img src="/../../images/image-20250722124624067.png" alt="image-20250722124624067"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722124624067.png"
+                      alt="image-20250722124624067"
+                ></p>
 <p>还有一处也是写死的</p>
-<p><img src="/../../images/image-20250722124749998.png" alt="image-20250722124749998"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722124749998.png"
+                      alt="image-20250722124749998"
+                ></p>
 <p>所以都没法利用</p>
 <p>后面虽然又找到了几个用${}进行拼接的sql语句但是但是发现参数都是写死的我们不可控</p>
 <h1 id="fastjson漏洞"><a href="#fastjson漏洞" class="headerlink" title="fastjson漏洞"></a>fastjson漏洞</h1><p>观察pom.xml我们发现fastjson的版本非常低有洞</p>
 <p>检索关键字</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSON.parseObject(</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSON.parseObject(</span><br></pre></td></tr></table></figure></div>
 
-<p><img src="/../../images/image-20250722193037585.png" alt="image-20250722193037585"></p>
-<p> <img src="/../../images/image-20250722193125028.png" alt="image-20250722193125028"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSONObject object = JSON.parseObject(propertyJson);</span><br></pre></td></tr></table></figure>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722193037585.png"
+                      alt="image-20250722193037585"
+                ></p>
+<p> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722193125028.png"
+                      alt="image-20250722193125028"
+                ></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSONObject object = JSON.parseObject(propertyJson);</span><br></pre></td></tr></table></figure></div>
 
 <p>用了fastjson 并且propertyJson可控</p>
 <p>发现另一个地方同存在 fastjson解析orderItemMap 而orderItemMap可控</p>
-<p><img src="/../../images/image-20250722193604395.png" alt="image-20250722193604395"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722193604395.png"
+                      alt="image-20250722193604395"
+                ></p>
 <p>dnslog执行成功</p>
-<p><img src="/../../images/image-20250722200142128.png" alt="image-20250722200142128"></p>
-<p><img src="/../../images/image-20250722200156199.png" alt="image-20250722200156199"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722200142128.png"
+                      alt="image-20250722200142128"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722200156199.png"
+                      alt="image-20250722200156199"
+                ></p>
 <h1 id="log4j漏洞"><a href="#log4j漏洞" class="headerlink" title="log4j漏洞"></a>log4j漏洞</h1><p>pom.xml可以看到log4j也存在漏洞</p>
-<p><img src="/../../images/image-20250722205720379.png" alt="image-20250722205720379"></p>
-<p><img src="/../../images/image-20250722205801054.png" alt="image-20250722205801054"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.info(&quot;提取的关键词有&#123;&#125;&quot;, Arrays.toString(product_name_split));</span><br></pre></td></tr></table></figure>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722205720379.png"
+                      alt="image-20250722205720379"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722205801054.png"
+                      alt="image-20250722205801054"
+                ></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.info(&quot;提取的关键词有&#123;&#125;&quot;, Arrays.toString(product_name_split));</span><br></pre></td></tr></table></figure></div>
 
 <p>参数可控 dnslog执行成功</p>
-<p><img src="/../../images/image-20250722205835511.png" alt="image-20250722205835511"></p>
-<p><img src="/../../images/image-20250722205846869.png" alt="image-20250722205846869"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722205835511.png"
+                      alt="image-20250722205835511"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250722205846869.png"
+                      alt="image-20250722205846869"
+                ></p>
 
 		</div>
 
@@ -482,7 +598,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-07-31 15:06:08
+                    :</strong> 2025-08-01 19:40:02
             </li>
         
         <li>
@@ -504,6 +620,14 @@
 		</div>
 		
 
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">#代码审计</a>&nbsp;
+			</li>
+			
+		</ul>
 		
 
 		
