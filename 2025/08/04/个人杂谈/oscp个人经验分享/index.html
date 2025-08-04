@@ -133,16 +133,16 @@
         
         <meta name="description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="uwi~blog">
+<meta property="og:title" content="我的oscp之旅">
 <meta property="og:url" content="https://nbwsws.github.io/2025/08/04/%E4%B8%AA%E4%BA%BA%E6%9D%82%E8%B0%88/oscp%E4%B8%AA%E4%BA%BA%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/index.html">
 <meta property="og:site_name" content="uwi~blog">
 <meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-08-04T08:10:56.723Z">
-<meta property="article:modified_time" content="2025-08-04T10:30:55.956Z">
+<meta property="article:modified_time" content="2025-08-04T10:38:45.572Z">
 <meta property="article:author" content="uwi">
-<meta property="article:tag" content="Cyber Security">
+<meta property="article:tag" content="个人杂谈">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://nbwsws.github.io/images/redefine-og.webp">
     
@@ -156,7 +156,7 @@
     
     <title>
         
-            UWI&#39;s Blog - Cyber Security
+            我的oscp之旅 | UWI&#39;s Blog
         
     </title>
 
@@ -314,7 +314,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -345,7 +345,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3"></h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">我的oscp之旅</h1>
 			</div>
 			
 		</div>
@@ -373,13 +373,24 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-04 18:30:55</span>
-            <span class="mobile">2025-08-04 18:30:55</span>
+            <span class="desktop">2025-08-04 18:38:45</span>
+            <span class="mobile">2025-08-04 18:38:45</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%9D%82%E8%B0%88/">个人杂谈</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -401,18 +412,19 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">最近很开心终于把渴望已久的oscp、oscp+考到手了，于是乎就有了下面的文章但是由于官方对于oscp的管控很严格我也不知道什么能说什么不能说，所以统一就不把过程讲的太详细了。</span><br></pre></td></tr></table></figure></div>
-
-<h1 id="考试规则"><a href="#考试规则" class="headerlink" title="考试规则"></a>考试规则</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">oscp的考试及格分数是70分</span><br><span class="line">满分:20+20+20+40 三台独立机器（每台20分，独立机器可能是windows可能是linux）和一个域环境（40分）</span><br><span class="line">独立机器拿到普通权限得10分，提权拿到root或administrators权限再得10分</span><br><span class="line">域环境有三台机子，有两台普通的机子和一台域控，每台普通的机子拿到administrator权限得10分，成功拿到域控权限得20分</span><br><span class="line"></span><br><span class="line">考试时间是24小时，但实际上是23小时45分钟，前15分钟左右的时间拿来给监考员作考试检测以及身份认证。考试图中是可以喝水吃饭和睡觉的。</span><br><span class="line">如果考完试后你的分值大于等于70那么考后24小时之内你需要撰写还wp也就是考试的报告并提交。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">oscp考试时不能用任何自带漏扫的工具的 包括bp的专业版也不能用</span><br><span class="line">msf只能选择一台机器用</span><br><span class="line"></span><br><span class="line">考试全程共享屏幕</span><br><span class="line">全程开摄像头，要能看到你的脸</span><br></pre></td></tr></table></figure></div>
-
-
-
-<h1 id="个人考试经历"><a href="#个人考试经历" class="headerlink" title="个人考试经历"></a>个人考试经历</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">考试的过程其实是兴奋与痛苦交织的，兴奋于每拿下一台机子就里成功不远了，但是痛苦与有的时候你明明感觉离答案已经只有一步之遥，但是就是缺点线索导致与成功失之交臂。非常磨人心性。我约的是早上11点的考试，靠前监考员检查加上自己的一些配置大改花了20分钟左右比预计的15分钟多了5分钟。然后我是准备了四瓶红牛准备直接不睡打满24个小时的。</span><br><span class="line">过程还是总体比较顺利，我完全拿下了来台个体机和域控 20+20+40=80 分已经及格了，我是一边考试一边把过程截图的，前前后后大概花了13个多小时。其实拿到80分以后悬着的心就已经落下了。本来还想再把最后一台个体机子拿下ak的，但在最后一台机子上琢么了好久，我信息收集到了很多有意思的东西，当时我的内心隐约感觉应该是能拿下最后一台机子的，但是感觉还差一点线索，卡了两个小时愣是没有找到突破口，不知道是否掉入了rabbit hole。于是果断放弃直接去写报告了，因为oscp的报告非常严格，我是一边考试一边截图的，我把每一步都截图了，并且详细地解释了每一步的作用，同时还附带上了我用的一些脚本或者exp的链接。然后再逐个把中文翻译成英文然后再审核英文是否表达有误，然后再检查页面的排版，反反复复的检查，写报告我大概花了5个小时的时间。中途是在是撑不住了睡了3个小时。然后睡醒了继续检查报告。</span><br><span class="line">监考员其实人挺好的，虽然你看不到他的脸，但是他/她会偶尔发消息给你说不用紧张，放松心情之类的。如果想要离开上个厕所或者洗个澡吃个饭睡个觉啥的你就说leave for 5 minutes 或者 leave for 3 hours 然后也不同等他回复你直接走就行了。</span><br><span class="line">最后提前了大概40分钟交结束了考试。我结束考试的同时就把报告提交上去了。最后等了一天官方就发邮箱通知我顺利通过了oscp的认证考试。</span><br></pre></td></tr></table></figure></div>
-
-
-
-<h1 id="个人备考经验"><a href="#个人备考经验" class="headerlink" title="个人备考经验"></a>个人备考经验</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">英语要求:</span><br><span class="line">本人英语是6级，但是其实我个人感觉4级能过的结合翻译学习他的文档其实是绰绰有余了。</span><br><span class="line"></span><br><span class="line">靶场聊天交流平台：</span><br><span class="line">你买了课程以后oscp在discord上面有专门的答疑平台，还有聊天平台，你可以在上面问关于oscp lab的一些hint，有不懂的知识点也可以和上面的人探讨。当然啦都是用英语的。本人在上面问过很多的靶场hint，也和上面的外国友人探讨过很多问题，偶尔看他们聊天也是挺有意思的，有种international hacker的感觉。</span><br><span class="line"></span><br><span class="line">备考周期:</span><br><span class="line">本人是备考了7个月左右，这个当然因人而异了，有些已经有工作经验的大佬可能就会轻松很多。前前后后投入了2000多个小时，当然确实学到了非常多的东西，学完之后感觉渗透更加结构化清晰化了，同时感觉渗透能力也高出了一个档次。靶机我前前后后打了应该有300多个vulnhub打了30~40个，hackthebox 30个左右，pg 200个左右，还有tryhackme等等的一系列靶场。</span><br><span class="line"></span><br><span class="line">靶场：</span><br><span class="line">如果是新手可以跟着bilibi的Zumpyx 打靶场</span><br><span class="line">https://www.bilibili.com/video/BV1Hg4y1V71P/?spm_id_from=888.80997.embed_other.whitelist&amp;t=6.091283&amp;bvid=BV1Hg4y1V71P</span><br><span class="line">这个文档里的pg靶场的靶机是强推的靶机 这里面的pg靶机我都打完了</span><br><span class="line">https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">备考技巧:</span><br><span class="line">个人认为一定要有一个总结笔记，我打靶场的会记录一些新思路新命令以及新手法，以及一些特殊的手法。有的时候没思路了或者没线索了就会对着笔记查漏补缺看看有没有遗漏的地方。这样在不论是打靶还是考试的时候都能直接copy命令或者查漏补缺。效率会提高非常多。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">打靶顺序:</span><br><span class="line">如果不想打其他靶场的话</span><br><span class="line">先打个pg play靶场试试水（每天三小时免费时间），然后再打pg practice（19$一个月）这里面靶场非常多，有两百多个靶机，打到自己熟练为止然后再报oscp。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">感慨:</span><br><span class="line">说实话，我个人觉得考试的成功与否其实和抽到的靶机息息相关，我个人感觉机子的难度差异还是挺大的，有些特别直接，打下来思路非常清晰，有些弯弯绕绕的。有些难的离谱，有些非常简单。所以不要怀疑自己的实例，可能只是缺了一点点的运气。</span><br></pre></td></tr></table></figure></div>
-
+			<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>   最近很开心终于把渴望已久的oscp、oscp+考到手了，于是乎就有了下面的文章但是由于官方对于oscp的管控很严格我也不知道什么能说什么不能说，所以统一就不把过程讲的太详细了。</p>
+<h1 id="考试规则"><a href="#考试规则" class="headerlink" title="考试规则"></a>考试规则</h1><p>oscp的考试及格分数是70分<br>满分:20+20+20+40 三台独立机器（每台20分，独立机器可能是windows可能是linux）和一个域环境（40分）<br>独立机器拿到普通权限得10分，提权拿到root或administrators权限再得10分<br>域环境有三台机子，有两台普通的机子和一台域控，每台普通的机子拿到administrator权限得10分，成功拿到域控权限得20分</p>
+<p>考试时间是24小时，但实际上是23小时45分钟，前15分钟左右的时间拿来给监考员作考试检测以及身份认证。考试图中是可以喝水吃饭和睡觉的。<br>如果考完试后你的分值大于等于70那么考后24小时之内你需要撰写还wp也就是考试的报告并提交。</p>
+<p>oscp考试时不能用任何自带漏扫的工具的 包括bp的专业版也不能用<br>msf只能选择一台机器用</p>
+<p>考试全程共享屏幕<br>全程开摄像头，要能看到你的脸</p>
+<h1 id="个人考试经历"><a href="#个人考试经历" class="headerlink" title="个人考试经历"></a>个人考试经历</h1><p>​	考试的过程其实是兴奋与痛苦交织的，兴奋于每拿下一台机子就里成功不远了，但是痛苦与有的时候你明明感觉离答案已经只有一步之遥，但是就是缺点线索导致与成功失之交臂。非常磨人心性。我约的是早上11点的考试，靠前监考员检查加上自己的一些配置大改花了20分钟左右比预计的15分钟多了5分钟。然后我是准备了四瓶红牛准备直接不睡打满24个小时的。<br>​	过程还是总体比较顺利，我完全拿下了来台个体机和域控 20+20+40&#x3D;80 分已经及格了，我是一边考试一边把过程截图的，前前后后大概花了13个多小时。其实拿到80分以后悬着的心就已经落下了。本来还想再把最后一台个体机子拿下ak的，但在最后一台机子上琢么了好久，我信息收集到了很多有意思的东西，当时我的内心隐约感觉应该是能拿下最后一台机子的，但是感觉还差一点线索，卡了两个小时愣是没有找到突破口，不知道是否掉入了rabbit hole。于是果断放弃直接去写报告了，因为oscp的报告非常严格，我是一边考试一边截图的，我把每一步都截图了，并且详细地解释了每一步的作用，同时还附带上了我用的一些脚本或者exp的链接。然后再逐个把中文翻译成英文然后再审核英文是否表达有误，然后再检查页面的排版，反反复复的检查，写报告我大概花了5个小时的时间。中途是在是撑不住了睡了3个小时。然后睡醒了继续检查报告。<br>​	监考员其实人挺好的，虽然你看不到他的脸，但是他&#x2F;她会偶尔发消息给你说不用紧张，放松心情之类的。如果想要离开上个厕所或者洗个澡吃个饭睡个觉啥的你就说leave for 5 minutes 或者 leave for 3 hours 然后也不同等他回复你直接走就行了。<br>​	最后提前了大概40分钟交结束了考试。我结束考试的同时就把报告提交上去了。最后等了一天官方就发邮箱通知我顺利通过了oscp的认证考试。</p>
+<h1 id="个人备考经验"><a href="#个人备考经验" class="headerlink" title="个人备考经验"></a>个人备考经验</h1><p>英语要求:<br>本人英语是6级，但是其实我个人感觉4级能过的结合翻译学习他的文档其实是绰绰有余了。</p>
+<p>靶场聊天交流平台：<br>你买了课程以后oscp在discord上面有专门的答疑平台，还有聊天平台，你可以在上面问关于oscp lab的一些hint，有不懂的知识点也可以和上面的人探讨。当然啦都是用英语的。本人在上面问过很多的靶场hint，也和上面的外国友人探讨过很多问题，偶尔看他们聊天也是挺有意思的，有种international hacker的感觉。</p>
+<p>备考周期:<br>本人是备考了7个月左右，这个当然因人而异了，有些已经有工作经验的大佬可能就会轻松很多。前前后后投入了2000多个小时，当然确实学到了非常多的东西，学完之后感觉渗透更加结构化清晰化了，同时感觉渗透能力也高出了一个档次。靶机我前前后后打了应该有300多个vulnhub打了30~40个，hackthebox 30个左右，pg 200个左右，还有tryhackme等等的一系列靶场。</p>
+<p>靶场：<br>如果是新手可以跟着bilibi的Zumpyx 打靶场<br><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Hg4y1V71P/?spm_id_from=888.80997.embed_other.whitelist&t=6.091283&bvid=BV1Hg4y1V71P" >https://www.bilibili.com/video/BV1Hg4y1V71P/?spm_id_from=888.80997.embed_other.whitelist&amp;t=6.091283&amp;bvid=BV1Hg4y1V71P<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>这个文档里的pg靶场的靶机是强推的靶机 这里面的pg靶机我都打完了<br><a class="link"   target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview" >https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>备考技巧:<br>个人认为一定要有一个总结笔记，我打靶场的会记录一些新思路新命令以及新手法，以及一些特殊的手法。有的时候没思路了或者没线索了就会对着笔记查漏补缺看看有没有遗漏的地方。这样在不论是打靶还是考试的时候都能直接copy命令或者查漏补缺。效率会提高非常多。</p>
+<p>打靶顺序:<br>如果不想打其他靶场的话<br>先打个pg play靶场试试水（每天三小时免费时间），然后再打pg practice（19$一个月）这里面靶场非常多，有两百多个靶机，打到自己熟练为止然后再报oscp。</p>
+<p>感慨:<br>说实话，我个人觉得考试的成功与否其实和抽到的靶机息息相关，我个人感觉机子的难度差异还是挺大的，有些特别直接，打下来思路非常清晰，有些弯弯绕绕的。有些难的离谱，有些非常简单。所以不要怀疑自己的实例，可能只是缺了一点点的运气。</p>
 
 		</div>
 
@@ -420,14 +432,14 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> </li>
+        <li><strong>Title:</strong> 我的oscp之旅</li>
         <li><strong>Author:</strong> UWI</li>
         <li><strong>Created at
                 :</strong> 2025-08-04 16:10:56</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-04 18:30:55
+                    :</strong> 2025-08-04 18:38:45
             </li>
         
         <li>
@@ -449,6 +461,14 @@
 		</div>
 		
 
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E4%B8%AA%E4%BA%BA%E6%9D%82%E8%B0%88/">#个人杂谈</a>&nbsp;
+			</li>
+			
+		</ul>
 		
 
 		
@@ -522,7 +542,7 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title"></div>
+		<div class="page-title">我的oscp之旅</div>
 		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E8%AF%95%E8%A7%84%E5%88%99"><span class="nav-text">考试规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E8%80%83%E8%AF%95%E7%BB%8F%E5%8E%86"><span class="nav-text">个人考试经历</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E5%A4%87%E8%80%83%E7%BB%8F%E9%AA%8C"><span class="nav-text">个人备考经验</span></a></li></ol>
 
 	</div>
