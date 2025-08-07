@@ -140,7 +140,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-08-06T01:47:43.983Z">
-<meta property="article:modified_time" content="2025-08-06T08:30:49.313Z">
+<meta property="article:modified_time" content="2025-08-07T01:47:15.574Z">
 <meta property="article:author" content="uwi">
 <meta property="article:tag" content="ofcms代码审计">
 <meta name="twitter:card" content="summary">
@@ -373,8 +373,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-06 16:30:49</span>
-            <span class="mobile">2025-08-06 16:30:49</span>
+            <span class="desktop">2025-08-07 09:47:15</span>
+            <span class="mobile">2025-08-07 09:47:15</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -568,6 +568,38 @@
                      data-src="/../../images/image-20250806162924582.png"
                       alt="image-20250806162924582"
                 ></p>
+<h1 id="xxe"><a href="#xxe" class="headerlink" title="xxe"></a>xxe</h1><p>src&#x2F;main&#x2F;java&#x2F;com&#x2F;ofsoft&#x2F;cms&#x2F;admin&#x2F;controller&#x2F;ReprotAction.java</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250807094305633.png"
+                      alt="image-20250807094305633"
+                ></p>
+<p>我们发现</p>
+<p> file 参数是可控的 可以指定他xml解析我们的文件</p>
+<p>结合前面任意文件写入可以达到xxe的目的</p>
+<p>在目录下写入一个恶意的xml文件 内容为</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE foo [ &lt;!ENTITY % xxe SYSTEM &quot;http://127.0.0.1/&quot;&gt;%xxe; ]&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250807094616550.png"
+                      alt="image-20250807094616550"
+                ></p>
+<p>尝试执行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250807094508712.png"
+                      alt="image-20250807094508712"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250807094448895.png"
+                      alt="image-20250807094448895"
+                ></p>
 
 		</div>
 
@@ -582,7 +614,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-06 16:30:49
+                    :</strong> 2025-08-07 09:47:15
             </li>
         
         <li>
@@ -686,7 +718,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">ofcms代码审计</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-text">部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-text">sql注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5"><span class="nav-text">任意文件写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssti%E6%B3%A8%E5%85%A5"><span class="nav-text">ssti注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E5%8F%B0xss"><span class="nav-text">前台xss</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-text">部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-text">sql注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5"><span class="nav-text">任意文件写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssti%E6%B3%A8%E5%85%A5"><span class="nav-text">ssti注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E5%8F%B0xss"><span class="nav-text">前台xss</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xxe"><span class="nav-text">xxe</span></a></li></ol>
 
 	</div>
 </div>
