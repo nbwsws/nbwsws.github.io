@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://nbwsws.github.io/2025/08/07/代码审计/华夏erp代码审计/"/>
+    <link rel="canonical" href="https://nbwsws.github.io/2025/08/18/代码审计/java代码审计基础/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -133,14 +133,14 @@
         
         <meta name="description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="华夏erp代码审计">
-<meta property="og:url" content="https://nbwsws.github.io/2025/08/07/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%8D%8E%E5%A4%8Ferp%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
+<meta property="og:title" content="java代码审计基础">
+<meta property="og:url" content="https://nbwsws.github.io/2025/08/18/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="uwi~blog">
 <meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-08-07T03:13:25.092Z">
-<meta property="article:modified_time" content="2025-08-21T02:37:11.794Z">
+<meta property="article:published_time" content="2025-08-18T06:18:15.586Z">
+<meta property="article:modified_time" content="2025-08-21T09:44:43.576Z">
 <meta property="article:author" content="uwi">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -156,7 +156,7 @@
     
     <title>
         
-            华夏erp代码审计 | UWI&#39;s Blog
+            java代码审计基础 | UWI&#39;s Blog
         
     </title>
 
@@ -345,7 +345,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">华夏erp代码审计</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">java代码审计基础</h1>
 			</div>
 			
 		</div>
@@ -366,15 +366,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-08-07 11:13:25</span>
-        <span class="mobile">2025-08-07 11:13:25</span>
+        <span class="desktop">2025-08-18 14:18:15</span>
+        <span class="mobile">2025-08-18 14:18:15</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-21 10:37:11</span>
-            <span class="mobile">2025-08-21 10:37:11</span>
+            <span class="desktop">2025-08-21 17:44:43</span>
+            <span class="mobile">2025-08-21 17:44:43</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -389,16 +389,6 @@
                         
                         <li>
                             <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
                         </li>
                     
                     
@@ -438,158 +428,29 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="fastjson-漏洞"><a href="#fastjson-漏洞" class="headerlink" title="fastjson 漏洞"></a>fastjson 漏洞</h1><p>getMaterialEnableSerialNumberList接口处发现search参数可控 存在fastjson漏洞</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807123043473.png"
-                      alt="image-20250807123043473"
-                ></p>
-<p>payload</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;@type&quot;: &quot;java.net.Inet4Address&quot;,&quot;val&quot;: &quot;umu9h1.dnslog.cn&quot;&#125;</span><br></pre></td></tr></table></figure></div>
+			<h1 id="动态加载字节码"><a href="#动态加载字节码" class="headerlink" title="动态加载字节码"></a>动态加载字节码</h1><h2 id="使用defineClass-加载"><a href="#使用defineClass-加载" class="headerlink" title="使用defineClass 加载"></a>使用defineClass 加载</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.Method;</span><br><span class="line"> import java.util.Base64;</span><br><span class="line"> public class HelloDefineClass &#123;</span><br><span class="line"> public static void main(String[] args) throws Exception &#123;</span><br><span class="line"> Method defineClass = </span><br><span class="line">ClassLoader.class.getDeclaredMethod(&quot;defineClass&quot;, String.class, </span><br><span class="line">byte[].class, int.class, int.class);</span><br><span class="line"> defineClass.setAccessible(true);</span><br><span class="line"> byte[] code = </span><br><span class="line">Base64.getDecoder().decode(&quot;yv66vgAAADQAGwoABgANCQAOAA8IABAKABEAEgcAEwcAFAEA</span><br><span class="line"> Bjxpbml0PgEAAygpVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApTb3VyY2VGaWxlAQAKSGVs</span><br><span class="line"> bG8uamF2YQwABwAIBwAVDAAWABcBAAtIZWxsbyBXb3JsZAcAGAwAGQAaAQAFSGVsbG8BABBqYXZh</span><br><span class="line"> L2xhbmcvT2JqZWN0AQAQamF2YS9sYW5nL1N5c3RlbQEAA291dAEAFUxqYXZhL2lvL1ByaW50U3Ry</span><br><span class="line"> ZWFtOwEAE2phdmEvaW8vUHJpbnRTdHJlYW0BAAdwcmludGxuAQAVKExqYXZhL2xhbmcvU3RyaW5n</span><br><span class="line"> OylWACEABQAGAAAAAAABAAEABwAIAAEACQAAAC0AAgABAAAADSq3AAGyAAISA7YABLEAAAABAAoA</span><br><span class="line"> AAAOAAMAAAACAAQABAAMAAUAAQALAAAAAgAM&quot;);</span><br><span class="line"> Class hello = </span><br><span class="line">(Class)defineClass.invoke(ClassLoader.getSystemClassLoader(), &quot;Hello&quot;, code, </span><br><span class="line">0, code.length);</span><br><span class="line"> hello.newInstance();</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></div>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807123213291.png"
-                      alt="image-20250807123213291"
-                ></p>
-<p>成功 </p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807123406284.png"
-                      alt="image-20250807123406284"
-                ></p>
-<h1 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h1><p>在mybatis的xml里面发现$参数拼接</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141023724.png"
-                      alt="image-20250807141023724"
-                ></p>
-<p>查看整个调用链</p>
-<p>实现方法的接口是selectByConditionAccountHead 这个 函数</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141110227.png"
-                      alt="image-20250807141110227"
-                ></p>
-<p>selectByConditionAccountHead 在select的方法中被调用</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141148092.png"
-                      alt="image-20250807141148092"
-                ></p>
-<p>select在getAccountHeadList 中被调用</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141215263.png"
-                      alt="image-20250807141215263"
-                ></p>
-<p>getAccountHeadList 在另一个select函数中被调用</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141249642.png"
-                      alt="image-20250807141249642"
-                ></p>
-<p>这个select 又在另一个select函数中被调用</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141326592.png"
-                      alt="image-20250807141326592"
-                ></p>
-<p>最终这个select 在接口中被调用</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141432349.png"
-                      alt="image-20250807141432349"
-                ></p>
-<p>以billNo为例发现确实存在sql注入</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141937101.png"
-                      alt="image-20250807141937101"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807141953903.png"
-                      alt="image-20250807141953903"
-                ></p>
-<p>其他sql注入功能的类似不再一一审查</p>
-<h1 id="拦截器绕过"><a href="#拦截器绕过" class="headerlink" title="拦截器绕过"></a>拦截器绕过</h1><p>这里我们添加用户是不成功的因为没有登录</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807144542420.png"
-                      alt="image-20250807144542420"
-                ></p>
-<p>其实就是被他的拦截器拦截了</p>
-<p>但我们仔细看他的拦截器 会发现设置了白名单 .css#.js#.jpg#.png#.gif#.ico 这些资源会方行不拦截</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807144647085.png"
-                      alt="image-20250807144647085"
-                ></p>
-<p>可以看看到成功绕过拦截器 添加成功 由此我们可以用此方法绕过所有需要登录的权限接口</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807144808626.png"
-                      alt="image-20250807144808626"
-                ></p>
-<p>可以看到我们可以再未登录的情况下请求到资源</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807145414701.png"
-                      alt="image-20250807145414701"
-                ></p>
-<p>还有几种绕过方式</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807151553486.png"
-                      alt="image-20250807151553486"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807151622134.png"
-                      alt="image-20250807151622134"
-                ></p>
-<h1 id="任意用户密码重置"><a href="#任意用户密码重置" class="headerlink" title="任意用户密码重置"></a>任意用户密码重置</h1><p>用管理员账号 重置密码</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807153010465.png"
-                      alt="image-20250807153010465"
-                ></p>
-<p>抓包</p>
-<p>然后我们把cookie换成普通用户的cookie</p>
-<p>发现还是能成功 只需要遍历id 就可以任意用户密码重置</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807153355145.png"
-                      alt="image-20250807153355145"
-                ></p>
-<p>或者我们结合前面的拦截器绕过 也可以</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250807153554220.png"
-                      alt="image-20250807153554220"
-                ></p>
+
+
+<h2 id="使用URLClassLoader加载"><a href="#使用URLClassLoader加载" class="headerlink" title="使用URLClassLoader加载"></a>使用URLClassLoader加载</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import java.net.URL;</span><br><span class="line"> import java.net.URLClassLoader;</span><br><span class="line"> public class HelloClassLoader</span><br><span class="line"> &#123;</span><br><span class="line">    public static void main( String[] args ) throws Exception</span><br><span class="line">    &#123;</span><br><span class="line">        URL[] urls = &#123;new URL(&quot;http://localhost:8000/&quot;)&#125;;</span><br><span class="line">        URLClassLoader loader = URLClassLoader.newInstance(urls);</span><br><span class="line">        Class c = loader.loadClass(&quot;Hello&quot;);</span><br><span class="line">        c.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h1 id="cookie与session"><a href="#cookie与session" class="headerlink" title="cookie与session"></a>cookie与session</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> Cookie cookie = new Cookie(name, value);</span><br><span class="line">        cookie.setMaxAge(maxAge);</span><br><span class="line">        cookie.setPath(&quot;/&quot;);</span><br><span class="line">        </span><br><span class="line">        // 添加Cookie到响应</span><br><span class="line">        response.addCookie(cookie);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">HttpSession session = request.getSession(true);</span><br><span class="line">session.setAttribute(key, value);</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h1 id="java-filter"><a href="#java-filter" class="headerlink" title="java filter"></a>java filter</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@WebFilter(&quot;/*&quot;)</span><br><span class="line">public class LoggingFilter implements Filter &#123;</span><br><span class="line">    </span><br><span class="line">    private FilterConfig filterConfig;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">        this.filterConfig = filterConfig;</span><br><span class="line">        System.out.println(&quot;LoggingFilter初始化完成&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)</span><br><span class="line">            throws IOException, ServletException &#123;</span><br><span class="line">        </span><br><span class="line">        HttpServletRequest httpRequest = (HttpServletRequest) request;</span><br><span class="line">        String requestURI = httpRequest.getRequestURI();</span><br><span class="line">        String remoteAddr = request.getRemoteAddr();</span><br><span class="line">        Date timestamp = new Date();</span><br><span class="line">        </span><br><span class="line">        // 记录请求开始时间</span><br><span class="line">        long startTime = System.currentTimeMillis();</span><br><span class="line">        </span><br><span class="line">        // 输出请求信息到控制台</span><br><span class="line">        System.out.println(&quot;[&quot; + timestamp + &quot;] 请求开始: &quot; + requestURI + &quot; from &quot; + remoteAddr);</span><br><span class="line">        </span><br><span class="line">        // 执行后续过滤器或Servlet</span><br><span class="line">        chain.doFilter(request, response);</span><br><span class="line">        </span><br><span class="line">        // 计算请求处理时间</span><br><span class="line">        long processingTime = System.currentTimeMillis() - startTime;</span><br><span class="line">        </span><br><span class="line">        // 输出请求完成信息</span><br><span class="line">        System.out.println(&quot;[&quot; + new Date() + &quot;] 请求完成: &quot; + requestURI + </span><br><span class="line">                          &quot; 处理时间: &quot; + processingTime + &quot;ms&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">        System.out.println(&quot;LoggingFilter销毁&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="jwt"><a href="#jwt" class="headerlink" title="jwt"></a>jwt</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Jwts.builder()</span><br><span class="line">                .setSubject(username)</span><br><span class="line">                .setIssuedAt(new Date())</span><br><span class="line">                .setExpiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME))</span><br><span class="line">                .signWith(SECRET_KEY)</span><br><span class="line">                .compact();</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="Interceptor"><a href="#Interceptor" class="headerlink" title="Interceptor"></a>Interceptor</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">package com.example.demo.interceptor;</span><br><span class="line"></span><br><span class="line">import jakarta.servlet.http.HttpServletRequest;</span><br><span class="line">import jakarta.servlet.http.HttpServletResponse;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">import org.springframework.web.servlet.HandlerInterceptor;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class DemoInterceptor implements HandlerInterceptor &#123;</span><br><span class="line"></span><br><span class="line">    private static final Logger logger = LoggerFactory.getLogger(DemoInterceptor.class);</span><br><span class="line"></span><br><span class="line">    // 在Controller方法执行之前调用</span><br><span class="line">    @Override</span><br><span class="line">    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception &#123;</span><br><span class="line">        long startTime = System.currentTimeMillis();</span><br><span class="line">        request.setAttribute(&quot;startTime&quot;, startTime);</span><br><span class="line"></span><br><span class="line">        String requestURI = request.getRequestURI();</span><br><span class="line">        String clientIP = request.getRemoteAddr();</span><br><span class="line">        logger.info(&quot;&gt;&gt;&gt; preHandle: Request URL=[&#123;&#125;], Client IP=[&#123;&#125;]&quot;, requestURI, clientIP);</span><br><span class="line"></span><br><span class="line">        // 认证检查示例（简单版）</span><br><span class="line">        String token = request.getHeader(&quot;Authorization&quot;);</span><br><span class="line">        if (token == null || !token.startsWith(&quot;Bearer &quot;)) &#123;</span><br><span class="line">            logger.warn(&quot;Access denied: Missing or invalid token&quot;);</span><br><span class="line">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, &quot;Unauthorized&quot;);</span><br><span class="line">            return false; // 中断请求，不再调用Controller</span><br><span class="line">        &#125;</span><br><span class="line">        // 可以在这里解析Token并将用户信息放入request attribute，供Controller使用</span><br><span class="line">        // request.setAttribute(&quot;userInfo&quot;, parsedUserInfo);</span><br><span class="line"></span><br><span class="line">        return true; // 继续执行，调用下一个拦截器或Controller</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 在Controller方法执行之后，视图渲染之前调用</span><br><span class="line">    @Override</span><br><span class="line">    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;&gt;&gt;&gt; postHandle: Request handled successfully.&quot;);</span><br><span class="line">        // 可以对ModelAndView进行修改</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 在整个请求完成之后调用（视图渲染完毕）</span><br><span class="line">    @Override</span><br><span class="line">    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception &#123;</span><br><span class="line">        long startTime = (Long) request.getAttribute(&quot;startTime&quot;);</span><br><span class="line">        long endTime = System.currentTimeMillis();</span><br><span class="line">        long executeTime = endTime - startTime;</span><br><span class="line"></span><br><span class="line">        String requestURI = request.getRequestURI();</span><br><span class="line">        logger.info(&quot;&gt;&gt;&gt; afterCompletion: Request URL=[&#123;&#125;], Time Taken=[&#123;&#125;ms]&quot;, requestURI, executeTime);</span><br><span class="line"></span><br><span class="line">        if (ex != null) &#123;</span><br><span class="line">            logger.error(&quot;Request processing failed with exception: &quot;, ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>注册拦截器</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package com.example.demo.config;</span><br><span class="line"></span><br><span class="line">import com.example.demo.interceptor.DemoInterceptor;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line">import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class WebConfig implements WebMvcConfigurer &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private DemoInterceptor demoInterceptor;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void addInterceptors(InterceptorRegistry registry) &#123;</span><br><span class="line">        registry.addInterceptor(demoInterceptor)</span><br><span class="line">                .addPathPatterns(&quot;/api/**&quot;) // 拦截所有以 /api 开头的路径</span><br><span class="line">                .excludePathPatterns(&quot;/api/public/**&quot;, &quot;/api/auth/login&quot;); // 排除特定的公开路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
 
 		</div>
 
@@ -597,18 +458,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> 华夏erp代码审计</li>
+        <li><strong>Title:</strong> java代码审计基础</li>
         <li><strong>Author:</strong> UWI</li>
         <li><strong>Created at
-                :</strong> 2025-08-07 11:13:25</li>
+                :</strong> 2025-08-18 14:18:15</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-21 10:37:11
+                    :</strong> 2025-08-21 17:44:43
             </li>
         
         <li>
-            <strong>Link:</strong> https://nbwsws.github.io/2025/08/07/代码审计/华夏erp代码审计/
+            <strong>Link:</strong> https://nbwsws.github.io/2025/08/18/代码审计/java代码审计基础/
         </li>
         <li>
             <strong>
@@ -642,12 +503,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/08/08/js%E9%80%86%E5%90%91/%E6%89%A3%E6%89%A3%E9%9F%B3%E4%B9%90%E5%8A%A0%E5%AF%86%E9%80%86%E5%90%91/">
+				<a class="prev" rel="prev" href="/2025/08/21/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/springbootp0eo6%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">qq音乐jsvmp加密逆向</span>
+						<span class="post-nav-title-item truncate max-w-48">springbootp0eo6代码审计</span>
 						<span class="post-nav-item">Prev posts</span>
 					</span>
 				</a>
@@ -655,9 +516,9 @@
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2025/08/07/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/some_tricks/">
+				<a class="next" rel="next" href="/2025/08/15/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/cc2/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">some_tricks</span>
+						<span class="post-nav-title-item truncate max-w-48">cc2链调用</span>
 						<span class="post-nav-item">Next posts</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -719,8 +580,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title">华夏erp代码审计</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fastjson-%E6%BC%8F%E6%B4%9E"><span class="nav-text">fastjson 漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-text">sql注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8%E7%BB%95%E8%BF%87"><span class="nav-text">拦截器绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E9%87%8D%E7%BD%AE"><span class="nav-text">任意用户密码重置</span></a></li></ol>
+		<div class="page-title">java代码审计基础</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81"><span class="nav-text">动态加载字节码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8defineClass-%E5%8A%A0%E8%BD%BD"><span class="nav-text">使用defineClass 加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8URLClassLoader%E5%8A%A0%E8%BD%BD"><span class="nav-text">使用URLClassLoader加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie%E4%B8%8Esession"><span class="nav-text">cookie与session</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java-filter"><span class="nav-text">java filter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jwt"><span class="nav-text">jwt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Interceptor"><span class="nav-text">Interceptor</span></a></li></ol>
 
 	</div>
 </div>
