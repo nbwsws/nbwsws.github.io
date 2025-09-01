@@ -377,7 +377,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -417,7 +417,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -432,6 +432,95 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/09/01/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/production_ssm%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+                            production_ssm代码审计
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言：在github上看到有1.1k的star 所以就审审看看 一审发现全是洞
+任意文件读取看到文件下载的功能 
+他会自动截取最后一个&#x2F;后面的所有字符拼接到路径上。
+可以用\进行绕过
+
+1file/download?fileName=/file/..\..\..\..\..\..\..\..\..\..\..\test.txt
+
+
+任意文件删除与任意文件读取一样的道理
+
+删除成功
+...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Sep 01 2025 00:19:13 GMT+0800">
+                
+                    2025-09-01
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/java/">java</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/09/01/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/production_ssm%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Read more<span class="seo-reader-text">production_ssm代码审计</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1164,92 +1253,6 @@ filter设置了用户身份但是  对应的接口并没有对身份做权限校
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/08/21/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/springbootp0eo6%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
-                            springbootp0eo6代码审计
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            sql注入漏洞发现他的mybaits基本全是拼接注入因该有十几处 这里就随便找一个
-
-跟踪 发现getoption 在getOption函数中被调用
-
-getOption在&#x2F;option&#x2F;{tableName}&#x2F;{columnName} 这个接口中被调用 而且参数tableName columnName 我们可控
-
-可以直接造成sql注入
-
-任意文件下载没有做任...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Aug 21 2025 21:11:19 GMT+0800">
-                
-                    2025-08-21
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/java/">java</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/08/21/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/springbootp0eo6%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Read more<span class="seo-reader-text">springbootp0eo6代码审计</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1280,7 +1283,7 @@ getOption在&#x2F;option&#x2F;{tableName}&#x2F;{columnName} 这个接口中被�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        28 posts in total
+                        29 posts in total
                     </span>
                     
                 </p>
