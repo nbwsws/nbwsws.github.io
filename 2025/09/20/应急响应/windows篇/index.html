@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Cyber Security">
+    
+    <meta name="author" content="UWI">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://nbwsws.github.io/2025/09/20/应急响应/windows篇/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="~~~~~~~~~~~~~~~~~~~~~~~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows应急响应">
+<meta property="og:url" content="https://nbwsws.github.io/2025/09/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/windows%E7%AF%87/index.html">
+<meta property="og:site_name" content="uwi~blog">
+<meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-09-20T05:21:33.599Z">
+<meta property="article:modified_time" content="2025-11-11T03:20:10.117Z">
+<meta property="article:author" content="uwi">
+<meta property="article:tag" content="windows-linux应急响应">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nbwsws.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/avatar.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/avatar.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            windows应急响应 | UWI&#39;s Blog
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"nbwsws.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"~~~~~~~~~~~~~~~~~~~~~~~"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"UWI","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                UWI&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">windows应急响应</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.webp">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">UWI</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-09-20 13:21:33</span>
+        <span class="mobile">2025-09-20 13:21:33</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-11-11 11:20:10</span>
+            <span class="mobile">2025-11-11 11:20:10</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/windows-linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">windows-linux应急响应</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><ul>
+<li><strong>应用程序日志</strong>：记录应用程序运行中的事件，例如崩溃或文件错误。默认路径为 <em>C:\Windows\System32\Winevt\Logs\Application.evtx</em>。</li>
+<li><strong>系统日志</strong>：记录操作系统组件的事件，如驱动程序错误或硬件故障。默认路径为 <em>C:\Windows\System32\Winevt\Logs\System.evtx</em>。</li>
+<li><strong>安全日志</strong>：记录安全相关事件，包括登录尝试、权限变更等。默认路径为 <em>C:\Windows\System32\Winevt\Logs\Security.evtx</em>。</li>
+</ul>
+<h2 id="1-事件ID"><a href="#1-事件ID" class="headerlink" title="1. 事件ID"></a>1. 事件ID</h2><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>事件ID</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.</td>
+<td>1102</td>
+<td>清理审计日志</td>
+</tr>
+<tr>
+<td>2.</td>
+<td>4624</td>
+<td>账号成功登录</td>
+</tr>
+<tr>
+<td>3.</td>
+<td>4625</td>
+<td>账号登录失败</td>
+</tr>
+<tr>
+<td>4.</td>
+<td>4768</td>
+<td>Kerberos身份验证（TGT请求）</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>4769</td>
+<td>Kerberos服务票证请求</td>
+</tr>
+<tr>
+<td>6.</td>
+<td>4776</td>
+<td>NTLM身份验证</td>
+</tr>
+<tr>
+<td>7.</td>
+<td>4672</td>
+<td>授予特殊权限</td>
+</tr>
+<tr>
+<td>8.</td>
+<td>4720</td>
+<td>创建用户</td>
+</tr>
+<tr>
+<td>9.</td>
+<td>4722</td>
+<td>启用用户</td>
+</tr>
+<tr>
+<td>10.</td>
+<td>4726</td>
+<td>删除用户</td>
+</tr>
+<tr>
+<td>11.</td>
+<td>4728</td>
+<td>将成员添加到启用安全的全局组中</td>
+</tr>
+<tr>
+<td>12.</td>
+<td>4729</td>
+<td>将成员从安全的全局组中移除</td>
+</tr>
+<tr>
+<td>13.</td>
+<td>4732</td>
+<td>将成员添加到启用安全的本地组中</td>
+</tr>
+<tr>
+<td>14.</td>
+<td>4733</td>
+<td>将成员从启用安全的本地组中移除</td>
+</tr>
+<tr>
+<td>15.</td>
+<td>4756</td>
+<td>将成员添加到启用安全的通用组中</td>
+</tr>
+<tr>
+<td>16.</td>
+<td>4757</td>
+<td>将成员从启用安全的通用组中移除</td>
+</tr>
+<tr>
+<td>17.</td>
+<td>4719</td>
+<td>系统审计策略修改</td>
+</tr>
+</tbody></table>
+<p>4648 显式凭证登录</p>
+<p>关于4624 的几种状态</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251111002014420.png"
+                      alt="image-20251111002014420"
+                ></p>
+<p>ai补充说明</p>
+<h3 id="总结表格"><a href="#总结表格" class="headerlink" title="总结表格"></a>总结表格</h3><table>
+<thead>
+<tr>
+<th align="left">登录类型</th>
+<th align="left">名称</th>
+<th align="left">核心描述</th>
+<th align="left">典型场景</th>
+<th align="left">安全关注点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>2</strong></td>
+<td align="left"><strong>交互式</strong></td>
+<td align="left"><strong>在本地控制台登录</strong></td>
+<td align="left">本地开机登录、切换用户</td>
+<td align="left">物理服务器访问、异常用户</td>
+</tr>
+<tr>
+<td align="left"><strong>3</strong></td>
+<td align="left"><strong>网络</strong></td>
+<td align="left"><strong>访问网络资源</strong></td>
+<td align="left">访问文件共享、网络打印机</td>
+<td align="left">文件服务器访问、异常共享连接</td>
+</tr>
+<tr>
+<td align="left"><strong>4</strong></td>
+<td align="left"><strong>批处理</strong></td>
+<td align="left"><strong>由计划任务触发</strong></td>
+<td align="left">计划任务（以特定用户运行）</td>
+<td align="left">恶意脚本、异常任务</td>
+</tr>
+<tr>
+<td align="left"><strong>5</strong></td>
+<td align="left"><strong>服务</strong></td>
+<td align="left"><strong>服务启动</strong></td>
+<td align="left">Windows 服务启动</td>
+<td align="left">服务账户滥用、权限提升</td>
+</tr>
+<tr>
+<td align="left"><strong>7</strong></td>
+<td align="left"><strong>解锁</strong></td>
+<td align="left"><strong>解锁已锁定的会话</strong></td>
+<td align="left">电脑锁屏后重新登录</td>
+<td align="left">正常行为，通常与类型2关联</td>
+</tr>
+<tr>
+<td align="left"><strong>8</strong></td>
+<td align="left"><strong>网络明文</strong></td>
+<td align="left"><strong>使用明文密码网络登录</strong></td>
+<td align="left">IIS 基本认证、老旧协议</td>
+<td align="left"><strong>高风险</strong>，凭据可被嗅探</td>
+</tr>
+<tr>
+<td align="left"><strong>9</strong></td>
+<td align="left"><strong>新凭证</strong></td>
+<td align="left"><strong><code>RunAs /netonly</code></strong></td>
+<td align="left">管理员网络管理</td>
+<td align="left">权限分离，注意双重身份</td>
+</tr>
+<tr>
+<td align="left"><strong>10</strong></td>
+<td align="left"><strong>远程交互</strong></td>
+<td align="left"><strong>通过RDP登录</strong></td>
+<td align="left">远程桌面连接</td>
+<td align="left"><strong>关键入口</strong>，监控来源IP和账户</td>
+</tr>
+<tr>
+<td align="left"><strong>11</strong></td>
+<td align="left"><strong>缓存交互</strong></td>
+<td align="left"><strong>使用本地缓存凭据登录</strong></td>
+<td align="left">笔记本电脑离线登录域</td>
+<td align="left">缓存凭据可被攻击者提取</td>
+</tr>
+</tbody></table>
+<h1 id="sysmon"><a href="#sysmon" class="headerlink" title="sysmon"></a>sysmon</h1><h1 id="事件ID以及含义"><a href="#事件ID以及含义" class="headerlink" title="事件ID以及含义"></a>事件ID以及含义</h1><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>ID</th>
+<th>Tag</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>ProcessCreate</td>
+<td>Process Create</td>
+</tr>
+<tr>
+<td>2</td>
+<td>FileCreateTime</td>
+<td>File creation time</td>
+</tr>
+<tr>
+<td>3</td>
+<td>NetworkConnect</td>
+<td>Network connection   detected</td>
+</tr>
+<tr>
+<td>4</td>
+<td>n&#x2F;a</td>
+<td>Sysmon service state   change (cannot be filtered)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>ProcessTerminate</td>
+<td>Process terminated</td>
+</tr>
+<tr>
+<td>6</td>
+<td>DriverLoad</td>
+<td>Driver Loaded</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ImageLoad</td>
+<td>Image loaded</td>
+</tr>
+<tr>
+<td>8</td>
+<td>CreateRemoteThread</td>
+<td>CreateRemoteThread   detected</td>
+</tr>
+<tr>
+<td>9</td>
+<td>RawAccessRead</td>
+<td>RawAccessRead detected</td>
+</tr>
+<tr>
+<td>10</td>
+<td>ProcessAccess</td>
+<td>Process accessed</td>
+</tr>
+<tr>
+<td>11</td>
+<td>FileCreate</td>
+<td>File created</td>
+</tr>
+<tr>
+<td>12</td>
+<td>RegistryEvent</td>
+<td>Registry object added   or deleted</td>
+</tr>
+<tr>
+<td>13</td>
+<td>RegistryEvent</td>
+<td>Registry value set</td>
+</tr>
+<tr>
+<td>14</td>
+<td>RegistryEvent</td>
+<td>Registry object renamed</td>
+</tr>
+<tr>
+<td>15</td>
+<td>FileCreateStreamHash</td>
+<td>File stream created</td>
+</tr>
+<tr>
+<td>16</td>
+<td>n&#x2F;a</td>
+<td>Sysmon configuration   change (cannot be filtered)</td>
+</tr>
+<tr>
+<td>17</td>
+<td>PipeEvent</td>
+<td>Named pipe created</td>
+</tr>
+<tr>
+<td>18</td>
+<td>PipeEvent</td>
+<td>Named pipe connected</td>
+</tr>
+<tr>
+<td>19</td>
+<td>WmiEvent</td>
+<td>WMI filter</td>
+</tr>
+<tr>
+<td>20</td>
+<td>WmiEvent</td>
+<td>WMI consumer</td>
+</tr>
+<tr>
+<td>21</td>
+<td>WmiEvent</td>
+<td>WMI consumer filter</td>
+</tr>
+<tr>
+<td>22</td>
+<td>DNSQuery</td>
+<td>DNS query</td>
+</tr>
+</tbody></table>
+<p>配置</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysmon -accepteula -i</span><br><span class="line">sysmon64.exe -c config.xml</span><br></pre></td></tr></table></figure></div>
+
+<p>xml文件</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br></pre></td><td class="code"><pre><span class="line">&lt;Sysmon schemaversion=&quot;4.32&quot;&gt;</span><br><span class="line">   &lt;!-- Capture all hashes --&gt;</span><br><span class="line">   &lt;HashAlgorithms&gt;*&lt;/HashAlgorithms&gt;</span><br><span class="line">   &lt;DnsLookup&gt;False&lt;/DnsLookup&gt;</span><br><span class="line">   &lt;ArchiveDirectory&gt;Archive&lt;/ArchiveDirectory&gt;</span><br><span class="line">   &lt;EventFiltering&gt;</span><br><span class="line">   		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 1 == Process Creation. Log all newly created processes except --&gt;</span><br><span class="line">			&lt;ProcessCreate onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Image condition=&quot;contains&quot;&gt;splunk&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;contains&quot;&gt;btool.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;contains&quot;&gt;SnareCore&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;contains&quot;&gt;nxlog&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;contains&quot;&gt;winlogbeat&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;contains&quot;&gt;Microsoft Monitoring Agent\Agent\MonitoringHost.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\Program Files\NVIDIA Corporation\Display\&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Dell\SupportAssist\pcdrcui.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Dell\SupportAssist\koala.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\Program Files\Windows Defender&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Windows\System32\audiodg.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Windows\SysWOW64\Macromed\Flash\FlashPlayerUpdateService.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files (x86)\Google\Update\GoogleUpdate.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;Sysmon.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;ec2config.exe&lt;/Image&gt;</span><br><span class="line">				&lt;CommandLine condition=&quot;begin with&quot;&gt;C:\WIndows\System32\poqexec.exe /noreboot /transaction&lt;/CommandLine&gt;</span><br><span class="line">			&lt;/ProcessCreate&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 2 == File Creation Time. POC - Log file modified creation time --&gt;</span><br><span class="line">			&lt;FileCreateTime onmatch=&quot;exclude&quot;/&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 3 == Network Connection. Log all initiated network connection except --&gt;</span><br><span class="line">			&lt;NetworkConnect onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Microsoft Office\Office15\ONENOTE.EXE&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;Spotify.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;OneDrive.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;AppData\Roaming\Dashlane\Dashlane.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;AppData\Roaming\Dashlane\DashlanePlugin.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;winlogbeat.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;ec2config.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;cfn-signal.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;amazon-ssm-agent.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;ec2wallpaperinfo.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Windows\System32\spoolsv.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeClickToRun.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files (x86)\Common Files\Acronis\SyncAgent\syncagentsrv.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Windows\System32\CompatTelRunner.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\LMS\LMS.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Windows\System32\mmc.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Microsoft VS Code\Code.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Microsoft Monitoring Agent\Agent\HealthService.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\Packages\Plugins\&lt;/Image&gt; &lt;!--Azure ARM Extensions --&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\WindowsAzure\&lt;/Image&gt; &lt;!--Azure --&gt;</span><br><span class="line">				&lt;DestinationIp condition=&quot;is&quot;&gt;10.0.1.10&lt;/DestinationIp&gt; &lt;!--Mordor APT29 Evals: Windows Event Collector--&gt;</span><br><span class="line">			&lt;/NetworkConnect&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 5 == Process Terminated. Log processes terminated --&gt;</span><br><span class="line">			&lt;ProcessTerminate onmatch=&quot;exclude&quot; /&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 6 == Driver Loaded. Log all drivers except those with the following signatures --&gt;</span><br><span class="line">			&lt;DriverLoad onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Signature condition=&quot;contains&quot;&gt;microsoft&lt;/Signature&gt;</span><br><span class="line">				&lt;Signature condition=&quot;contains&quot;&gt;windows&lt;/Signature&gt;</span><br><span class="line">				&lt;Signature condition=&quot;is&quot;&gt;VMware&lt;/Signature&gt;</span><br><span class="line">				&lt;Signature condition=&quot;begin with&quot;&gt;Intel &lt;/Signature&gt;</span><br><span class="line">			&lt;/DriverLoad&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 7 == Image Loaded. Log everything except --&gt;</span><br><span class="line">			&lt;ImageLoad onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Image condition=&quot;image&quot;&gt;chrome.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;image&quot;&gt;vmtoolsd.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;image&quot;&gt;Sysmon.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;image&quot;&gt;mmc.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files (x86)\Google\Update\GoogleUpdate.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Windows\System32\taskeng.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Windows Defender\NisSrv.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Windows Defender\MsMpEng.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;onedrivesetup.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;onedrive.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;skypeapp.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\Packages\Plugins\&lt;/Image&gt; &lt;!--Azure ARM Extensions --&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\WindowsAzure\&lt;/Image&gt; &lt;!--Azure --&gt;</span><br><span class="line">			&lt;/ImageLoad&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 8 == CreateRemoteThread. Log everything except --&gt;</span><br><span class="line">			&lt;CreateRemoteThread onmatch=&quot;exclude&quot; /&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 9 == RawAccessRead. Log everything except --&gt;</span><br><span class="line">			&lt;RawAccessRead onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\VMware\VMware Tools\vmtoolsd.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files (x86)\Google\Update\GoogleUpdate.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;\Sysmon.exe&lt;/Image&gt;</span><br><span class="line">			&lt;/RawAccessRead&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 10 == ProcessAccess. Log everything except --&gt;</span><br><span class="line">			&lt;ProcessAccess onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;is&quot;&gt;C:\Program Files\VMware\VMware Tools\vmtoolsd.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;image&quot;&gt;Sysmon.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;image&quot;&gt;GoogleUpdate.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;is&quot;&gt;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;is&quot;&gt;C:\Program Files\Windows Defender\MsMpEng.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;is&quot;&gt;C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1907.4-0\MsMpEng.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;is&quot;&gt;C:\Program Files\Microsoft VS Code\Code.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;end with&quot;&gt;onedrivesetup.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;is&quot;&gt;C:\WindowsAzure\Packages\CollectGuestLogs.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;is&quot;&gt;C:\Program Files\Microsoft Monitoring Agent\Agent\HealthService.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;SourceImage condition=&quot;is&quot;&gt;C:\Program Files\Microsoft Monitoring Agent\Agent\MonitoringHost.exe&lt;/SourceImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;is&quot;&gt;C:\Program Files\VMware\VMware Tools\TPAutoConnSvc.exe&lt;/TargetImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;is&quot;&gt;C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe&lt;/TargetImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;is&quot;&gt;C:\Program Files\Microsoft VS Code\Code.exe&lt;/TargetImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;is&quot;&gt;C:\Program Files\Windows Defender\MsMpEng.exe&lt;/TargetImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;is&quot;&gt;c:\Program Files\Microsoft VS Code\resources\app\out\vs\workbench\services\files\node\watcher\win32\CodeHelper.exe&lt;/TargetImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;is&quot;&gt;C:\Program Files\Amazon\Ec2ConfigService\Ec2Config.exe&lt;/TargetImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;is&quot;&gt;C:\Program Files\Microsoft Monitoring Agent\Agent\HealthService.exe&lt;/TargetImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;is&quot;&gt;C:\windows\system32\CompatTelRunner.exe&lt;/TargetImage&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;begin with&quot;&gt;C:\Packages\Plugins\&lt;/TargetImage&gt; &lt;!--Azure ARM Extensions --&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;begin with&quot;&gt;C:\WindowsAzure\&lt;/TargetImage&gt; &lt;!--Azure --&gt;</span><br><span class="line">				&lt;TargetImage condition=&quot;begin with&quot;&gt;C:\Program Files\WindowsApps\&lt;/TargetImage&gt;</span><br><span class="line">			&lt;/ProcessAccess&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 11 == FileCreate. Log everything except --&gt;</span><br><span class="line">			&lt;FileCreate onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Image condition=&quot;image&quot;&gt;SearchIndexer.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;image&quot;&gt;winlogbeat.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Microsoft VS Code\Code.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;onedrivesetup.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;onedrive.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;skypeapp.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\Packages\Plugins\&lt;/Image&gt; &lt;!--Azure ARM Extensions --&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\WindowsAzure\&lt;/Image&gt; &lt;!--Azure --&gt;</span><br><span class="line">				&lt;TargetFilename condition=&quot;begin with&quot;&gt;C:\Windows\System32\winevt\Logs\&lt;/TargetFilename&gt;</span><br><span class="line">			&lt;/FileCreate&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed. Log everything except --&gt;</span><br><span class="line">			&lt;RegistryEvent onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\VMware\VMware Tools\vmtoolsd.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;image&quot;&gt;Sysmon.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;image&quot;&gt;GoogleUpdate.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Windows Defender\NisSrv.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;onedrivesetup.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;onedrive.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;end with&quot;&gt;skypeapp.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Microsoft Monitoring Agent\Agent\HealthService.exe&lt;/Image&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\windows\system32\AUDIODG.EXE&lt;/Image&gt;</span><br><span class="line">				&lt;TargetObject condition=&quot;is&quot;&gt;\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Microsoft Print to PDF\PrinterDriverData&lt;/TargetObject&gt;</span><br><span class="line">				&lt;TargetObject condition=&quot;end with&quot;&gt;LanguageList&lt;/TargetObject&gt;</span><br><span class="line">			&lt;/RegistryEvent&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 15 == FileStream Created. Do not log when a file stream is created neither the hash of the contents of the stream --&gt;</span><br><span class="line">			&lt;FileCreateStreamHash onmatch=&quot;exclude&quot; /&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 17,18 == PipeEvent. Log Named pipe created &amp; Named pipe connected --&gt;</span><br><span class="line">			&lt;PipeEvent onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\Packages\Plugins\&lt;/Image&gt; &lt;!--Azure ARM Extensions --&gt;</span><br><span class="line">				&lt;Image condition=&quot;begin with&quot;&gt;C:\WindowsAzure\&lt;/Image&gt; &lt;!--Azure --&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files\Microsoft Monitoring Agent\Agent\MonitoringHost.exe&lt;/Image&gt;</span><br><span class="line">			&lt;/PipeEvent&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!-- Event ID 19,20,21, == WmiEvent. Log all WmiEventFilter, WmiEventConsumer, WmiEventConsumerToFilter activity--&gt;</span><br><span class="line">			&lt;WmiEvent onmatch=&quot;exclude&quot;/&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">		&lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!--Event ID 22 == DNS Query--&gt;</span><br><span class="line">			&lt;DnsQuery onmatch=&quot;exclude&quot;&gt;</span><br><span class="line">				&lt;Image condition=&quot;is&quot;&gt;C:\Program Files (x86)\nxlog\nxlog.exe&lt;/Image&gt;</span><br><span class="line">			&lt;/DnsQuery&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">        &lt;RuleGroup name=&quot;&quot; groupRelation=&quot;or&quot;&gt;</span><br><span class="line">			&lt;!--Event ID 23 == File Delete--&gt;</span><br><span class="line">			&lt;FileDelete onmatch=&quot;include&quot;&gt;</span><br><span class="line">				&lt;TargetFilename condition=&quot;begin with&quot;&gt;C:\Users\&lt;/TargetFilename&gt;</span><br><span class="line">				&lt;TargetFilename condition=&quot;begin with&quot;&gt;C:\ProgramData\&lt;/TargetFilename&gt;</span><br><span class="line">				&lt;TargetFilename condition=&quot;begin with&quot;&gt;C:\Windows\Temp\&lt;/TargetFilename&gt;</span><br><span class="line">				&lt;TargetFilename condition=&quot;begin with&quot;&gt;C:\Program Files\&lt;/TargetFilename&gt;</span><br><span class="line">            &lt;/FileDelete&gt;</span><br><span class="line">		&lt;/RuleGroup&gt;</span><br><span class="line">  &lt;/EventFiltering&gt;</span><br><span class="line">&lt;/Sysmon&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 查找特定进程的PID</span><br><span class="line">tasklist | findstr &quot;进程名&quot;</span><br><span class="line">Get-Process -Id 进程PID</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h1 id="windows-木马应急响应分析"><a href="#windows-木马应急响应分析" class="headerlink" title="windows 木马应急响应分析"></a>windows 木马应急响应分析</h1><h3 id="netstat-查看法"><a href="#netstat-查看法" class="headerlink" title="netstat 查看法"></a>netstat 查看法</h3><p>执行了一个最简单的反弹shell 木马</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251109133133788.png"
+                      alt="image-20251109133133788"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251109133150367.png"
+                      alt="image-20251109133150367"
+                ></p>
+<p>这是我们查看端口连接情况是能够看到的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251109133518232.png"
+                      alt="image-20251109133518232"
+                ></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano | findstr ESTABLISHED</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="其他策略可以发现一些蛛丝马迹吗"><a href="#其他策略可以发现一些蛛丝马迹吗" class="headerlink" title="其他策略可以发现一些蛛丝马迹吗"></a>其他策略可以发现一些蛛丝马迹吗</h3><p>先查看开启了哪些日志记录功能</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditpol /get /category:*</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251109164612581.png"
+                      alt="image-20251109164612581"
+                ></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">没开启可以设置开启</span><br><span class="line">auditpol /set /subcategory:&quot;筛选平台连接&quot; /success:enable /failure:enable</span><br></pre></td></tr></table></figure></div>
+
+<p>事件ID 5156: Windows筛选平台已允许连接</p>
+<p>事件描述：</p>
+<p>当Windows Filtering Platform (WFP) 允许一个网络连接通过时生成此事件。这包括了所有成功的出站和入站网络连接。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251109165603031.png"
+                      alt="image-20251109165603031"
+                ></p>
+<p>事件ID 5158: Windows筛选平台已允许绑定到本地端口</p>
+<p>事件描述：</p>
+<p>当应用程序被允许绑定到本地端口进行监听时生成此事件。这表示应用程序正在创建网络服务或监听传入连接。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251109165833723.png"
+                      alt="image-20251109165833723"
+                ></p>
+<p>这两个事件日志也是能查看到的</p>
+<p>不过这个日志开启的化会有很多杂包</p>
+<h3 id="查看定时任务"><a href="#查看定时任务" class="headerlink" title="查看定时任务"></a>查看定时任务</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskschd.msc</span><br></pre></td></tr></table></figure></div>
+
+<p>或者</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /query</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="克隆账号的原理"><a href="#克隆账号的原理" class="headerlink" title="克隆账号的原理"></a>克隆账号的原理</h1><p>1.克隆账号的原理<br>在注册表中有两处保存了账号的SID相对标志符，一处是注册表HKEY_LOCAL_MACHINE\SAM\AMDomains\AccountUsers 下的子键名。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251110000737368.png"
+                      alt="image-20251110000737368"
+                ></p>
+<p>另一处是该子键的子项F的值<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251110000819336.png"
+                      alt="image-20251110000819336"
+                ></p>
+<p>但微软犯了个不同步它们的错误，登录时用的是后者，查询时用前者。当用Administrator的F项覆盖其他账号的F项后，就造成了账号是管理员权限，但查询还是原来状态的情况，这就是所谓的克隆账号</p>
+<h1 id="windows停止日志，以及清楚"><a href="#windows停止日志，以及清楚" class="headerlink" title="windows停止日志，以及清楚"></a>windows停止日志，以及清楚</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">使用powershell来找到相关的PID，通过关闭PID来关闭服务</span><br><span class="line">Get-WmiObject -Class win32_service -Filter &quot;name = &#x27;eventlog&#x27;&quot;</span><br><span class="line">再使用taskkill来关闭相关的PID</span><br><span class="line">taskkill /F /PID 1540</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">清除日志</span><br><span class="line">wevtutil cl System</span><br><span class="line">wevtutil cl Application</span><br><span class="line">wevtutil cl Security</span><br><span class="line">wevtutil cl Setup</span><br></pre></td></tr></table></figure></div>
+
+<p>破坏日志</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\MiniNt&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../../images/image-20251111001326065.png"
+                      alt="image-20251111001326065"
+                ></p>
+<h1 id="进程分析"><a href="#进程分析" class="headerlink" title="进程分析"></a>进程分析</h1>
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> windows应急响应</li>
+        <li><strong>Author:</strong> UWI</li>
+        <li><strong>Created at
+                :</strong> 2025-09-20 13:21:33</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-11-11 11:20:10
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://nbwsws.github.io/2025/09/20/应急响应/windows篇/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/windows-linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">#windows-linux应急响应</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/09/25/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E6%B3%B0%E5%B1%B1cms/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">泰山cms代码审计</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/09/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/linux%E7%AF%87/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">linux应急响应</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">windows应急响应</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A5%E5%BF%97"><span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BA%8B%E4%BB%B6ID"><span class="nav-text">1. 事件ID</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8%E6%A0%BC"><span class="nav-text">总结表格</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sysmon"><span class="nav-text">sysmon</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6ID%E4%BB%A5%E5%8F%8A%E5%90%AB%E4%B9%89"><span class="nav-text">事件ID以及含义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-%E6%9C%A8%E9%A9%AC%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%88%86%E6%9E%90"><span class="nav-text">windows 木马应急响应分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#netstat-%E6%9F%A5%E7%9C%8B%E6%B3%95"><span class="nav-text">netstat 查看法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%AD%96%E7%95%A5%E5%8F%AF%E4%BB%A5%E5%8F%91%E7%8E%B0%E4%B8%80%E4%BA%9B%E8%9B%9B%E4%B8%9D%E9%A9%AC%E8%BF%B9%E5%90%97"><span class="nav-text">其他策略可以发现一些蛛丝马迹吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-text">查看定时任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E8%B4%A6%E5%8F%B7%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-text">克隆账号的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows%E5%81%9C%E6%AD%A2%E6%97%A5%E5%BF%97%EF%BC%8C%E4%BB%A5%E5%8F%8A%E6%B8%85%E6%A5%9A"><span class="nav-text">windows停止日志，以及清楚</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%86%E6%9E%90"><span class="nav-text">进程分析</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">UWI</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        33 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
