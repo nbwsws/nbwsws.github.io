@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://nbwsws.github.io/2025/08/27/渗透测试/ad域/"/>
+    <link rel="canonical" href="https://nbwsws.github.io/2025/09/16/渗透测试/ad域/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -134,13 +134,13 @@
         <meta name="description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AD域攻防(暂未写完)">
-<meta property="og:url" content="https://nbwsws.github.io/2025/08/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/ad%E5%9F%9F/index.html">
+<meta property="og:url" content="https://nbwsws.github.io/2025/09/16/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/ad%E5%9F%9F/index.html">
 <meta property="og:site_name" content="uwi~blog">
 <meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-08-27T07:21:58.637Z">
-<meta property="article:modified_time" content="2025-08-28T07:11:18.311Z">
+<meta property="article:published_time" content="2025-09-16T00:48:01.965Z">
+<meta property="article:modified_time" content="2025-09-19T15:12:48.645Z">
 <meta property="article:author" content="uwi">
 <meta property="article:tag" content="渗透测试">
 <meta name="twitter:card" content="summary">
@@ -322,7 +322,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -359,22 +359,22 @@
 				<div class="author flex items-center">
 					<span class="name text-default-text-color text-lg font-semibold">UWI</span>
 					
-					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
 					
 				</div>
 				<div class="meta-info">
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-08-27 15:21:58</span>
-        <span class="mobile">2025-08-27 15:21:58</span>
+        <span class="desktop">2025-09-16 08:48:01</span>
+        <span class="mobile">2025-09-16 08:48:01</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-28 15:11:18</span>
-            <span class="mobile">2025-08-28 15:11:18</span>
+            <span class="desktop">2025-09-19 23:12:48</span>
+            <span class="mobile">2025-09-19 23:12:48</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -428,11 +428,64 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>拿到oscp+之后感觉自己的的域渗透能力还是有所不足，有些地方还是有点一知半解 所以专门写个文章系统性地学习一下ad域</p>
-<h2 id="ou"><a href="#ou" class="headerlink" title="ou"></a>ou</h2><p>ou可以链接gpo  同时ou也可以用来委派管理控制</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-ADGroup</span><br></pre></td></tr></table></figure></div>
-
-
+			<h1 id="域认证总体流程"><a href="#域认证总体流程" class="headerlink" title="域认证总体流程"></a>域认证总体流程</h1><p>gpt生成的我觉得概括的很好</p>
+<h2 id="参与角色"><a href="#参与角色" class="headerlink" title="参与角色"></a>参与角色</h2><ol>
+<li><strong>Client（客户端）</strong>：用户的计算机。</li>
+<li><strong>KDC（Key Distribution Center）</strong>：密钥分发中心，相当于“认证大管家”，由两个服务组成：<ul>
+<li><strong>AS（Authentication Service）认证服务</strong></li>
+<li><strong>TGS（Ticket Granting Service）票据授予服务</strong></li>
+</ul>
+</li>
+<li><strong>Service Server（目标服务服务器）</strong>：用户最终想访问的服务，比如文件共享、SQL Server、Web服务等。</li>
+</ol>
+<hr>
+<h2 id="🔑-Kerberos-三大票据"><a href="#🔑-Kerberos-三大票据" class="headerlink" title="🔑 Kerberos 三大票据"></a>🔑 Kerberos 三大票据</h2><ol>
+<li><strong>TGT (Ticket Granting Ticket)</strong> ——“通行证”，拿它去找 KDC 换服务票据。</li>
+<li><strong>ST (Service Ticket)</strong> ——“服务票”，凭它去访问具体服务。</li>
+<li><strong>Session Key</strong> ——客户端与服务通信时的对称密钥。</li>
+</ol>
+<hr>
+<h2 id="📜-认证流程（分-3-大阶段）"><a href="#📜-认证流程（分-3-大阶段）" class="headerlink" title="📜 认证流程（分 3 大阶段）"></a>📜 认证流程（分 3 大阶段）</h2><h3 id="①-AS-认证（拿-TGT）"><a href="#①-AS-认证（拿-TGT）" class="headerlink" title="① AS 认证（拿 TGT）"></a><strong>① AS 认证（拿 TGT）</strong></h3><ul>
+<li><strong>Step 1.</strong> 用户在客户端输入用户名+密码。</li>
+<li><strong>Step 2.</strong> 客户端根据密码计算出一个 <strong>NTLM Hash（或 Kerberos key）</strong>，用来加密通信。</li>
+<li><strong>Step 3.</strong> 客户端向 <strong>AS</strong> 发送请求（包含用户名）。</li>
+<li><strong>Step 4.</strong> AS 验证用户名是否存在：<ul>
+<li>如果用户开启了 <strong>pre-auth</strong>，AS 会要求客户端先用密钥加密一个时间戳发来，确认用户确实知道密码。</li>
+</ul>
+</li>
+<li><strong>Step 5.</strong> 验证通过后，AS 返回：<ul>
+<li><strong>TGT</strong>（用 KDC 的密钥加密，客户端不能直接读，但可以转交）</li>
+<li><strong>Session Key（Client-KDC 会话密钥）</strong>（用用户的密钥加密，客户端能解密）</li>
+</ul>
+</li>
+</ul>
+<p> 此时客户端已经拿到 <strong>TGT</strong>，相当于有了“通行证”。</p>
+<hr>
+<h3 id="②-TGS-认证（拿-ST）"><a href="#②-TGS-认证（拿-ST）" class="headerlink" title="② TGS 认证（拿 ST）"></a><strong>② TGS 认证（拿 ST）</strong></h3><ul>
+<li><strong>Step 6.</strong> 客户端想访问某个服务（比如 CIFS 文件共享），它把 <strong>TGT + 服务名</strong> 发给 <strong>TGS</strong>。</li>
+<li><strong>Step 7.</strong> TGS 验证 TGT 是否有效。</li>
+<li><strong>Step 8.</strong> 如果有效，TGS 返回：<ul>
+<li><strong>ST（Service Ticket）</strong>：用服务的密钥加密，客户端不能读，但能交给目标服务。</li>
+<li><strong>Session Key（Client-Server 会话密钥）</strong></li>
+</ul>
+</li>
+</ul>
+<p> 此时客户端已经拿到了访问目标服务的“门票” —— ST。</p>
+<hr>
+<h3 id="③-服务访问（使用-ST）"><a href="#③-服务访问（使用-ST）" class="headerlink" title="③ 服务访问（使用 ST）"></a><strong>③ 服务访问（使用 ST）</strong></h3><ul>
+<li><strong>Step 9.</strong> 客户端将 <strong>ST + Authenticator（时间戳 + Session Key 加密）</strong> 发给目标服务。</li>
+<li><strong>Step 10.</strong> 目标服务用自己的密钥解密 <strong>ST</strong>，得到 <strong>Session Key</strong>。</li>
+<li><strong>Step 11.</strong> 服务用 Session Key 解密 <strong>Authenticator</strong>，确认客户端身份。</li>
+<li><strong>Step 12.</strong> （可选）服务也返回一个带时间戳的消息，证明自己是真实的。</li>
+</ul>
+<p>至此，客户端与服务之间建立安全通信，完成认证。</p>
+<hr>
+<h2 id="总结一句话"><a href="#总结一句话" class="headerlink" title="总结一句话"></a>总结一句话</h2><ul>
+<li><strong>AS 阶段</strong>：确认你是谁，发 TGT。</li>
+<li><strong>TGS 阶段</strong>：确认你想访问什么，发 ST。</li>
+<li><strong>服务阶段</strong>：确认你能不能用 ST，建立通信。</li>
+</ul>
+<h1 id="银票"><a href="#银票" class="headerlink" title="银票"></a>银票</h1>
 		</div>
 
 		
@@ -442,15 +495,15 @@
         <li><strong>Title:</strong> AD域攻防(暂未写完)</li>
         <li><strong>Author:</strong> UWI</li>
         <li><strong>Created at
-                :</strong> 2025-08-27 15:21:58</li>
+                :</strong> 2025-09-16 08:48:01</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-28 15:11:18
+                    :</strong> 2025-09-19 23:12:48
             </li>
         
         <li>
-            <strong>Link:</strong> https://nbwsws.github.io/2025/08/27/渗透测试/ad域/
+            <strong>Link:</strong> https://nbwsws.github.io/2025/09/16/渗透测试/ad域/
         </li>
         <li>
             <strong>
@@ -484,12 +537,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/08/28/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/studentmanager%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+				<a class="prev" rel="prev" href="/2025/09/20/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/linux%E7%AF%87/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">studentmanager代码审计</span>
+						<span class="post-nav-title-item truncate max-w-48">linux应急响应</span>
 						<span class="post-nav-item">Prev posts</span>
 					</span>
 				</a>
@@ -497,9 +550,9 @@
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2025/08/27/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/warehouse%E5%AE%A1%E8%AE%A1/">
+				<a class="next" rel="next" href="/2025/09/16/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/windows-linux/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">warehouse代码审计+公网实战</span>
+						<span class="post-nav-title-item truncate max-w-48">windows-linux应急响应</span>
 						<span class="post-nav-item">Next posts</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -562,7 +615,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">AD域攻防(暂未写完)</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ou"><span class="nav-text">ou</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="nav-text">域认证总体流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%A7%92%E8%89%B2"><span class="nav-text">参与角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%91-Kerberos-%E4%B8%89%E5%A4%A7%E7%A5%A8%E6%8D%AE"><span class="nav-text">🔑 Kerberos 三大票据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9C-%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B%EF%BC%88%E5%88%86-3-%E5%A4%A7%E9%98%B6%E6%AE%B5%EF%BC%89"><span class="nav-text">📜 认证流程（分 3 大阶段）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A0-AS-%E8%AE%A4%E8%AF%81%EF%BC%88%E6%8B%BF-TGT%EF%BC%89"><span class="nav-text">① AS 认证（拿 TGT）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A1-TGS-%E8%AE%A4%E8%AF%81%EF%BC%88%E6%8B%BF-ST%EF%BC%89"><span class="nav-text">② TGS 认证（拿 ST）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A2-%E6%9C%8D%E5%8A%A1%E8%AE%BF%E9%97%AE%EF%BC%88%E4%BD%BF%E7%94%A8-ST%EF%BC%89"><span class="nav-text">③ 服务访问（使用 ST）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="nav-text">总结一句话</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%B6%E7%A5%A8"><span class="nav-text">银票</span></a></li></ol>
 
 	</div>
 </div>
@@ -589,7 +642,7 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        29 posts in total
+                        33 posts in total
                     </span>
                     
                 </p>
