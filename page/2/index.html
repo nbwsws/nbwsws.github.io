@@ -355,7 +355,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -395,7 +395,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -410,6 +410,95 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/09/01/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/production_ssm%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+                            production_ssm代码审计
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言：在github上看到有1.1k的star 所以就审审看看 一审发现全是洞
+任意文件读取看到文件下载的功能 
+他会自动截取最后一个&#x2F;后面的所有字符拼接到路径上。
+可以用\进行绕过
+
+1file/download?fileName=/file/..\..\..\..\..\..\..\..\..\..\..\test.txt
+
+
+任意文件删除与任意文件读取一样的道理
+
+删除成功
+...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Sep 01 2025 00:19:13 GMT+0800">
+                
+                    2025-09-01
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/java/">java</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/09/01/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/production_ssm%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Read more<span class="seo-reader-text">production_ssm代码审计</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1156,78 +1245,6 @@ getOption在&#x2F;option&#x2F;{tableName}&#x2F;{columnName} 这个接口中被�
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/08/15/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/cc2/">
-                            cc2链调用
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            需要引入12345&lt;dependency&gt;   &lt;groupId&gt;org.javassist&lt;/groupId&gt;   &lt;artifactId&gt;javassist&lt;/artifactId&gt;   &lt;version&gt;3.28.0-GA&lt;/version&gt; &lt;/dependency&gt;
-
-
-
-动态创建类这是...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Aug 15 2025 08:49:48 GMT+0800">
-                
-                    2025-08-15
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/java/">java</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/08/15/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/cc2/">Read more<span class="seo-reader-text">cc2链调用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1258,7 +1275,7 @@ getOption在&#x2F;option&#x2F;{tableName}&#x2F;{columnName} 这个接口中被�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        34 posts in total
+                        35 posts in total
                     </span>
                     
                 </p>
