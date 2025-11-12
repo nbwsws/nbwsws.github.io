@@ -355,7 +355,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">36</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -395,7 +395,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">36</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -410,6 +410,92 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/23/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/bbs-5.3%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+                            bbs-5.3代码审计
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            文件上传漏洞所有的文件上传接口都存在文件上传绕过漏洞
+漏洞成因
+如果文件的Content-Type 为application&#x2F;octet-stream 的话 就会进入getType方法
+
+这个方法是去文件的前几个字节然后转化成16进制与他的type数组里的16进制白名单进行对比
+这是他的16进制白名单
+
+那么我们要想上传webshell 就需要达成两个条件
+121. Content...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Aug 23 2025 17:06:03 GMT+0800">
+                
+                    2025-08-23
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/java/">java</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/23/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/bbs-5.3%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Read more<span class="seo-reader-text">bbs-5.3代码审计</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1097,74 +1183,6 @@ sql注入
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/08/05/honeypot/web%E8%9C%9C%E7%BD%90/">
-                            web蜜罐
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <p>Here’s something encrypted, password is required to continue reading.</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Aug 05 2025 13:42:46 GMT+0800">
-                
-                    2025-08-05
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/honeypot/">honeypot</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/web%E8%9C%9C%E7%BD%90/">web蜜罐</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/08/05/honeypot/web%E8%9C%9C%E7%BD%90/">Read more<span class="seo-reader-text">web蜜罐</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1195,7 +1213,7 @@ sql注入
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        36 posts in total
+                        37 posts in total
                     </span>
                     
                 </p>
