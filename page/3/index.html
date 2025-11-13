@@ -355,7 +355,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -395,7 +395,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -410,6 +410,88 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/27/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/warehouse%E5%AE%A1%E8%AE%A1/">
+                            warehouse代码审计+公网实战
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言warehouse 这代码比较sb 说开源项目 实际上开了半源 一堆函数的的核心代码都被删了 不知道闹哪样
+于是我硬着头皮看半源代码连蒙带猜的生出来几个洞
+首先上github把项目下载下来yeqifu&#x2F;warehouse: 仓库管理系统
+根据源码的关键信息 我提取指纹搜索到了许多该项目部署在公网的系统
+默认弱口令首先看sql文件 发现有用户名 但是密码是md5加盐加密的 没解出...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Aug 27 2025 12:58:23 GMT+0800">
+                
+                    2025-08-27
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/java/">java</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/27/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/warehouse%E5%AE%A1%E8%AE%A1/">Read more<span class="seo-reader-text">warehouse代码审计+公网实战</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1105,85 +1187,6 @@ JNDI 基本功能：JNDI 是 Java 提供的统一接口，用于访问各种命�
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/08/08/js%E9%80%86%E5%90%91/%E6%89%A3%E6%89%A3%E9%9F%B3%E4%B9%90%E5%8A%A0%E5%AF%86%E9%80%86%E5%90%91/">
-                            qq音乐jsvmp加密逆向
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            结论:遇到jsvmp的时候不要硬扣，找到自执行函数和调用接口，然后补环境
-发现加密参数
-
-发现加密函数
-
-由于这个L是个promise函数所以直接鼠标悬浮是看不到返回结果的
-1L(r.data).then(data=&gt;console.log(data))
-
-
-我们追到L函数的位置 是s函数
-
-可以看到这个函数是i函数return返回的 说明L变量是在前面调用被赋值的所以我们需要回到刚刚...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Aug 08 2025 10:43:40 GMT+0800">
-                
-                    2025-08-08
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/js%E9%80%86%E5%90%91/">js逆向</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/qq%E9%9F%B3%E4%B9%90%E5%8A%A0%E5%AF%86js%E9%80%86%E5%90%91/">qq音乐加密js逆向</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/08/08/js%E9%80%86%E5%90%91/%E6%89%A3%E6%89%A3%E9%9F%B3%E4%B9%90%E5%8A%A0%E5%AF%86%E9%80%86%E5%90%91/">Read more<span class="seo-reader-text">qq音乐jsvmp加密逆向</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1214,7 +1217,7 @@ JNDI 基本功能：JNDI 是 Java 提供的统一接口，用于访问各种命�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        39 posts in total
+                        40 posts in total
                     </span>
                     
                 </p>
