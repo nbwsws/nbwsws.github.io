@@ -133,16 +133,16 @@
         
         <meta name="description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="uwi~blog">
+<meta property="og:title" content="invoicing盲审">
 <meta property="og:url" content="https://nbwsws.github.io/2025/11/14/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/invoicing%E7%9B%B2%E5%AE%A1/index.html">
 <meta property="og:site_name" content="uwi~blog">
 <meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-11-14T03:36:14.006Z">
-<meta property="article:modified_time" content="2025-11-14T04:56:46.102Z">
+<meta property="article:modified_time" content="2025-11-15T10:06:04.893Z">
 <meta property="article:author" content="uwi">
-<meta property="article:tag" content="Cyber Security">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://nbwsws.github.io/images/redefine-og.webp">
     
@@ -156,7 +156,7 @@
     
     <title>
         
-            UWI&#39;s Blog - Cyber Security
+            invoicing盲审 | UWI&#39;s Blog
         
     </title>
 
@@ -345,7 +345,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3"></h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">invoicing盲审</h1>
 			</div>
 			
 		</div>
@@ -373,13 +373,50 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-11-14 12:56:46</span>
-            <span class="mobile">2025-11-14 12:56:46</span>
+            <span class="desktop">2025-11-15 18:06:04</span>
+            <span class="mobile">2025-11-15 18:06:04</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/java/">java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -401,21 +438,24 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/GlacierSoft/invoicing" >GlacierSoft&#x2F;invoicing: 进销存管理系统<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p>配置部署老报错 直接无调试盲审</p>
-<h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><p>首先这个代码是允许解析jsp的那我们必然先看看文件上传能否getshell</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\89135\Desktop\security_notebook\blog\myblog\source\images\image-20251114113737410.png"
-                      alt="image-20251114113737410"
-                ></p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/uploadFile&quot;,method=RequestMethod.POST)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public Object uploadFile(HttpServletResponse response,HttpServletRequest request) throws IOException&#123; </span><br><span class="line">       MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;</span><br><span class="line">       /**构建返回结果集**/</span><br><span class="line">       Map&lt;String,Object&gt; map=new HashMap&lt;String,Object&gt;();</span><br><span class="line">       /**页面控件的文件流**/      </span><br><span class="line">       MultipartFile multipartFile = multipartRequest.getFile(&quot;fileToUpload&quot;);   </span><br><span class="line">       //文件保存路径</span><br><span class="line">       String extendPath=request.getSession().getServletContext().getRealPath(&quot;/&quot;)+File.separator+&quot;uploadFiles&quot;;</span><br><span class="line">       //文件命名</span><br><span class="line">       SimpleDateFormat sf=new SimpleDateFormat(&quot;yyyyMM&quot;);</span><br><span class="line">       String real_date=sf.format(new Date());</span><br><span class="line">       extendPath+=File.separator+real_date+File.separator;</span><br><span class="line">       //创建文件夹</span><br><span class="line">       File file=new File(extendPath);</span><br><span class="line">       if(!file.exists())&#123;</span><br><span class="line">    	   file.mkdirs();</span><br><span class="line">       &#125;</span><br><span class="line">       //文件存储</span><br><span class="line">       String fileName=null;</span><br><span class="line">       //文件上传</span><br><span class="line">	   fileName=multipartFile.getOriginalFilename();</span><br><span class="line">	   //文件名输出</span><br><span class="line">	   File uploadFile=new File(extendPath+fileName);</span><br><span class="line">	   try&#123;</span><br><span class="line">		   FileCopyUtils.copy(multipartFile.getBytes(),uploadFile ); </span><br><span class="line">		&#125;catch(IOException e)&#123;</span><br><span class="line">		   e.printStackTrace();</span><br><span class="line">	   &#125;</span><br><span class="line">	   //数据存储</span><br><span class="line">	   map.put(&quot;name&quot;, fileName);</span><br><span class="line">	   map.put(&quot;path&quot;, &quot;uploadFiles/&quot;+real_date+&quot;/&quot;+fileName);</span><br><span class="line">       return JackJson.fromObjectToJson(map);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>直接找到文件上传的位置 很明显可疑看到这里并没有做任何过滤 直接把文件上传到了extendPath+fileName</p>
-<p>这个文件里</p>
-<p>也就是说我们的任意文件上传getshell的目的应该是可以达成的</p>
-<p>不仅仅如此 我们只要上传..&#x2F;..&#x2F;..&#x2F;..&#x2F;1.jsp 还能够达到目录穿越的目的也就是说可疑上传到任意位置</p>
+			
+<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="ed1cfc8ba516e8685115f4128edfd7fabba84ea631276eda1a9120b1853cdab3">bad03ac5869108764396500662598060763cd9bedd37604cba8d573759939a9ac86f9c4f6f921faa02d0afc52c04bc41000ac201a4d35ad44de5dea4a1188f99b041b317c6ed36989501543a28e4aee8473ce5de41280db7499c0f8f32f0f7c5fea4461f436cc6eba3f1bb64fe45ab1f7835a5227ce198e2ae8ee085424ef3c6bd572f13deb188bafa86f9493bf3cbadfae859f43e72b30613c2c5c0701ff5d8f6a6bf92ed72e2b88cff88ef68c887edc56c5b5f5e94e129c574ce24ff4f12383250cbd9ca428c61c2c4a2aa17ebeb618fae6bcfa64033d4bd708ba7f10ec1708beba642bbdba362267e1786c943a4da9af2aa07873ebe3ede79e302d872113899b7202da892f2e15bc7c223e930f327a4c4d5de9f96f93c6f665ccfe3527e556e1ced3465f1c97c2e21e4d4fccdfb00c7806f32a5b056b4711189f515bee63deb9c531dfd5a5f7fc22c5f1cc97323aeb2c8a543b0111d813539478e20c82148f3a165d69f26bcc260df529fbc0d7d473b6e1ca27fc31cbfd1ddf7cac0545560fbd91d2cc188e29f478dc4c62538bb7becb52d0b81a4379cd6a798c1e382822cf1887a642cef5d622d307f6f4ab573ddd385c4bc5684fe0574178f70fc48a6b5c28d88cd65ea3606e7487a3c1d7e4480bb3b640e633acce3c3aaab22ee1245f6c2b51ea1b3b1aee9127a2357d4870f8de5d44e3d492a961385659e27c1a6c486b78709ee9feee333871636c6993ef877a031a3f1eb1cfc47e18d97fd5c009be482c77c77e30e6dc83c738a17a1a3609a206812782f6e46c00d262556ca826ed5163e2806f30244fc7fd46eb5ae81ea4e35040851456c2d4aa935d4ad38739b4458d95d9a72d2af9f66c58bdf896b0f2a5266a4bf691c05489ae39da94e185d4fd4c029a8854f0f556e41fe88dc8b0e8f6b72f267e868220e58abef6aa9c225df0e9765c59edc90ca7400cf776a79688fb29d2df888af5c8b15d919138fe0ffd4aa2c7f3a81f495ebddf5aadb1646deacf79a879a082b171935e27d88a22cce2bd8d04af7a83add4f2c603d0b2feb9a673f501f5ad8f806d59af2f0f6c11efa4a8e8c5f93c45bfa13e619232a785f0c90f21cce5cfd2a98962c97489e803ea96e7516ccbc7c43945fec7a2ef8f9d2c6077ba61cd2ce9c1f61e48e80afdc5337ad638c1295401ccfee29a18903b65a6b2fd738cad94486af69300d82438462b5782e5327f71b6582b0e0c50ffdf5315e0f61a9b4ac5e4388d5b16c61d1f95ac10db26cff6be5037f2d3b73af35c4ecaf1d09ddc0b98836c64f12662a569b41717d0e3974c41cdeab99d67c1465585404c36fdb3cec128dbda31c865e5fb9ecea15c3b8f5f7a310c283cf282968b94e2a87fafadf9591b312aab40d3df07a91c591e0a3ab1313c63c745798e751ab5b06afbf5edfafd4acbec3f98b2d4d42accf7b30deca5494018eee9aed9484d9f32c0f996b7030f68eb3de7dda97f068dd82311fd5ea49ffbd719a5ce072231bbd78c52925f52e0492c3f611028170a7a527bcd380483afc7bde3f41efef560a5f9fc036df2f5bbfc09c78819a6c2382bc632e2194c733175d56c28b0bb55a0efa695b05d4fa53cd4658a0d0dae5a0513eed6d86a4153ef71ae287ac287c10f7c17f3a59ba17eace8e3c8002815f8c338e53eda5bcd4dd0dc25eef3aea1e4231754cd395654d31a43b9030e590958743c0056d3a3be8c47248bd145a2e28fbe81df746eb15d116e4154772871314630197c353fda87d5cc7fba2d70acb6b2d537b0394ccdce742cd809ba96d46e3e1cdd5d1504cce0ab7c36f454261830556697671e5cbe6b54905572ec8e6df288ef9ba3cd5d26304815b694c4d62da4660d6a240eb79e625c6450dc6e30a7f98b102caf28d87bc4d701e4f1284372f617cbef829624ef61c54d68b657920ff9689955ba0e57eb41729c6362f4f082fcee65d9accd4f0d87ce8e688d81b0c5eaa56c341ca7e320ed82166e87dd833d34d6aedfe65af552b59cded0ec0429c8e0cfdd566a9279de5a7809fbed619be19962f466b9b3ac00b104e20ab0925b2af924b8bc8018de14be4a036c11e6d643766bdb632b813c64e9a75b9818c58a632c6432bb57a75be6faeba3c3241f7233493b879c5b3887664c608964877867bf3e4b9f7b8064602a573ccdff673dd2013bf7eaa78cfd0975ff0486485e46a0cb26eef7ae3d14a9711aa98bf04ec41c6a6c0384a72379f137e76cf51ae648d5f85b2b61afecbef17e1c591762560b9521c92b6704359cc1e0b1d13cee5e20acff4cbf09f74cbe70f93a930373578693b4f165538fb9b72a09d3f7425b98b0c318e9d47090d5f5633670086c8363732d5e488e3d9de1a21247227b65637abcf6745e099bcabd71b422c486835603ea77a7ea73883ffb37cca9a824f6b5f44e286cd5d877d6672ce9148c4676dd19a74b6ca621fbbd6ed5c134c38f95198d67d5566e9db7d9a13e8380ed923393ce28fb936d411d6a4b89f8c1fd663eedc4730eef09eabb9c03147a6677a21d101e3adb1bfbbc225a79efb5d2e5bc115082388d7f44de43c483ed5a310eb73c2cbf926ada78e23c044be514e2a4f254eafa29fbd3ce99684a39dbe7ffff215081fb19ca1d162f50d6e7e549160e195a8f1f34749ea33a5e6584620e62d13720a167e22a6a4438798bdb0238ec4eaf92cba0fea16956a6767b997565fff155166f4574a5ae63e6f8e256f318409ec7c90f4ab8fc0d2439c8430aa34126f5ed2c37cda2ebdc022d7d1b9cc78285d2d313c732d23a201d844ba49b6e104026adcb5048dc4c9875b84c8452e12b6a0bd61f65121796a01aa53a2eef34d4d68d1fea2185d7fba2bf1505d95c71c45267cf59590befdc0f3ae2c063ffda2580a398024b77b7d753ab03c035d9097878cf36e423a0c0b4a2c3d5232a407e82482085518d2b7ce95db708255e6ec125ef129adc2831cdffe18da446d0274b3978516a67705bb5a3e8474ee11d33d9ee0b2c3268068e5cb9b32816edb82666864483e861bf1e5aaaf78b546b4950a0571acd1635c61909374eaf572efba905513717d9c047cbddfc0d6390ad104943fe3cdc6a4e80b88bd5a77e95328386c6899150fd8ce33ba5f7b5a5efd444b833879c9fa23ad6d2897dc7d2bc35195119d7e69bc298b139da7898b65e7d8deab1e6ef22ec162443d124e38ecf4f657b7661c44bfd9e8173250a1c8beae3b3375597653cd3dbd3b172765c5b49a2df429444d3f0de01caeb01bf6a05283785fdc070517d140855407d2b75c3e41189089c7be42d886ba6df1547baf987c1d334e311e6d2a37248da9b30016d48b09a43777253d8d26dc64d30bd82028dfe95f44cfa1fb7b92695444383f6cb464893e1df5ad04ea62b0628740c444d1b7187349992b47ddc221e41b03151bd66f182e9f4864317fdc5f4b164d2be0308333b308d5781b1d21172f30202f7b1b73651feebe8a820016c608413fc87d8a2712a759bd8979a409345a28292167e801487578ef857d9423c6fc518a9a020605afbf58dd5e81cb8611fec1ad4369b84e2af25672517fdcbcd709e07f23c0cec670af1fe0daa00cdacf74b1497f12ebb42faa0e146111b44bb7138189a09df953bcc77a2597c9c0fde6ad5b21d735058c433420754f579659b4388479aa0bf5559205ccbe937bfe92d0a531d8abe0b10b3b0203e077306fd4bad3212f2f337f31fda94aa2fdddbc0119904defdfec9b64b5ff6dd422e0292bb24a2f7a5feb37c4c6904b722b14f5d907314730e73b38050e357584834c18d300e787ec471f9f7ac505553a1e95ded6fec8716f86e8526d1d0e2eef7a25427322a37949b08c96b0ec8625af951e3a7db5bcaaa90abdeaf42f0e1f2a27daa35e02804d666cf29a2a1a7561d9b3b7ea290d0c18a80d6e45697051dc2eed5c235d685b0495839f3a205bff4d87fcd34764f2cf3be0712512f29701612d258eb2aeca6684ef09d142fb8b4aa95938dc3167b1e49cbb968faf8091867f9777f9effb3767f6c2c17105f73aeae7be54cf160a356c1206021edeaa34f86508fd19b51ab196a4052b613e14fdd4b35417ce9b75b7e72dcfe5c21913296543d6b35b7f50f9c74f520df5d714a129811815286031de455101ae11d3fff5854dac069bb8f1ae4f053aedb7cc4b00bc09c4d3be886e835c73da5eaf984f720f2dbe42d9f84ca03fadee9b591f1bb18951f9e76ae7f2e05a645db7a43a0f58797a5f975a3f15e580530eecaeb1399d380311ba4a1cf1c62faa83bd6ca91145d745c53ceb500c64dac06f51510832ba06ba385b3d5f1c3fa91cdab1be12211a1d0637d6cf354ab4c7606bc34e42c9a0d6533c7844c62425646254f03552c14a9c1f85b09808e5b2c2e8d535276706ca7059b8215d80a75f19d7dd818e3cd37a9c84cb7536ba7887f43eea0b269d9e28124d662f5d38c7a4d1fbc782e5c0c0d0fa9de9fccdd936f31caae9a23e26701c79ff8f5e636ca288ad89e009f770b3da00635a73113fb68e65a9c1e010e1281721d62852eecd7a5332d2aafa00d59276496d75644b1fff051c918a8ceb69fe12dbbf17fcee5887c4ab51564806e4a8673a91ac2d89dff3bdd0f750ecc0a71a7b5ee0ec0b54e7a5ab0048290d14253bfc7e14763e806734e23d66cc656bdac41b0962c8619a41e6d05d79a01a15c37221e40fc41a5af34250f83739e747d1be647de358e53affa1fb140f47407c654481e4ff2006cab72a95ef1af861fbce7658d1816715062ad9ba429912363ea9bae55876c87e4501f200304d61c6e671491ae22849fd000a7d143db3f7f708f1a0d51990f7870a43e41871e94588d7a5936da364923fd496d3e2f25579e1b7172bda7fbdfb674623fdcc63a791dd5c41baf2fd7fac73636c31c072ba3d6c915e5eee14a038ab4e8553a5a07215b7d3cdb23cc9a6db33ef55aa4fbc13572ef1343c3361910c62eb56290bc0c2154d444d535c1136f128af3d423befd7186beef1b39e6f15bf70c1ee597b4aa760f8c85e70cf402f08e01d467cc6d038a6bd029d36b29fcbff287e908dbe7583ab116cdbd1343bdadf265c35f5361dec3a2adfd4f2f0f66b9634a8e10b5842b69d32687185e65d6099809fbc9b5aea7463385a9a7be4981164cfa08d2fc206d892eccf82fed3bbba4aa4890e0573419fcd4d33c860e1b2ccf5d1bfc65581bcd4664df3ee0e1c940b9f593b9fa1abe13a200d37e807964a0267ba6ffd5bf7ef783b784ac6956b190a1e538569d8a3e3f265d5bf67338907137769c7be419fbb264b360470f1a3f493fb21a5796c6a9c06b3d3a4e93c8bd0ea080acd8ee76bb18382362ab67fea3f0839f607c14e54b29d1e9b67fede5a1d395b26f3511d032bb677742cbd03d4438b5deebb722ca88c785e1ffd0ba944a2ba0494b027eb577fee5e6c51a3dbb738cfa4b0e5c98261839edf45f35fa5c3dee40bf3a70052df562d06198cf13fd3542575a97a4e1ec58bd0ea33b680733f4e6596f5ab7c904138a3e62cbcbf9094f9110ad9f5d217b922ec6f7d4f215cd84b08757ad0ca9a383f8bb2a518c95d028e8df47e1a9aac7dbee331faf638e60ed7232d734d9cc999a7ac4c4701be5654ed9f4a3e592d4f0685acb58357f099d37b9097c32a2348c35d9a5854fdc54842a63e57cbcac34b40b972c00eaa5e1fb822473abe7d575c58b4e725c4f68b76cba457a44bf256bbcc95b0137d116d83608cd54582b7bfa519eb8d1065b4b50098ee6b8d421ca4487f4795cd444f5465855c9e1ccf90b31fce6abe58ea57fb1d8478845295d1dedd69620e24cac1b10e87a75f4d1096acb1105c09f3d8a15e8dd7415c4b8d838f3ffe42f0632b8cf6ffaae32204cb25e1d74ec5c499f3b75434229e753f38549fe248dba4a1007e08cab55634d9c5a9acf1b0f5d8867d30c1c73e1759f2f701128d7a76ea1574c7f00b445f310d8fdbd6c797947126b3c710004cf95262de01da9941986311d57fa695ab61cfb1926cf0391941755599042d93ef668b397ad9e020992760d76c59731541ada1ffdbd69aca41f344bcfe20a3df3c31c8ca7b2fc9408d6706535430ee301b2692d4218d142114a954eff223dfac244915bfd279b51ffe822ef19f9d51cd8240f65d457c79a691e8c9cdc60f8c575cae7845c0bef566e65b2fddd2a5692b29d5b5d87bd9b25a155ad226fd2723630c5192279aefb707e809a8365e730190b8e499efedc5b47bd525caf92d37fd3d7ff50adcbc385b47aeacfe303d7058638a5e9c4ea10eaeed3f46bc31e81fbd477852e0aae48386216139f8637abcb7e885f155d0a5e5d018aec07e748e0129a85b5469bb014729c4526d1f3824d5167445b3f84a945838d127686c6f682eb2e3f338758b72486861eea47b05dcb50ee3e56d41ed4f2dc8b95bc28f192bb32f47ad76e2dd5cbbfe4da3990afafd719e4263fda640b42e9c2e99735cc4e25f8b0a0d94d5cfab3216f4d82e3f7bd6927553c65939b98af7c3cf8e6d8e285f1a401b526fb19b6d208f41838002ce34be24bffe5605b8ccb5fe2d3286633c096bcfa46046697a1279c5aada8104a63106d2a03190d9155afe8e8027e9b8ccd39af0f02c6902d654a2d2374fc4f2c3d251cd133a1dbe422759af12863657d2938bc86bd18944993352fe23f1f5439970aa4512f688ac468d2dae3237b65810163f3036e99e1aaf64d1a92a8ecdf98f4bd35fb78429e425018b1f4e1d895298c239b98738b0957f53bbe7b3252329b54e6fde7a67b4c2189e36636cdc6d81c92036b5a0772d25565360fc602aca4b72c3089450b6b0a30d0557777bc05f0492580f7844f1a643c324c311658df68212aac1e191d4d094087845195e60942c73e8c6b32fb4e9c0ef84eb081e67862861905901d8cdfe09c1463df41170762f548052d099618dfc38a6e15418a3a3fd3c824e0418a6b8fdd0796c8e41f8c7d259f8a162ed23bd9beec94520f41dd2b33540086b9d394f7b717298baa56c3f083a928380696e48b17f766b19dc69224b709e057b635dd34c4d3840ee9133b627384060387c6f9df251758f5dec2ce592175b4749eca48aa1746f5c632ca98c5705ba9c5abeea2abfebc5bdeaebaf528bc37855cc6ff6632ae360db0d1a6322c7e1a0155987b009778682c1721274715394dd47f24d0c2f025e983eda8ebf05853111edd0071aedf1317bf92fa70d0fdfa3f620413523dcebadef2e380b8bd0d22006b1a83f783f6f84ef8b49cade6a0f30126d28aed7e1cf2ede408729ead72be029115cdd0c81216e1ccba85dcce57aca32857b24deaa1dac</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<link href="/css/hbe.style.css" rel="stylesheet" type="text/css"><script data-swup-reload-script type="module" src="/js/plugins/hbe.js"></script>
+<script data-swup-reload-script type="module">
+import {initHBE} from "/js/plugins/hbe.js";
+  console.log("hexo-blog-encrypt: loaded.");
+    initHBE();
+</script>
 
 		</div>
 
@@ -423,14 +463,14 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> </li>
+        <li><strong>Title:</strong> invoicing盲审</li>
         <li><strong>Author:</strong> UWI</li>
         <li><strong>Created at
                 :</strong> 2025-11-14 11:36:14</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-11-14 12:56:46
+                    :</strong> 2025-11-15 18:06:04
             </li>
         
         <li>
@@ -452,6 +492,14 @@
 		</div>
 		
 
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/java/">#java</a>&nbsp;
+			</li>
+			
+		</ul>
 		
 
 		
@@ -525,8 +573,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title"></div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-text">文件上传</span></a></li></ol>
+		<div class="page-title">invoicing盲审</div>
+		
 
 	</div>
 </div>
