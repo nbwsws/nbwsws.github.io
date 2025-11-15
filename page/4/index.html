@@ -355,7 +355,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -395,7 +395,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -410,6 +410,78 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/13/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/jndi%E6%B3%A8%E5%85%A5/">
+                            JNDI 注入原理
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            JNDI 注入原理
+JNDI 基本功能：JNDI 是 Java 提供的统一接口，用于访问各种命名和目录服务（如 LDAP、RMI、DNS 等）
+漏洞根源：当应用程序动态构造 JNDI 查找地址（如 InitialContext.lookup(attackerControlledInput)），且该地址被攻击者控制时
+攻击流程：
+攻击者构造恶意 JNDI 地址（如 rmi://attacker...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Aug 13 2025 13:42:54 GMT+0800">
+                
+                    2025-08-13
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/java/">java</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/13/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/jndi%E6%B3%A8%E5%85%A5/">Read more<span class="seo-reader-text">JNDI 注入原理</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1105,89 +1177,6 @@ getNewBeeMallGoodsPage在访问good&#x2F;list的接口的时候被调用...
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/07/30/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
-                            若依系统代码审计
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            头像处上传html头像上传的地方有个白名单
-
-这些后缀的文件都可以上传成功
-
-fastjson漏洞审计流程检索JSONObject.parseObject 关键字发现在validateEdit函数里面运用了该函数
-options这个json对象是通过 JSON.toJSONString(genTable.getParams()) 生成的 我们需要知道genTable.getParams() ...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Jul 30 2025 10:02:03 GMT+0800">
-                
-                    2025-07-30
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/java/">java</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/07/30/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Read more<span class="seo-reader-text">若依系统代码审计</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1218,7 +1207,7 @@ options这个json对象是通过 JSON.toJSONString(genTable.getParams()) 生成�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        41 posts in total
+                        42 posts in total
                     </span>
                     
                 </p>

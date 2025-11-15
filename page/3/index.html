@@ -355,7 +355,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -395,7 +395,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -410,6 +410,89 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/30/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/bookstore%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+                            bookstore代码审计
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            源码:https://github.com/Laverrr/bookstor
+过滤器拦截绕过可以看到所有请求都要经过这个admin登录校验的过滤器 如果session没有admin的信息是不能请求一些接口的
+那么我们真的没有办法绕过么？
+
+观察到上面框起来多逻辑 会发现当我们请求一些接口的时候他会有个白名单如果符合里面白名单的路径他就会放行，而不会去检查我们是否是admin用户
+查看白名单 ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Aug 30 2025 10:27:51 GMT+0800">
+                
+                    2025-08-30
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/java/">java</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/30/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/bookstore%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Read more<span class="seo-reader-text">bookstore代码审计</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1132,78 +1215,6 @@ getOption在&#x2F;option&#x2F;{tableName}&#x2F;{columnName} 这个接口中被�
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/08/13/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/jndi%E6%B3%A8%E5%85%A5/">
-                            JNDI 注入原理
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            JNDI 注入原理
-JNDI 基本功能：JNDI 是 Java 提供的统一接口，用于访问各种命名和目录服务（如 LDAP、RMI、DNS 等）
-漏洞根源：当应用程序动态构造 JNDI 查找地址（如 InitialContext.lookup(attackerControlledInput)），且该地址被攻击者控制时
-攻击流程：
-攻击者构造恶意 JNDI 地址（如 rmi://attacker...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Aug 13 2025 13:42:54 GMT+0800">
-                
-                    2025-08-13
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/java/">java</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/08/13/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/jndi%E6%B3%A8%E5%85%A5/">Read more<span class="seo-reader-text">JNDI 注入原理</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1234,7 +1245,7 @@ JNDI 基本功能：JNDI 是 Java 提供的统一接口，用于访问各种命�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        41 posts in total
+                        42 posts in total
                     </span>
                     
                 </p>
