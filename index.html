@@ -369,7 +369,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -377,7 +377,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">44</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">46</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -409,7 +409,7 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -417,7 +417,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">44</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">46</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -432,6 +432,127 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/12/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E6%A2%A6%E6%83%B3cms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+                            lmxcms代码审计
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            java代码审计感觉审的小有起色了手头也审出了几个小0day所以开启php代码审计学习新篇章 先从比较简单的cms打起
+mvc框架分析我就不写了直接看漏洞成因
+任意文件删除FileAction 类下的delete方法
+
+跟进$this-&gt;fileModel-&gt;delete方法
+
+经过调试可以任意文件删除
+
+123456789101112131415POST /admin.php?...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Dec 18 2025 10:02:43 GMT+0800">
+                
+                    2025-12-18
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/php/">php</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/12/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E6%A2%A6%E6%83%B3cms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Read more<span class="seo-reader-text">lmxcms代码审计</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/12/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%86%85%E7%BD%91%E9%9A%A7%E9%81%93/">
+                            
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            frp动态代理socks5
+frps.ini
+1234567891011[common]bind_port = 7000# 可选：frps 面板dashboard_port = 7500dashboard_user = admindashboard_pwd = 123456# 动态代理允许的端口范围（可选）allow_ports = 1080-1090
+
+frpc.ini
+123456789...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Dec 11 2025 22:43:54 GMT+0800">
+                
+                    2025-12-11
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/12/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%86%85%E7%BD%91%E9%9A%A7%E9%81%93/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1061,160 +1182,6 @@ d盾扫描扫到两个webshell
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/11/11/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E6%9C%BA%E8%AE%AD%E7%BB%83-Web2/">
-                            知攻善防靶场-应急响应-Web2
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            挑战内容
-前景需要：
-小李在值守的过程中，发现有CPU占用飙升，出于胆子小，就立刻将服务器关机，并找来正在吃苕皮的hxd帮他分析，这是他的服务器系统，请你找出以下内容，并作为通关条件：
-1.攻击者的shell密码
-2.攻击者的IP地址
-3.攻击者的隐藏账户名称
-4.攻击者挖矿程序的矿池域名(仅域名)
-5.有实力的可以尝试着修复漏洞
-攻击者的shell密码既然是shell 那就直接掏出d盾开扫...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Nov 11 2025 23:14:04 GMT+0800">
-                
-                    2025-11-11
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">windows-linux应急响应</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/11/11/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E6%9C%BA%E8%AE%AD%E7%BB%83-Web2/">Read more<span class="seo-reader-text">知攻善防靶场-应急响应-Web2</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/11/11/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Win2008R2%E8%BF%91%E6%BA%90%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
-                            知攻善防靶场-Win2008R2近源应急响应
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            提升一下应急响应的能力 遂开启应急响应新篇章
-题目和题解:
-
-小王从某安全大厂被优化掉后，来到了某私立小学当起了计算机老师。某一天上课的时候，发现鼠标在自己动弹，又发现除了某台电脑，其他电脑连不上网络。感觉肯定有学生捣乱，于是开启了应急。
-1.攻击者的外网IP地址
-2.攻击者的内网跳板IP地址
-3.攻击者使用的限速软件的md5大写
-4.攻击者的后门md5大写
-5.攻击者留下的flag
-
-攻击...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Nov 11 2025 11:50:24 GMT+0800">
-                
-                    2025-11-11
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">windows-linux应急响应</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/11/11/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Win2008R2%E8%BF%91%E6%BA%90%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">Read more<span class="seo-reader-text">知攻善防靶场-Win2008R2近源应急响应</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1245,7 +1212,7 @@ d盾扫描扫到两个webshell
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        44 posts in total
+                        46 posts in total
                     </span>
                     
                 </p>
