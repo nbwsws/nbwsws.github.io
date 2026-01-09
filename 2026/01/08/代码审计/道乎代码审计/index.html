@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Cyber Security">
+    
+    <meta name="author" content="UWI">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://nbwsws.github.io/2026/01/08/代码审计/道乎代码审计/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="~~~~~~~~~~~~~~~~~~~~~~~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="道乎代码审计">
+<meta property="og:url" content="https://nbwsws.github.io/2026/01/08/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E9%81%93%E4%B9%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
+<meta property="og:site_name" content="uwi~blog">
+<meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-01-08T05:50:06.943Z">
+<meta property="article:modified_time" content="2026-01-09T06:06:19.778Z">
+<meta property="article:author" content="uwi">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nbwsws.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/avatar.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/avatar.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            道乎代码审计 | UWI&#39;s Blog
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"nbwsws.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"~~~~~~~~~~~~~~~~~~~~~~~"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"UWI","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                UWI&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">52</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">道乎代码审计</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.webp">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">UWI</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-01-08 13:50:06</span>
+        <span class="mobile">2026-01-08 13:50:06</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-01-09 14:06:19</span>
+            <span class="mobile">2026-01-09 14:06:19</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/">实战案例</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/java/">java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			
+<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="893f7a4ccfce8bcce09b9f09e2ad4845b30110a56e333f6677c34d852e4f37a3">df536459149e632cadcd8fa37d7e34c4e6d55a87eb2d0ac2a71a90a7bc462acadd3cfe71e3aa8da1b087ef0bc1bbbf6fcf5894f276accc60caf73395e6f73474692373ac8b6c52c9f8ef133ae6217b77f6fe31d74f25b63bf531a86b0766afa3b3f98b034a3d6d006cfb7248cd15704354afcfe71831a5aa46a1d84af510b012087cb3e8ed474e37cc6d6e9b983769bc5299bbbeac6a682c172810afc58e9e1aad2c499af2ccda8e024a9556e547b9dc99c2c800590a6db7da3c09d077362cf5cc9a05d053fe554581f3bb86de0f217ef7c05c809be300f047dbc5645e1b410abf1a36f2a892b8cb68b88bc1917d4d77a4bc91b21776acdacfc7bace3c21e5dd93b3ba86e64f44972d95e714c018cfeb13f0a4d70de654da8fa511dfd9519bce3753d4f95e7aa1c43e2d90eaf314f159261e489b2b8a02f23e99d67ffcad279e4e5aa9508d886641465b4235d4fc6f9a995d0508375ee1c3e99dd17512202689820bb15fd0cc09ea7f3af9284894bae698c115437800e6bdedca966f6d634cae2f46483e310ffb498d95095c89b7b563bd15983abe6f4636faee097233abb0fc5aac1510a15367cd7472343682d336c0ccbd97ffe1021cab5c672ca28663b9a685bce9aa74362dd225c178b479228a21b06940ad9c1cb29c51c29b6d8bd3fe1228479e6932de33b9617b2bdcc84c0cb1328db0f8397cba3d050c3078df6489521207519b23a0b32d7050275c4de7c76f260f730bf297055fb6db67a228dc5b776b292d5e8d1eedd51b055c284d5772826aa0e2a62db8108284b14dd8deac3d40d64be741d16d291f461ff55a0a640e0964e7690d9e9cdb0a833935d3ad9d456efbf683e00a3737988e721e4d9622df016265f2bf25411c25d18e8eaae28e53ee0b2e90098bb329583d1b67780229a55dddb2879c8fc18e0356e160450c34c4fd07aa9f93df4500c57001fa6326e11c7ff7b49d865d140687f88c3d135550cc0adc404956e891fb4430bcc4770380a52e1209996262e1eb3d3ce72d17b673c07cabfe3a5ca6013ccfdce779d4a620b3920b08ac6ab6e12f9529bd2c16371bbab52b61352b6d382b289a14fd46ec595857c3063c34421d0e4669aa113689afa530621a5a89e94e298206e9e3b5045aa4a8075985dba00e5a58f2e9210d5eb838546fd95f7ab22ecea71c9dfd7f53372655d6b14fa452cffbc51465cfa2bc786f8c4964d2b029cf1a2f934f46f08eb0de2763cce8aaec031af38f5b9947f966b5fa764b2f6fbd3b03fd81b9729e94ed9eb179f64f3252ffc31b931fdce02612402c8c0c89963819dfb8a35c6046956ca5ae23dbcd8ca854ca40f81e2bc538db40ebeaa2182fc5e912ce29a0c2684f6943fd26b3155d549e65d9e87ddc1c8ecf3375396b57e968004f3c5e48d9989f7e430ceaf5eb5c0f46dbd5386d50b45ffbefbe543ab285178e736325b5e7b4547fdf29d5dce53c7c3bf295b4010ec79d4f5391afbd262622c47003b38903e5222593407c808718654fd0fd09ef4da29950b45202bb64b987aa1e5542953c5ca0627318b26997529c3d81ba0736fde42da88d61bace95e392da6f2da3804922edf83d9c20e9b18f3daac57677b20b574c21a65fb1dff7adca8d6e0ff27f4bde4ca5bb0c004858dc6119bbbecec2d87149071ecf7552390605470770e144400dc8a091016df053b9da281c9f01a76b9d070c625de37aa016c1526074cb9e730c6af29bf1bcb838453ace18c2faf3fe93790f7054b822e89679ec2d7a09d5cd998eeddaf125bc1cf0169005b7c7ca5a3ac3ad2abd753c8405b6d37afccfc9e2db5245132bb924b8bf90e5669bd4549d4af238f6209867c354bd2d93111c196e0dd54013662cdfb6ebe24948f22c3b2fe79d6ded6bfc7b194ba6ede1df503574a07c5f81b4fdf1d987b6b07ce4cc2e2b48f7007b61d9a1a9e892411682c90abd21e55e626cd79b7b326e743516b4d0b9e7b8a308794f718f84de841945532a0d8c40542650271163c1c2fb38fe77c7f78c3cb9fe61c5a2b3409c49451320026280ad8ffb44d3f000e8ce632a365f7b740973567bc8f49aa5a4bdd757eb9724eed2ec49700220d16e3583937adf70a8731d78f3c7b4d3d2a939043e47bf2ef7bd96323f644b8e46e087a7400db6fd80dbc2d02ad769b8220f600451fd41c95930b0d13738703a9ab76d60f2682be2c7bca8f31a5e77672c2b57b17d1e284d0d399873e0f06b573f66b4d33dc5affba79163950cf2d0cd8f7adeaedc5823205f6e62bb7f126b3eae0c8d8c5712c382dfb664bdff3004b5db95be73a2385cf059895a603dca3bb4885db975be3d4b02fdfc27e6f55c695e19ede8afa72d94002b8693889eb48464d82343f87d4701aa79ca26e4dde378dba72c3a451bb12ccdcba85407c368787003a671c58d2d24b4094b2de0d5f98107394bfecc08d57eb48a0572cd845d8a5d633b7aee580b48eedd65897e0ec7e5772b9ab983dd2ff2a1267b3daddd472502bdcf22a0caf515130da5090c7ad1d5decff88327a4afcdd97bc9171083e17a4dd64fdbb049c837f024aa8a2348c7c9bf61ad6129494b9ed0c2b5dd666450e01ab879b89aad9d4bd11282dbfc6175d338f6e8dcb736b92b63684f6b530ca3069be2d1abc04901f13c520aabc28b009c79321297b0b56a71a3cdd73f1aa2036ee9b43f98337f83f4f4304040a2262fb29c3d81b78698da3d705b7a0f01b739a99d854ba0275d1d214a641f14b2241cf9070d8ab4180ccf7af4a65cb96a8ef550ffcbd3972b3ddf723a2e53bd9353c98095fff8a80db6e7bda72cc711b591cc4b1af40e6baee3ba7dbe72935d9f1f634cd170851dfc93f26b7f5a22e9419e7f2d9573544cf092f1c2289a5b3440be330b40ef664005f5a757f9b58834e560f5ece4910514eaab3ba1338cd96fb43d6c99d4958f1076537f1410e3784efd4aadc1a9eba9e810c2adc9cb866d1e73a02de3d731d5d85fa044bf9f99688eb8df6ef57a2df81b096487acafd7eb65ad657b3144c673ffd5a60c551a584a3f4125728d4eae41c616cd936e54328bd4f777f08cb75d189c62a114e201e9f2897084a52196e3e83c23a0bc8baa62eddb8654261d95e33c00d59c899e2536a5fbfb57de735cb10e3d75d935335add3c7009c91e55352391f8e8cfbff73bcaa8b134c17cae729b3a5c2e170f9fad909b60da7d3a5d2b2d9cfd9619e2419f4ac2077028b0f108c6b15b649b504cb4b97e72e0c3b700288bd8f131c34a6506f0de1c3ccd3ca0345a95af6ffc09cdfc0c20c9778a767ced0c73b9de79a3ff7c4875fb52f761dd3fe1873a8856ea15666fdb82842c2c1591076a765741b4027dc7e3833bdd3a4140940e6cbefbb3a9e47b4c2a2b5085ad31a759b0cdf803ca5d3c786d3b51db4286f4fbb9c785172ec34c403840ab6ecf9f22ee275c3d6b24c04c6a811e992ab214883aca69dbcf8d983b9b69ac1d9118e962a500c1a7b25bbceeb0e4d403c686370a76bc106ccb9561fe2a0fb788d2375c679f94be3341c2f2bb687e2d828ad2784fe4972e7bedd86fc4ca675f80ab186d144241fd3ee45d66415dff18bda605e7d2391387ea10e0d60ade1d095dfef34b40d233d7d4f66db49d123e3aa63f4f7bd69f69ac9010ad631e7314ab47e5eb81bd6b5f2968b3aa91321004941e761787663f628b2851c7ec6136e3e7f71f03106ce11d86434f7c9e90f9d395f1571aade7d7f0cf00f70998fa273990353129cb6f4d8b3e596e8a899d2e0b5911bc125eb4c9947f97cd556c4fc70ec8f9bd616708b8a7ff959fe013036b2a332dd09ff2d33697f508c3e8bfcae995c2471d1dae7b96df0e1910804211a4ceafc32fa48b4553e8a643cc10d620051cb14b5f9c7514f74ce1f353dec138cb349f4822cf70d12e6d19eea10ac198b48630290252ad3255cd8a851bf968ed17945d1a5b9420d17360fc032ad4a92bc98546010a1bf0958f59eccdc8c08a7077aa998da1d2dcec7d65798b04418559f3844560aa26c2dc3b4b5f0cfee437c5cf353e7a15b49097cbc0674307a61416d5efc1cd18f200b985cd705de84c807dab219b0decd6a5574f4b04a3c579e3ab027ee82efb59a9ccb67f3d0a010f873d927de97a6ac3994e248d089cafe194dc2882c93362f983c8a0edd202a129c898ef721d61a5c44c6461db2d122dbf3c91f1f7c54a35252330e0943cd3ce8fc156cbc6bf9a5aac144fe234ff44bb11f2d77fdad243134fd986fb393bf6811af9b4f41cd9ce60a9a09d9459e83cc042ef44da38577049d350de5207cb41be40fb81ef849ed989ddcd5775c86fcf8f7d125e6b71d1163a33277a112ed59de269ae9be38e64d55b964794ab3f20ebef6d2f37337167d623d5158bd03af26c1777cdabff4edbe8369fa4d16907cf03857dcc1cb85945454edb8b8524b5fa70d69c51454655534b9a414306b3ab0a9d7132e5db5bbd20eb9a041a2ab29cc1f3ca9c30795d3bcd82cb82702175d4163054c6025f0c8d06937839b453352cadcd93684ccfabaeb472718e67bf8af51cd3a591d55f3fb0f160acfe4a3906e0fa5131190b3063f51a026ba6b03f8b7932b100757034fb3a0c15ba76a000ed5dc77188a9af790ad5a06265b4e962f9ae1defd21c464cdeb279ca105cf2af6f9ff01ddd183b4cba7039bfe4e4dae394820c06b550f671e191d39646900aff0cbd85e74b6d4b507bd0176138b0d1514e112f080dd9c787f56d0666cc29183878cca559b4f215a530433aac946304ec12145514868168f2d326dfc5479e1e2bb3887bf8a74d5d5dd10828230df7536b93b8b97e4acbc07d2635e5a01d0801663cbd65f547bd3644cb70f0dbeaa5c02c7651352d0b7bfc8a788dea23f668b281464a7d340c2de9b0fdf28493a75f56433a80e30130dc2adc5d326df9671b65d2ca009cb6f67b6bc3654ce03e3f1a8854b89e8cfbaa270aaf844d1b0435c9b6cabe71ff005e16d21ad58ce6452817e7bd51f340d12372db193c176ad7b3fd743a262c15e12590f139c482a03aba5e4e73a0284f55292d4b87cc11b9408f069ba99445dd5718f168820b940ecc85da4347d18e53461c2d70b2ab5ba7a8986b03aebd091f0c387b86ae0ccf1d4b8fafd304d77b37f3bb624c46f951bb6667201303d6849d114043a1462fb56831985110c1ec6e17d13dab619fe88734fce9ca0e10795c47ce28735099a76193285efd4d28622169da4ca7541432146b168fc8ac1d632b2b70725d6cd884065e97e72559dad4b3e01ca9a81451fc456489a2666ba9e5ef2d28cdfad137dd7335f689c962561d4f148c6765150e2254c283c5b5c9fd6a7e0285aa309268c9ceeb58dc0f8d77aee3e98c95f0c220eb280e655abee53bfd34a2b154261bb790b3675e038e5cad97563370453cfde19595e0c17d2d9784e2b23eaeaa4617112fed75294a578b85342d53c9fce43d90b3168e4128ef9e18520d7b00cf28acc1ba2655a1d9074e75d5faf08b377647bff1293b744d57de8fd0f7cd06917b56025813927542f3523a37769e19d39a4a0e0a1fb35c2c2b8f4a88719ce438abb3ab9616f9f1be6f98d5914df4b3a8cc1680e87949d3099414a59d5cde8615ba8fd2578da8ae3add92a5aadd98859cb7cdf52b8048189f1fdb18d5b9b40ce051fa5aec3f2576d29b84dbd72526b21072004dc364f1839efd6042801be2c68c1d14a527ad40f567cd2feadccedb48683ef84fe26a3ead123d64991ec3b322ad74b890346e30b21acc9219b68ff1d165736ac54de3059d301b65c22bee806fa2c814694ca859fce87a59cf8e9d8d79c23f7682122b5e07696ed0daf209d630b6f0a6a7493ef1bd203f2036526fd3984514b07512f7789484ea74ab0ddb6782cf9344bb43db16d598219fcb86e15b63362d88d3a7d90f0772c88a3a0b01c1040ff4a43b314a0ebfd4fedcf95380c9fcfcabbe242742a1e405810296bf76acc06c41bb0d3d74388a1cde2429e0a2a50fd39cc8d53df57b77ff60ba39252614b1b02739d385727b570335a8dd17f4f9d16bf5653b1619bad4555d9a9644c35eb60328809f7b7a088a03b1fb0791ecc716dc39237419a3c19c6a41b99fefc3616243b1875c700444dae383713a6d47cfd78d58053d49dd462caf8b86e372346d30a61d1662bae854fad3a978e8a2f0ac43a7764b3e61a420145139c4e44260b6179738905eac41548a6cfea676449f7864725eaff0a579bc3c772b</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<link href="/css/hbe.style.css" rel="stylesheet" type="text/css"><script data-swup-reload-script type="module" src="/js/plugins/hbe.js"></script>
+<script data-swup-reload-script type="module">
+import {initHBE} from "/js/plugins/hbe.js";
+  console.log("hexo-blog-encrypt: loaded.");
+    initHBE();
+</script>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 道乎代码审计</li>
+        <li><strong>Author:</strong> UWI</li>
+        <li><strong>Created at
+                :</strong> 2026-01-08 13:50:06</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2026-01-09 14:06:19
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://nbwsws.github.io/2026/01/08/代码审计/道乎代码审计/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/java/">#java</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/01/07/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/OA-master%E5%AE%A1%E8%AE%A1/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">OA-master代码审计</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">道乎代码审计</div>
+		
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">UWI</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        52 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
