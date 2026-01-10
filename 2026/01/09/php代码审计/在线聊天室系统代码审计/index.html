@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://nbwsws.github.io/2025/07/01/个人杂谈/ovpn挂前置代理/"/>
+    <link rel="canonical" href="https://nbwsws.github.io/2026/01/09/php代码审计/在线聊天室系统代码审计/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -133,17 +133,16 @@
         
         <meta name="description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ovpn配置前置代理,优化稳定性以及速度">
-<meta property="og:url" content="https://nbwsws.github.io/2025/07/01/%E4%B8%AA%E4%BA%BA%E6%9D%82%E8%B0%88/ovpn%E6%8C%82%E5%89%8D%E7%BD%AE%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:title" content="聊天室系统代码审计">
+<meta property="og:url" content="https://nbwsws.github.io/2026/01/09/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%9C%A8%E7%BA%BF%E8%81%8A%E5%A4%A9%E5%AE%A4%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
 <meta property="og:site_name" content="uwi~blog">
 <meta property="og:description" content="~~~~~~~~~~~~~~~~~~~~~~~">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nbwsws.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-06-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-26T07:39:23.743Z">
+<meta property="article:published_time" content="2026-01-09T08:22:56.203Z">
+<meta property="article:modified_time" content="2026-01-09T11:57:59.260Z">
 <meta property="article:author" content="uwi">
-<meta property="article:tag" content="个人杂谈">
-<meta property="article:tag" content="ovpn配置">
+<meta property="article:tag" content="php">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://nbwsws.github.io/images/redefine-og.webp">
     
@@ -157,7 +156,7 @@
     
     <title>
         
-            ovpn配置前置代理,优化稳定性以及速度 | UWI&#39;s Blog
+            聊天室系统代码审计 | UWI&#39;s Blog
         
     </title>
 
@@ -346,7 +345,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">ovpn配置前置代理,优化稳定性以及速度</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">聊天室系统代码审计</h1>
 			</div>
 			
 		</div>
@@ -367,15 +366,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-07-01</span>
-        <span class="mobile">2025-07-01</span>
+        <span class="desktop">2026-01-09 16:22:56</span>
+        <span class="mobile">2026-01-09 16:22:56</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-26 15:39:23</span>
-            <span class="mobile">2025-08-26 15:39:23</span>
+            <span class="desktop">2026-01-09 19:57:59</span>
+            <span class="mobile">2026-01-09 19:57:59</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -389,7 +388,7 @@
                     
                         
                         <li>
-                            <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%9D%82%E8%B0%88/">个人杂谈</a>&nbsp;
+                            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
                         </li>
                     
                     
@@ -403,11 +402,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%9D%82%E8%B0%88/">个人杂谈</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/ovpn%E9%85%8D%E7%BD%AE/">ovpn配置</a>&nbsp;
+                        <a href="/tags/php/">php</a>&nbsp;
                     </li>
                 
             </ul>
@@ -433,76 +428,24 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前在打靶场诸如hackthebox的时候用他的ovpn老是不稳定，后来成功解决了，以后遇到类似的ovpn连接不稳定的问题都可以尝试着本文方法挂个前置代理</p>
-<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v2ray</span><br></pre></td></tr></table></figure></div>
-
-<h1 id="配置流程"><a href="#配置流程" class="headerlink" title="配置流程"></a>配置流程</h1><p>1.买个香港vps</p>
-<p>2.用这个脚本自动安装在vps上的配置</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(wget -qO- -o- https://git.io/v2ray.sh)</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250804202846662.png"
-                      alt="image-20250804202846662"
-                ></p>
-<p>3.打开自己windows上的v2ray 新建一个节点 依照vps生成的配置文件依次填入 然后点击确定 </p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250804203052480.png"
-                      alt="image-20250804203052480"
-                ></p>
-<p>然后右键 导出配置</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250804203432543.png"
-                      alt="image-20250804203432543"
-                ></p>
-<p>我们需要修改导出的json文件</p>
-<p>我们首先查看我们的ovpn文件</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250804204004825.png"
-                      alt="image-20250804204004825"
-                ></p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&quot;inbounds&quot;: [&#123;</span><br><span class="line">         &quot;port&quot;:1195,                              这里是本地自定义的代理端口 我这里填的1195</span><br><span class="line">         &quot;listen&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">         &quot;protocol&quot;:&quot;dokodemo-door&quot;,</span><br><span class="line">          &quot;settings&quot;: &#123;</span><br><span class="line">       &quot;address&quot;:&quot;xxx.xxx.xxx.xxxx&quot;,                这里改成ovpn里面的域名 就是remote后面跟着的域名 </span><br><span class="line">       &quot;port&quot;:1337,                                 这里改成 他那域名后面对应的端口 就是remote的端口</span><br><span class="line">       &quot;network&quot;:&quot;udp&quot;,                             proto写什么这里network就写什么 </span><br><span class="line">       &quot;protocol&quot;:&quot;&quot;,</span><br><span class="line">       &quot;followRedirect&quot;:false</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;]</span><br></pre></td></tr></table></figure></div>
-
-<p>然后把这个”inbounds”替换掉v2ray导出文件中的v2ray的”inbounds”内容一定要全部替换（就是把我框起来的地方替换了）</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250804204637732.png"
-                      alt="image-20250804204637732"
-                ></p>
-<p>然后再把ovpn里面的</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">remote xxx.xxx.hackthebox.eu 1337</span><br></pre></td></tr></table></figure></div>
-
-<p>改成</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">remote 127.0.0.1 1195    //1195就是我们自定义的端口</span><br></pre></td></tr></table></figure></div>
-
-<p>然后把ovpn复制到kali里面 把修改好的json文件也复制到kali里面</p>
-<p>开启代理服务</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v2ray run --config=test.json   </span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250804205353610.png"
-                      alt="image-20250804205353610"
-                ></p>
-<p>通过前置代理连接ovpn</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../../images/image-20250804211008831.png"
-                      alt="image-20250804211008831"
-                ></p>
-<p>大功告成</p>
-<p>这样我的ovpn流量都会通过前置代理vps转发给ovpn节点</p>
-<p>所有ovpn都可以以这种前置代理的方式优化节点 优化速度</p>
+			
+<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="b25ae981b211fca9267870809f5bce58f6dcbbaf52bd41cedceb04ef42a95aba">df536459149e632cadcd8fa37d7e34c4684033cad9b87f020116b54424bb06ceacfdaf7d013c4152eb6bb2481ef5aa1ba6a97118d45ad9d8a071dbc85a4109ae24d76ef5e693ffefbe049fc93c74690982e6caa9d62b3fb8940880977bb45f566f73ceb7ec758649e4e88b4207e0cf3980a7f5a7ab117ea4c326b8d2ae8136b9870e0d1721a129035983bcd0f5a1e48037bbe9e7259d1fd7467cf904710f4bb50ade0cfc8ee304d3557a7c3c366f329a4c8068bb94868152853c35253753db53be6c72f624f3c94e5e8badde218a3a39b3cc4e74be5bac147258c67197a6830334c11ce80b2b1e39a2e946da6b0efc700c2eeabfe5db068c24a6e13d4089bf060f5b72c22f4590a88713b5a03b69178614e10ea0b724cac0499cee86610bfc254be9709082aa3d7f29b9473b9a20517937a20ff698a98bd6ead8c010e0b24c8c36d78bc5cbafb21a98e09be62d1932915f2c75f30a85cd2a0e605b5a13ba81fc21c0af7057b959fbfd4f4978a1e2391f253d7475fb58f7af921fca64d69de8fb0bf05f6822978ec899c9885408a9279ee83bdbbb664509964bd7ab0d30561235701478e4496842f542553bc7f8d3e93e8daa65a3d6b2750ca088789ad58a986b6320f10a0bf67430153c662601d838d9abac651756c3f671c7b9259d26d94fb091b75116e529a49e51a03d83b3ad4f4ceecb4b6a957a484a8bd677d4482f8872951e831a48cec3376546567ce22668d8eee01b5f8c602b38c2554156c51a2933c344b0a1676511e3e2fdd7cc33f7fd51ce00b917116cb9558ad8054a7677eb28e88571c5f12ab9f5085a57699b9e08a19a6040cf577d1330f6ac5ae077a9e69a7be93e30344a05bde1277aeed25b7d5b745d02c8deda807ea04684cedba1482654801e90e81dc4ff1157cc1f8fb7ee1521811ca50eef98b9ee1e478af22ad9df5992de48de7e54b89a8cf4525180107d1fabf218967ac49e41aee1dd3b7c8b55fffdf51a8a43c11a60e84f2a01f444e1959c4fb78b23c02651fd65eb463c36fb4aaf42801b364928af54216a2169a9f69d1a63f1cec31b800591bb0d888c290d6554dd1a239a0cebf44bc8af772d0d366210e9ed3e5f3420e1b28b064a6eadbc548534efff5a37d0f6eb28bb19c1716136f184183a18efd19d1c6efe4c63b9e320fcbd9749e799d171f5533f1caa70160ecdc00ec5d08350d8b68eae81074ce019d3462d8a20cd7229fd000346d3378db6f756ea2f1850c388f7c4d4a6b6c56097e8595dfbe0bc22fb68281e4c2cf272329054ff58ee897c0de2351fe32be8c327f1831605631c3e4740965152d765057675260337a40dd4767baf9060bc23ba28282fcebfada3231da1ab1cbeacc02acf3359c96096c5ccfac777c4456f483ad79ff44f8bbb403bf132bc6339dea0f9fe802d882c2c480b352ba0a6967d0e3fee7fddaeec7d51d5b2f0048f76b8713b3cd50dfcc2802552e6d8ab091db78b35249ead4a5425c67aa367aa0e19132114cc8fdf47a80fb93ce70f42f91ba6b492ba9119df990f2d01b5ce49f8a3351b889100ecdc23670dd0df6be2098941f6808ec226a2f57f55e66896ed2d6a5290cd50e148bad59677face890eb8be0f4dca0ea734b1d90b41e658809911233624a4028abb35eaba12fa4c447bcbb480d21e880d006396c62a95608721091ff7ac62380ac3eeec5855cda38801ef28143d6ccf3c7a693a8ea28aa2a1afb45af6465e62e53ac9cb8aa3b2493163499b85ce82d906953f0e7f1f6480651a8647951a333779ef24f283da7a2303a430937258b2c99c1d193bf2b78a3d2032a4865578e154ed465343c2b5c2a100a0a2d4fbb2b70fcc98b224c604d6222a1374d01e1182a9f4c256882bff8a3d2dcf11eca86825</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<link href="/css/hbe.style.css" rel="stylesheet" type="text/css"><script data-swup-reload-script type="module" src="/js/plugins/hbe.js"></script>
+<script data-swup-reload-script type="module">
+import {initHBE} from "/js/plugins/hbe.js";
+  console.log("hexo-blog-encrypt: loaded.");
+    initHBE();
+</script>
 
 		</div>
 
@@ -510,18 +453,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> ovpn配置前置代理,优化稳定性以及速度</li>
+        <li><strong>Title:</strong> 聊天室系统代码审计</li>
         <li><strong>Author:</strong> UWI</li>
         <li><strong>Created at
-                :</strong> 2025-07-01 00:00:00</li>
+                :</strong> 2026-01-09 16:22:56</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-26 15:39:23
+                    :</strong> 2026-01-09 19:57:59
             </li>
         
         <li>
-            <strong>Link:</strong> https://nbwsws.github.io/2025/07/01/个人杂谈/ovpn挂前置代理/
+            <strong>Link:</strong> https://nbwsws.github.io/2026/01/09/php代码审计/在线聊天室系统代码审计/
         </li>
         <li>
             <strong>
@@ -543,11 +486,7 @@
 		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
 			
 			<li class="tag-item mx-0.5">
-				<a href="/tags/%E4%B8%AA%E4%BA%BA%E6%9D%82%E8%B0%88/">#个人杂谈</a>&nbsp;
-			</li>
-			
-			<li class="tag-item mx-0.5">
-				<a href="/tags/ovpn%E9%85%8D%E7%BD%AE/">#ovpn配置</a>&nbsp;
+				<a href="/tags/php/">#php</a>&nbsp;
 			</li>
 			
 		</ul>
@@ -558,18 +497,18 @@
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/07/30/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/ruoyi%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/01/08/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E9%81%93%E4%B9%8E%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">若依系统代码审计</span>
-						<span class="post-nav-item">Prev posts</span>
+						<span class="post-nav-title-item truncate max-w-48">道乎代码审计</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
 					</span>
 				</a>
 			</div>
-			
 			
 		</div>
 		
@@ -624,8 +563,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title">ovpn配置前置代理,优化稳定性以及速度</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-text">工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B"><span class="nav-text">配置流程</span></a></li></ol>
+		<div class="page-title">聊天室系统代码审计</div>
+		
 
 	</div>
 </div>
